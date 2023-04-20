@@ -1,0 +1,51 @@
+.App {
+    position: relative;
+    background-attachment: fixed;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgba(4, 30, 5, 0.7), rgba(4, 30, 12, 0.7)), url('/public/images/farm.jpg');
+    background-size: cover;
+  }
+  
+  .logo {
+    display: block;
+    top: 12vw;
+    position: absolute;
+  }
+  
+  .login-form {
+    background-image: linear-gradient(to bottom, rgba(12, 206, 125, 0.8), rgba(111, 172, 13, 0.8));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 18vw;
+    width: 25vw;
+    border-radius: 10px;
+  }
+  
+  #uname,
+  #pword {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 15vw;
+    border-radius: 5px;
+  }
+  
+  #login-btn {
+    background-color: green;
+    color: #fff;
+    font-size: 15px;
+    padding: 8px 5px;
+    margin-top: 15px;
+    width: 15vw;
+  }
+  
+  #login-btn:hover {
+    background-color: rgb(10, 128, 73);
+    font-weight: bolder;
+  }
