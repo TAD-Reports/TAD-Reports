@@ -43,13 +43,12 @@ function AppForm() {
           }}
         >
           <Button variant="contained" sx={{ backgroundColor: "#616161" }}>
-            <UploadIcon sx={{ mr: 1 }} />
-            Upload PDS
-          </Button>
-
-          <Button variant="contained" sx={{ backgroundColor: "#616161" }}>
             <DownloadIcon sx={{ mr: 1 }} />
             Download PDS
+          </Button>
+          <Button variant="contained" sx={{ backgroundColor: "#616161" }}>
+            <UploadIcon sx={{ mr: 1 }} />
+            Upload PDS
           </Button>
         </Box>
         <Box className="modal-content" sx={{ flexGrow: 1 }} px={10} my={2}>
@@ -90,10 +89,7 @@ function AppForm() {
                 fullWidth
               />
             </Grid>
-          </Grid>
-        </Box>
-        <Box className="modal-content" sx={{ flexGrow: 1 }} px={10} my={2}>
-          <Grid container spacing={2}>
+
             <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
               <Typography
                 component="h5"

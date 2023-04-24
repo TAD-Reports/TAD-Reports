@@ -58,21 +58,21 @@ function Login() {
   });
 
   return (
-    <div className="App">
-      <Box
-        className="logo"
-        component="img"
-        src={Logo}
-        alt="Logo"
-        height="8vw"
-        width="8vw"
-        sx={{ marginTop: "-40px" }}
-      />
-      <div className="login-form">
+    <Box className="App">
+      <Box className="login-form">
+        <Box
+          className="logo"
+          component="img"
+          src={Logo}
+          alt="Logo"
+          height="110px"
+          width="110px"
+        />
         <form onSubmit={formik.handleSubmit} autoComplete="off">
           <TextField
             id="uname"
             placeholder="Username"
+            variant="standard"
             value={uname}
             onChange={(evt) => setUname(evt.target.value)}
             disabled={loading}
@@ -81,6 +81,7 @@ function Login() {
             id="pword"
             placeholder="Password"
             type="password"
+            variant="standard"
             value={pword}
             onChange={(evt) => setPword(evt.target.value)}
             disabled={loading}
@@ -89,8 +90,8 @@ function Login() {
             Log in
           </Button>
         </form>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
