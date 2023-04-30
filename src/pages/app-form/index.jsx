@@ -5,6 +5,12 @@ import DownloadIcon from "@mui/icons-material/Download";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import PreviewIcon from "@mui/icons-material/Preview";
 import SaveIcon from "@mui/icons-material/Save";
+import "./app-form.css";
+import { Navigate } from "react-router-dom";
+
+const toHRPage = () => {
+  <Navigate to="/hrpage" />;
+};
 
 function AppForm() {
   return (
@@ -46,7 +52,11 @@ function AppForm() {
             <DownloadIcon sx={{ mr: 1 }} />
             Download PDS
           </Button>
-          <Button variant="contained" sx={{ backgroundColor: "#616161" }}>
+          <Button
+            variant="contained"
+            onClick={toHRPage}
+            sx={{ backgroundColor: "#616161" }}
+          >
             <UploadIcon sx={{ mr: 1 }} />
             Upload PDS
           </Button>

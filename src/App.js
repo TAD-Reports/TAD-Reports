@@ -1,9 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import SignIn from "./pages/authenticate/sign-in";
 import AppForm from "./pages/app-form";
 import RequireAuth from "./components/RequireAuth";
-import Layout from "./components/Layout";
 import Missing from "./pages/missing";
+import HRPage from "./pages/hr-page";
 
 const ROLES = {
   User: 2001,
@@ -15,18 +14,19 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/sign-in" element={<SignIn />} />
+        {/* Add a default route that renders the sign-in page */}
+        <Route path="/" element={<AppForm />} />
 
-          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-            <Route path="/app-form" element={<AppForm />} />
-          </Route>
-
-          <Route path="/*" element={<Missing />} />
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+          <Route path="/hrpage" element={<HRPage />} />
         </Route>
+
+        {/* Add a wildcard route that renders the missing page */}
+        <Route path="*" element={<Missing />} />
       </Routes>
     </div>
   );
 }
+
 
 export default App;
