@@ -6,11 +6,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import PreviewIcon from "@mui/icons-material/Preview";
 import SaveIcon from "@mui/icons-material/Save";
 import "./app-form.css";
-import { Navigate } from "react-router-dom";
-
-const toHRPage = () => {
-  <Navigate to="/hrpage" />;
-};
+import { Link } from "react-router-dom";
 
 function AppForm() {
   return (
@@ -52,14 +48,15 @@ function AppForm() {
             <DownloadIcon sx={{ mr: 1 }} />
             Download PDS
           </Button>
-          <Button
-            variant="contained"
-            onClick={toHRPage}
-            sx={{ backgroundColor: "#616161" }}
-          >
-            <UploadIcon sx={{ mr: 1 }} />
-            Upload PDS
-          </Button>
+          <Link to="/hrpage">
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#616161" }}
+            >
+              <UploadIcon sx={{ mr: 1 }} />
+              Upload PDS
+            </Button>
+          </Link>
         </Box>
         <Box className="modal-content" sx={{ flexGrow: 1 }} px={10} my={2}>
           <Grid container spacing={2}>

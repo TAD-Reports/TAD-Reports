@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../sign-in.css";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import Logo from "../../../assets/images/philfida.png";
 // import useAuth from "../../../hooks/useAuth";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -59,37 +59,45 @@ function Login() {
 
   return (
     <Box className="App">
-      <Box className="login-form">
-        <Box
-          className="logo"
-          component="img"
-          src={Logo}
-          alt="Logo"
-          height="110px"
-          width="110px"
+      <Box
+        className="login-form"
+        component="form"
+        // onSubmit={formik.handleSubmit}
+        autoComplete="off"
+      >
+        <Box className="header">
+          <Box
+            className="logo"
+            component="img"
+            src={Logo}
+            alt="Logo"
+            height="100px"
+            width="100px"
+          />
+          <Typography component="h4" variant="h4" sx={{ color: "black", fontWeight: "bolder" }}>
+            Philippine Fiber Industry <br /> Development Authority
+          </Typography>
+        </Box>
+        <TextField
+          id="uname"
+          placeholder="Username"
+          variant="standard"
+          value={uname}
+          onChange={(evt) => setUname(evt.target.value)}
+          // disabled={loading}
         />
-        <form autoComplete="off">
-          <TextField
-            id="uname"
-            placeholder="Username"
-            variant="standard"
-            value={uname}
-            onChange={(evt) => setUname(evt.target.value)}
-            // disabled={loading}
-          />
-          <TextField
-            id="pword"
-            placeholder="Password"
-            type="password"
-            variant="standard"
-            value={pword}
-            onChange={(evt) => setPword(evt.target.value)}
-            // disabled={loading}
-          />
-          <Button id="login-btn" type="submit" variant="contained">
-            Log in
-          </Button>
-        </form>
+        <TextField
+          id="pword"
+          placeholder="Password"
+          type="password"
+          variant="standard"
+          value={pword}
+          onChange={(evt) => setPword(evt.target.value)}
+          // disabled={loading}
+        />
+        <Button id="login-btn" type="submit" variant="contained">
+          Log in
+        </Button>
       </Box>
     </Box>
   );
