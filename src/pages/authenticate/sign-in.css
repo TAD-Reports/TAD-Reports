@@ -1,7 +1,12 @@
 .App {
   position: relative;
   background-attachment: fixed;
-  background-image: linear-gradient(rgba(4, 30, 5, 0.7), rgba(4, 30, 12, 0.7) 90%, #20571b), url('/public/images/farm.jpg');
+  background-image: linear-gradient(
+      rgba(4, 30, 5, 0.7),
+      rgba(4, 30, 12, 0.7) 90%,
+      #20571b
+    ),
+    url("/public/images/farm.jpg");
   background-size: cover;
   background-position: 50%;
   background-repeat: no-repeat;
@@ -14,10 +19,17 @@
 
 .header {
   display: fixed;
-  position: absolute;
   text-align: center;
+  margin-bottom: 60px;
+}
+
+.stylish-design {
   top: 0;
-  margin-top: 60px;
+  left: 0;
+  width: 50vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%, 0 80%);
 }
 
 .login-form {
@@ -27,12 +39,8 @@
   align-items: center;
   position: fixed;
   gap: 2rem;
-  top: 0;
-  left: 0;
-  width: 50vw;
-  height: 100vh;
-  background-color: rgba(255, 255, 255, 0.9);
-  clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%, 0 80%);
+  width: 45vw;
+  height: 80vh;
 }
 
 #uname,
@@ -40,12 +48,6 @@
   width: 300px;
   height: 40px;
 }
-
-/* 
-#uname,
-#pword,
-#login-btn {
-} */
 
 #login-btn {
   background-color: green;
@@ -60,4 +62,39 @@
 #login-btn:hover {
   background-color: rgb(10, 128, 73);
   font-weight: bolder;
+}
+
+@media only screen and (max-width: 950px) {
+  .stylish-design {
+    width: 70vw;
+    transition: all 250ms ease-in-out;
+  }
+  .login-form {
+    width: 70vw;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .stylish-design {
+    width: 80vw;
+    transition: all 250ms ease-in-out;
+  }
+  .login-form {
+    width: 80vw;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .stylish-design {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+    transition: all 250ms ease-in-out;
+  }
+  .login-form {
+    width: 100vw;
+  }
 }

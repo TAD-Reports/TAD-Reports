@@ -59,45 +59,51 @@ function Login() {
 
   return (
     <Box className="App">
-      <Box
-        className="login-form"
-        component="form"
-        // onSubmit={formik.handleSubmit}
-        autoComplete="off"
-      >
-        <Box className="header">
-          <Box
-            className="logo"
-            component="img"
-            src={Logo}
-            alt="Logo"
-            height="100px"
-            width="100px"
+      <Box className="stylish-design">
+        <Box
+          className="login-form"
+          component="form"
+          // onSubmit={formik.handleSubmit}
+          autoComplete="off"
+        >
+          <Box className="header">
+            <Box
+              className="logo"
+              component="img"
+              src={Logo}
+              alt="Logo"
+              height="100px"
+              width="100px"
+            />
+            <Typography
+              component="h4"
+              variant="h4"
+              sx={{ color: "black", fontWeight: "bolder" }}
+            >
+              Philippine Fiber Industry <br /> Development Authority
+            </Typography>
+          </Box>
+          <TextField
+            id="uname"
+            placeholder="Username"
+            variant="standard"
+            value={uname}
+            onChange={(evt) => setUname(evt.target.value)}
+            // disabled={loading}
           />
-          <Typography component="h4" variant="h4" sx={{ color: "black", fontWeight: "bolder" }}>
-            Philippine Fiber Industry <br /> Development Authority
-          </Typography>
+          <TextField
+            id="pword"
+            placeholder="Password"
+            type="password"
+            variant="standard"
+            value={pword}
+            onChange={(evt) => setPword(evt.target.value)}
+            // disabled={loading}
+          />
+          <Button id="login-btn" type="submit" variant="contained">
+            Log in
+          </Button>
         </Box>
-        <TextField
-          id="uname"
-          placeholder="Username"
-          variant="standard"
-          value={uname}
-          onChange={(evt) => setUname(evt.target.value)}
-          // disabled={loading}
-        />
-        <TextField
-          id="pword"
-          placeholder="Password"
-          type="password"
-          variant="standard"
-          value={pword}
-          onChange={(evt) => setPword(evt.target.value)}
-          // disabled={loading}
-        />
-        <Button id="login-btn" type="submit" variant="contained">
-          Log in
-        </Button>
       </Box>
     </Box>
   );
