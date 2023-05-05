@@ -19,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Sidebar />} />
         <Route path="/sign-in" element={<SignIn />} />
+        {/* <Route path="/dashboard" element={<AppForm />} /> */}
 
         <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route path="/appform" element={<AppForm />} />

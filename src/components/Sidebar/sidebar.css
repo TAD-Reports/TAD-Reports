@@ -1,7 +1,51 @@
-.Try {
+.Sidebar {
+    
     height: 100vh;
-    width: 300px;
+    width: 350px;
     background-color: #76A66E;
+}
 
+.SideBarList {
+    margin: 0;
+    height: auto;
+    padding: 0;
+    width: 100%
+}
+
+.SideBarList .row {
+    width: 100%;
+    height: 50px;
+    margin: 0%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.SideBarList #active {
+    background-color: rgb(138, 255, 157);
+}
+
+.SideBarList .row:hover {
+    cursor: pointer;
+    background-color: rgb(138, 255, 157);
+    color: solid black;
+    
+}
+
+.title:hover {
+    color: black;
+}
+
+.row #Icon {
+    flex: 30%;
+    display: grid;
+    place-items: center;
+}
+
+.row #Title {
+    flex: 70%;
 }
 
