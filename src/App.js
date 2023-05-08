@@ -1,34 +1,103 @@
-import { Route, Routes } from "react-router-dom";
-import AppForm from "./pages/app-form";
-import RequireAuth from "./components/RequireAuth";
-import Missing from "./pages/missing";
-import HRPage from "./pages/hr-page";
-import SignIn from "./pages/authenticate/sign-in";
-import Sidebar from "./components/Sidebar/index.js";
-import "./components/Sidebar/sidebar.css"
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { FiSettings } from "react-icons/fi";
+import { TooltipComponent } from "@syncfusion/ej2-react-popups";
+import { Navbar, Sidebar } from "./components";
 
-const ROLES = {
-  User: 2001,
-  Admin: 1984,
-  HR: 5051,
-};
+import {
+  AppForm,
+  Cocoon,
+  Cotton,
+  Dashboard,
+  DiseaseManagementProj,
+  Distribution,
+  ExpansionAndRehab,
+  ExpansionUnderCoconutProj,
+  IEC,
+  Nursery,
+  PMSurvived,
+  Training,
+  Bar,
+  Line,
+} from "./pages";
 
-function App() {
+import { useStateContext } from "./contexts/ContextProvider";
+
+import "./App.css";
+
+const App = () => {
+  const { activeMenu } = useStateContext();
+
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Sidebar />} />
-        <Route path="/sign-in" element={<SignIn />} />
+      <BrowserRouter>
+        <div className="flex relative dark:bg-main-dark-bg">
+          <div className="fixed - right-4 bottom-4" style={{ zIndex: "1000" }}>
+            <TooltipComponent content="Settings" position="Top">
+              <button
+                type="button"
+                className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
+                style={{ background: "gray", borderRadius: "50%" }}
+              >
+                <FiSettings />
+              </button>
+            </TooltipComponent>
+          </div>
+          {activeMenu ? (
+            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
+              <Sidebar />
+            </div>
+          ) : (
+            <div className="w-0 dark:bg-secondary-dark-bg">
+              <Sidebar />
+            </div>
+          )}
+          <div
+            className={`dark:bg-main-bg bg-main-bg min-h-screen w-full ${
+              activeMenu ? "md:ml-72" : "flex-2"
+            }`}
+          >
+            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+              <Navbar />
+            </div>
+          </div>
+          <div>
+            <Routes>
+              {/* Dashboard */}
+              <Route path="/" element={<AppForm />} />
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-          <Route path="/appform" element={<AppForm />} />
-          <Route path="/hrpage" element={<HRPage />} />
-        </Route>
+              {/* Pages */}
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/appform" element={<AppForm />} />
+              <Route path="/nursery" element={<Nursery />} />
+              <Route path="/distribution" element={<Distribution />} />
+              <Route path="/pmsurvived" element={<PMSurvived />} />
+              <Route
+                path="/expansionandrehab"
+                element={<ExpansionAndRehab />}
+              />
+              <Route path="/cotton" element={<Cotton />} />
+              <Route path="/cocoon" element={<Cocoon />} />
+              <Route path="/training" element={<Training />} />
+              <Route path="/iec" element={<IEC />} />
+              <Route
+                path="/expansioncoconut"
+                element={<ExpansionUnderCoconutProj />}
+              />
+              <Route
+                path="/diseasemanagement"
+                element={<DiseaseManagementProj />}
+              />
 
-        <Route path="*" element={<Missing />} />
-      </Routes>
+              {/* Charts */}
+              <Route path="/line" element={<Line />} />
+              <Route path="/bar" element={<Bar />} />
+            </Routes>
+          </div>
+        </div>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
