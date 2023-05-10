@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import PageContainer from "../components/LayoutContainers/PageContainer";
 
 const ExpansionAndRehab = () => {
   return (
-    <div>ExpansionAndRehab</div>
-  )
-}
+    <PageContainer>
+      <div>ExpansionAndRehab</div>
+    </PageContainer>
+  );
+};
 
-export default ExpansionAndRehab
+export default ExpansionAndRehab;

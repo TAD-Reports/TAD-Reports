@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import PageContainer from "../components/LayoutContainers/PageContainer";
 
 const ExpansionUnderCoconutProj = () => {
   return (
-    <div>ExpansionUnderCoconutProj</div>
-  )
-}
+    <PageContainer>
+      <div>ExpansionUnderCoconutProj</div>
+    </PageContainer>
+  );
+};
 
-export default ExpansionUnderCoconutProj
+export default ExpansionUnderCoconutProj;

@@ -521,11 +521,6 @@ export const links = [
     title: "Reports",
     links: [
       {
-        name: "app form",
-        path: "appform",
-        icon: <AiOutlineShoppingCart />,
-      },
-      {
         name: "nursery reports",
         path: "nursery",
         icon: <AiOutlineShoppingCart />,

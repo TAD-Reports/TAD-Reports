@@ -1,4 +1,3 @@
-export { default as AppForm } from "./AppForm";
 export { default as Cocoon } from "./Cocoon";
 export { default as Cotton } from "./Cotton";
 export { default as Dashboard } from "./Dashboard";
@@ -10,5 +9,3 @@ export { default as IEC } from "./IEC";
 export { default as Nursery } from "./Nursery";
 export { default as PMSurvived } from "./PMSurvived";
 export { default as Training } from "./Training";
-export { default as Bar } from "./Charts/Bar";
-export { default as Line } from "./Charts/Line";

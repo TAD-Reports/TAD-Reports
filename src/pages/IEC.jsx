@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import PageContainer from "../components/LayoutContainers/PageContainer";
 
 const IEC = () => {
   return (
-    <div>IEC</div>
-  )
-}
+    <PageContainer>
+      <div>IEC</div>
+    </PageContainer>
+  );
+};
 
-export default IEC
+export default IEC;

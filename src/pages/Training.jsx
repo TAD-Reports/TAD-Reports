@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import PageContainer from "../components/LayoutContainers/PageContainer";
 
 const Training = () => {
   return (
-    <div>Training</div>
-  )
-}
+    <PageContainer>
+      <div>Training</div>
+    </PageContainer>
+  );
+};
 
-export default Training
+export default Training;

@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import PageContainer from "../components/LayoutContainers/PageContainer";
 
 const Distribution = () => {
   return (
-    <div>Distribution</div>
-  )
-}
+    <PageContainer>
+      <div>Distribution</div>
+    </PageContainer>
+  );
+};
 
-export default Distribution
+export default Distribution;
