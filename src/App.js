@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 import { Navbar, Sidebar } from "./components";
 
 import {
@@ -21,30 +21,68 @@ import {
 // import { useStateContext } from "./contexts/ContextProvider";
 
 import "./App.css";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const App = () => {
   // const { activeMenu } = useStateContext();
 
   return (
-    <div>
+    <Box>
       <BrowserRouter>
-        <div className="flex relative dark:bg-main-dark-bg">
-          <div className="fixed - right-4 bottom-4" style={{ zIndex: "1000" }}>
+        <Box sx={{ display: "flex", position: "relative" }}>
+          <Box
+            sx={{
+              position: "fixed",
+              right: "16px",
+              bottom: "16px",
+              zIndex: "1000",
+            }}
+          >
             <Tooltip title="Settings">
-              <button
+              <Button
                 type="button"
-                className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
-                style={{ background: "gray", borderRadius: "50%" }}
+                sx={{
+                  backgroundColor: "gray",
+                  borderRadius: "50%",
+                  fontSize: "30px",
+                  color: "white",
+                  padding: "15px 0",
+                  "&:hover": {
+                    textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                    color: "gray",
+                    backgroundColor: "lightgray",
+                  },
+                }}
               >
                 <FiSettings />
-              </button>
+              </Button>
             </Tooltip>
-          </div>
-          <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
+          </Box>
+          <Box
+            sx={{
+              width: "300px", // equivalent to w-72 in Tailwind
+              position: "fixed",
+              backgroundColor: "white",
+              "@media screen and (prefers-color-scheme: dark)": {
+                backgroundColor: "secondary-dark-bg",
+              },
+            }}
+          >
             <Sidebar />
-          </div>
-          <div className="dark:bg-main-bg bg-main-bg min-h-screen w-full md:ml-72">
+          </Box>
+          <Box
+            sx={{
+              backgroundColor: "main-bg",
+              "@media screen and (prefers-color-scheme: dark)": {
+                backgroundColor: "dark.main-bg",
+              },
+              minHeight: "100vh",
+              width: "100%",
+              "@media screen and (min-width: 768px)": {
+                marginLeft: "300px",
+              },
+            }}
+          >
             <Box
               sx={{
                 position: "fixed",
@@ -56,7 +94,7 @@ const App = () => {
                 width: "100%",
                 zIndex: 1,
               }}
-              className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full zIndex"
+              style={{ zIndex: "1000" }}
             >
               <Navbar />
             </Box>
@@ -89,10 +127,10 @@ const App = () => {
                 />
               </Routes>
             </Box>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </BrowserRouter>
-    </div>
+    </Box>
   );
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import BarGraph from "../components/Charts/BarChart";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import YardIcon from "@mui/icons-material/Yard";
+import GrassIcon from '@mui/icons-material/Grass';
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
@@ -248,7 +248,7 @@ const Nursery = () => {
   return (
     <PageContainer>
       <Box sx={{ display: "flex", alignItems: "center", py: 3 }}>
-        <YardIcon style={{ fontSize: "80px" }} />
+        <GrassIcon style={{ fontSize: "80px" }} />
         <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
           Nursery Reports (Last 2 months)
         </Typography>
@@ -391,14 +391,33 @@ const Nursery = () => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ mr: 6, height: 50, width: 200, backgroundColor: "#76a66e" }}
+          sx={{
+            mr: 6,
+            height: 50,
+            width: 200,
+            backgroundColor: "#76a66e",
+            "&:hover": {
+              textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+              color: "black",
+              backgroundColor: "#60ec60",
+            },
+          }}
         >
           Import Data
           <ArrowUpwardIcon sx={{ ml: 1 }} />
         </Button>
         <Button
           variant="contained"
-          sx={{ height: 50, width: 200, backgroundColor: "#76a66e" }}
+          sx={{
+            height: 50,
+            width: 200,
+            backgroundColor: "#76a66e",
+            "&:hover": {
+              textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+              color: "black",
+              backgroundColor: "#60ec60",
+            },
+          }}
         >
           Download Data
           <DownloadIcon sx={{ ml: 1 }} />

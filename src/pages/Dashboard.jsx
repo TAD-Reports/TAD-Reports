@@ -2,7 +2,7 @@ import React from "react";
 // import { useStateContext } from "../contexts/ContextProvider";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import { Grid } from "@mui/material";
-import YardIcon from "@mui/icons-material/Yard";
+import GrassIcon from '@mui/icons-material/Grass';
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import { GiCottonFlower } from "react-icons/gi";
@@ -28,7 +28,7 @@ const Dashboard = () => {
             cardColor="b8dc51"
             pathName="nursery"
             title="nursery"
-            icon={YardIcon}
+            icon={GrassIcon}
           />
         </Grid>
         <Grid

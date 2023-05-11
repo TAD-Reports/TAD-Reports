@@ -4,7 +4,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import Avatar from "../data/avatar.jpg";
 
 import { links } from "../data/dummy";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 const SideBar = () => {
   const location = useLocation();
@@ -12,6 +12,9 @@ const SideBar = () => {
   const activeLink = {
     display: "flex",
     alignItems: "center",
+    justifyContent: "start",
+    textAlign: "left",
+    width: "100%",
     gap: "5",
     paddingLeft: "1rem",
     paddingTop: "0.75rem",
@@ -20,12 +23,19 @@ const SideBar = () => {
     backgroundColor: "white",
     color: "black",
     fontSize: "1rem",
-    margin: "0.5rem",
-    marginRight: "0",
+    margin: "5px",
+    "&:hover": {
+      color: "black",
+      backgroundColor: "lightyellow",
+    },
   };
+
   const normalLink = {
     display: "flex",
     alignItems: "center",
+    justifyContent: "start",
+    textAlign: "left",
+    width: "100%",
     gap: "5",
     paddingLeft: "1rem",
     paddingTop: "0.75rem",
@@ -33,23 +43,11 @@ const SideBar = () => {
     borderRadius: "0.5rem 0 0 0.5rem",
     fontSize: "1rem",
     color: "#f0f0f0",
+    margin: "5px",
     "&:hover": {
       color: "black",
-      backgroundColor: "lightyellow",
+      backgroundColor: "lightgreen",
     },
-    "&.dark": {
-      color: "gray.200",
-      "&:hover": {
-        color: "black",
-        backgroundColor: "lightyellow",
-      },
-    },
-    "&.active": {
-      color: "black",
-      backgroundColor: "lightyellow",
-    },
-    margin: "0.5rem",
-    marginRight: "0",
   };
 
   return (
@@ -122,19 +120,19 @@ const SideBar = () => {
                   {item.title}
                 </Typography>
                 {item.links.map((link) => (
-                  <NavLink
-                    to={`/${link.path}`}
-                    key={link.name}
-                    style={
-                      location.pathname === `/${link.path}`
-                        ? { ...normalLink, ...activeLink }
-                        : normalLink
-                    }
-                  >
-                    {link.icon}
-                    <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                      {link.name}
-                    </Typography>
+                  <NavLink to={`/${link.path}`} key={link.name}>
+                    <Button
+                      sx={
+                        location.pathname === `/${link.path}`
+                          ? activeLink
+                          : normalLink
+                      }
+                    >
+                      {link.icon}
+                      <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                        {link.name}
+                      </Typography>
+                    </Button>
                   </NavLink>
                 ))}
               </Box>

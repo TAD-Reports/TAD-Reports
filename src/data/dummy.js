@@ -1,25 +1,30 @@
 import React from "react";
 import {
-  AiOutlineShoppingCart,
-  AiOutlineBarChart,
-} from "react-icons/ai";
-import {
-  FiShoppingBag,
-  FiEdit,
   FiBarChart,
   FiCreditCard,
   FiStar,
   FiShoppingCart,
 } from "react-icons/fi";
 import {
-  BsBarChart,
   BsBoxSeam,
   BsCurrencyDollar,
   BsShield,
   BsChatLeft,
 } from "react-icons/bs";
-import { IoMdContacts } from "react-icons/io";
-import { RiContactsLine } from "react-icons/ri";
+
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import GrassIcon from '@mui/icons-material/Grass';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import GppGoodIcon from "@mui/icons-material/GppGood";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import CloudIcon from '@mui/icons-material/Cloud';
+import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
+import SchoolIcon from "@mui/icons-material/School";
+import FolderCopyIcon from "@mui/icons-material/FolderCopy";
+import RiceBowlIcon from '@mui/icons-material/RiceBowl';
+import CoronavirusIcon from "@mui/icons-material/Coronavirus";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import { MdOutlineSupervisorAccount } from "react-icons/md";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { TiTick } from "react-icons/ti";
@@ -509,7 +514,7 @@ export const links = [
       {
         name: "dashboard",
         path: "dashboard",
-        icon: <FiShoppingBag />,
+        icon: <DashboardIcon />,
       },
     ],
   },
@@ -520,52 +525,52 @@ export const links = [
       {
         name: "nursery reports",
         path: "nursery",
-        icon: <AiOutlineShoppingCart />,
+        icon: <GrassIcon />,
       },
       {
         name: "distribution reports",
         path: "distribution",
-        icon: <IoMdContacts />,
+        icon: <HandshakeIcon />,
       },
       {
         name: "pm survived reports",
         path: "pmsurvived",
-        icon: <RiContactsLine />,
+        icon: <GppGoodIcon />,
       },
       {
         name: "expansion and rehabilitation reports",
         path: "expansionandrehab",
-        icon: <AiOutlineShoppingCart />,
+        icon: <ApartmentIcon />,
       },
       {
         name: "cotton reports",
         path: "cotton",
-        icon: <IoMdContacts />,
+        icon: <CloudIcon />,
       },
       {
         name: "cocoon reports",
         path: "cocoon",
-        icon: <RiContactsLine />,
+        icon: <SportsRugbyIcon />,
       },
       {
         name: "training reports",
         path: "training",
-        icon: <AiOutlineShoppingCart />,
+        icon: <SchoolIcon />,
       },
       {
         name: "iec material reports",
         path: "iec",
-        icon: <IoMdContacts />,
+        icon: <FolderCopyIcon />,
       },
       {
         name: "expansion under coconut projects reports",
         path: "expansioncoconut",
-        icon: <AiOutlineBarChart />,
+        icon: <RiceBowlIcon />,
       },
       {
         name: "abaca disease management project reports",
         path: "diseasemanagement",
-        icon: <BsBarChart />,
+        icon: <CoronavirusIcon />,
       },
     ],
   },
@@ -575,7 +580,7 @@ export const links = [
       {
         name: "logout",
         path: "logout",
-        icon: <FiEdit />,
+        icon: <LogoutIcon />,
       },
     ],
   },
