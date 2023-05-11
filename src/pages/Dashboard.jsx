@@ -1,5 +1,5 @@
 import React from "react";
-import { useStateContext } from "../contexts/ContextProvider";
+// import { useStateContext } from "../contexts/ContextProvider";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import { Grid } from "@mui/material";
 import YardIcon from "@mui/icons-material/Yard";
@@ -13,7 +13,7 @@ import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 import { GiCoconuts } from "react-icons/gi";
 import CoronavirusIcon from "@mui/icons-material/Coronavirus";
 
-import NavigationCard from "../components/Containers/NavigationCard";
+import NavigationCard from "../components/Cards/NavigationCard";
 
 const Dashboard = () => {
   return (

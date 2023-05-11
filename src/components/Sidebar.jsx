@@ -1,59 +1,148 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
-import Avatar from "../data/avatar4.jpg";
+import Avatar from "../data/avatar.jpg";
 
 import { links } from "../data/dummy";
+import { Box, Typography } from "@mui/material";
 
 const SideBar = () => {
-  const activeLink =
-    "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-l-lg bg-white text-black text-md m-2 mr-0";
-  const normalLink =
-    "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-l-lg text-md text-gray-100 dark:text-gray-200 dark:hover:text-black hover:bg-green-300 m-2 mr-0";
+  const location = useLocation();
+
+  const activeLink = {
+    display: "flex",
+    alignItems: "center",
+    gap: "5",
+    paddingLeft: "1rem",
+    paddingTop: "0.75rem",
+    paddingBottom: "0.625rem",
+    borderRadius: "0.5rem 0 0 0.5rem",
+    backgroundColor: "white",
+    color: "black",
+    fontSize: "1rem",
+    margin: "0.5rem",
+    marginRight: "0",
+  };
+  const normalLink = {
+    display: "flex",
+    alignItems: "center",
+    gap: "5",
+    paddingLeft: "1rem",
+    paddingTop: "0.75rem",
+    paddingBottom: "0.625rem",
+    borderRadius: "0.5rem 0 0 0.5rem",
+    fontSize: "1rem",
+    color: "#f0f0f0",
+    "&:hover": {
+      color: "black",
+      backgroundColor: "lightyellow",
+    },
+    "&.dark": {
+      color: "gray.200",
+      "&:hover": {
+        color: "black",
+        backgroundColor: "lightyellow",
+      },
+    },
+    "&.active": {
+      color: "black",
+      backgroundColor: "lightyellow",
+    },
+    margin: "0.5rem",
+    marginRight: "0",
+  };
 
   return (
-    <div className="h-screen relative md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10 bg-green-600">
-      <div className="absolute w-72">
+    <Box
+      sx={{
+        height: "100vh",
+        position: "relative",
+        overflow: "hidden",
+        "@media screen and (min-width: 768px)": {
+          overflow: "auto",
+          ":hover": {
+            overflow: "auto",
+          },
+        },
+        paddingBottom: "10rem", // Replace with your desired value
+        backgroundColor: "#5a9c4e", // Replace with your desired color
+      }}
+    >
+      <Box sx={{ position: "absolute", width: "288px" }}>
         <>
-          <div className="flex flex-col justify-center items-center w-full mt-5">
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              mt: 3,
+            }}
+          >
             <Link to="/">
               <img
                 src={Avatar}
                 alt="logo"
-                className="w-16 h-16 rounded-full mb-2"
+                style={{
+                  width: "64px",
+                  height: "64px",
+                  borderRadius: "50%",
+                }}
               />
             </Link>
-            <label className="font-bold text-sm text-white">
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontSize: "14px",
+                color: "#fff",
+                mt: 1,
+              }}
+            >
               ROMERO, MATTHEW LEWIS E.
-            </label>
-            <label className="font-bold text-xs text-white">
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold", fontSize: "12px", color: "#fff" }}
+            >
               HUMAN RESOURCE
-            </label>
-          </div>
-          <div className="mt-10">
+            </Typography>
+          </Box>
+          <Box sx={{ mt: 5 }}>
             {links.map((item) => (
-              <div key={item.title} className="mt-10 w-full">
-                <p className="text-white m-3 mt-4 uppercase font-bold">
+              <Box key={item.title} sx={{ width: "100%" }}>
+                <Typography
+                  sx={{
+                    color: "#fff",
+                    m: 2,
+                    mt: 4,
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                  }}
+                >
                   {item.title}
-                </p>
+                </Typography>
                 {item.links.map((link) => (
                   <NavLink
                     to={`/${link.path}`}
                     key={link.name}
-                    className={({ isActive }) =>
-                      isActive ? activeLink : normalLink
+                    style={
+                      location.pathname === `/${link.path}`
+                        ? { ...normalLink, ...activeLink }
+                        : normalLink
                     }
                   >
                     {link.icon}
-                    <span className="capitalize">{link.name}</span>
+                    <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                      {link.name}
+                    </Typography>
                   </NavLink>
                 ))}
-              </div>
+              </Box>
             ))}
-          </div>
+          </Box>
         </>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

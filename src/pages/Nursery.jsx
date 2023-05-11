@@ -1,15 +1,21 @@
 import React from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import BarGraph from "../components/Charts/BarChart";
-import { Box, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import YardIcon from "@mui/icons-material/Yard";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import SelectFilterBy from "../components/Textfields/select-filterBy";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import DownloadIcon from "@mui/icons-material/Download";
+import moment from "moment";
 
 const Nursery = () => {
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
+  const [startFilterBy, setFilterByStart] = React.useState("");
+  const [endFilterBy, setFilterByEnd] = React.useState("");
 
   const validateDateRange = (start, end) => {
     if (start && end) {
@@ -36,6 +42,14 @@ const Nursery = () => {
     setEndDate(date);
     validateDateRange(startDate, date);
   };
+
+  const startDateMoment = moment(startDate);
+  const StartDateDisplay = startDateMoment.format("MMMM D, YYYY");
+
+  const endDateMoment = moment(endDate);
+  const EndDateDisplay = endDateMoment.format("MMMM D, YYYY");
+
+  console.log(StartDateDisplay);
 
   const rows = [
     {
@@ -166,7 +180,7 @@ const Nursery = () => {
     },
   ];
 
-  const columns = React.useMemo(() => [
+  const columns = [
     { field: "reportDate", headerName: "Report Date", width: 200 },
     { field: "fundedBy", headerName: "Funded By", width: 200 },
     { field: "region", headerName: "Region", width: 200 },
@@ -229,7 +243,7 @@ const Nursery = () => {
         <GridActionsCellItem icon={<VisibilityIcon />} label="View" />,
       ],
     },
-  ]);
+  ];
 
   return (
     <PageContainer>
@@ -264,6 +278,7 @@ const Nursery = () => {
               sx={{
                 display: "flex",
                 alignItems: "center",
+                width: "20vw",
               }}
             >
               <Typography
@@ -274,7 +289,13 @@ const Nursery = () => {
               >
                 Filter by:
               </Typography>
-              <TextField id="outlined-size-small" defaultValue="Funds Source" />
+              <SelectFilterBy
+                id="outlined-basic"
+                name="filterBy"
+                value={startFilterBy}
+                onChange={(evt) => setFilterByStart(evt.target.value)}
+                sx={{ width: "14vw" }}
+              />
             </Box>
 
             <TextFieldDatePicker
@@ -291,7 +312,9 @@ const Nursery = () => {
               fontSize: "20px",
             }}
           >
-            {startDate}
+            {StartDateDisplay !== "Invalid date"
+              ? StartDateDisplay
+              : "Start Date"}
           </Typography>
           <BarGraph />
         </Grid>
@@ -327,7 +350,13 @@ const Nursery = () => {
               >
                 Filter by:
               </Typography>
-              <TextField id="outlined-size-small" defaultValue="Funds Source" />
+              <SelectFilterBy
+                id="outlined-basic"
+                name="endFilterBy"
+                value={endFilterBy}
+                onChange={(evt) => setFilterByEnd(evt.target.value)}
+                sx={{ width: "14vw" }}
+              />
             </Box>
             <TextFieldDatePicker
               label="End Date"
@@ -343,11 +372,12 @@ const Nursery = () => {
               fontSize: "20px",
             }}
           >
-            {startDate}
+            {EndDateDisplay !== "Invalid date" ? EndDateDisplay : "End Date"}
           </Typography>
           <BarGraph />
         </Grid>
       </Grid>
+
       <div style={{ height: 530, width: "100%", position: "relative" }}>
         <DataGrid
           getRowId={(row) => row.reportDate}
@@ -357,6 +387,23 @@ const Nursery = () => {
           rowsPerPageOptions={[1]}
         />
       </div>
+      <Box sx={{ display: "flex", px: 2, mt: 10 }}>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ mr: 6, height: 50, width: 200, backgroundColor: "#76a66e" }}
+        >
+          Import Data
+          <ArrowUpwardIcon sx={{ ml: 1 }} />
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ height: 50, width: 200, backgroundColor: "#76a66e" }}
+        >
+          Download Data
+          <DownloadIcon sx={{ ml: 1 }} />
+        </Button>
+      </Box>
     </PageContainer>
   );
 };

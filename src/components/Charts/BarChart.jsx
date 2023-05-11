@@ -13,22 +13,18 @@ import {
 const data = [
   {
     name: "LGU",
-    uv: 4000,
-    pv: 2400,
-    amt: 4500,
+    NurseriesMaintained: 4000,
   },
   {
     name: "PhilFIDA",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    NurseriesMaintained: 3000,
   },
 ];
 
 export default class BarGraph extends PureComponent {
   render() {
     return (
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer width="100%" height={400}>
         <BarChart
           width={500}
           height={300}
@@ -45,8 +41,8 @@ export default class BarGraph extends PureComponent {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" fill="#8884d8" background={{ fill: "#eee" }} />
-          <Bar dataKey="uv" fill="#82ca9d" />
+          {/* <Bar dataKey="pv" fill="#82ca9d" background={{ fill: "#eee" }} /> */}
+          <Bar dataKey="NurseriesMaintained" fill="#76a66e" />
         </BarChart>
       </ResponsiveContainer>
     );

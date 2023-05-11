@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function PageContainer({ children }) {
   return (
-    <Box sx={{ mx: "20px", mt: "128px", mb: "128px", width: "75vw" }}>
+    <Box sx={{ mx: "20px", mt: "130px", mb: "130px", width: "78vw" }}>
       {children}
     </Box>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  AiOutlineCalendar,
   AiOutlineShoppingCart,
   AiOutlineBarChart,
 } from "react-icons/ai";
@@ -13,14 +12,12 @@ import {
   FiShoppingCart,
 } from "react-icons/fi";
 import {
-  BsKanban,
   BsBarChart,
   BsBoxSeam,
   BsCurrencyDollar,
   BsShield,
   BsChatLeft,
 } from "react-icons/bs";
-import { BiColorFill } from "react-icons/bi";
 import { IoMdContacts } from "react-icons/io";
 import { RiContactsLine } from "react-icons/ri";
 import { MdOutlineSupervisorAccount } from "react-icons/md";
