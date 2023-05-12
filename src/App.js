@@ -99,7 +99,9 @@ const App = () => {
               <Navbar />
             </Box>
 
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{ display: "flex", justifyContent: "center", mt: "130px" }}
+            >
               <Routes>
                 {/* Dashboard */}
                 <Route path="/" element={<Dashboard />} />

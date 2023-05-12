@@ -22,7 +22,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="b8dc51"
@@ -34,7 +34,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="33d4de"
@@ -46,7 +46,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="e08686"
@@ -58,7 +58,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="fc7aff"
@@ -71,7 +71,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="b0f2a5"
@@ -83,7 +83,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="fafc8a"
@@ -95,7 +95,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="ab6969"
@@ -107,7 +107,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="67a6f1"
@@ -120,7 +120,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="f9a252"
@@ -132,7 +132,7 @@ const Dashboard = () => {
         <Grid
           item
           xs={3}
-          sx={{ display: "flex", justifyContent: "center", p: 2 }}
+          sx={{ display: "flex", justifyContent: "center", p: 2, height: "25vh" }}
         >
           <NavigationCard
             cardColor="289602"

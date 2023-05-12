@@ -26,7 +26,7 @@ const SideBar = () => {
     margin: "5px",
     "&:hover": {
       color: "black",
-      backgroundColor: "lightyellow",
+      backgroundColor: "#fff",
     },
   };
 
@@ -62,8 +62,8 @@ const SideBar = () => {
             overflow: "auto",
           },
         },
-        paddingBottom: "10rem", // Replace with your desired value
-        backgroundColor: "#5a9c4e", // Replace with your desired color
+        paddingBottom: "10rem",
+        backgroundColor: "#5a9c4e",
       }}
     >
       <Box sx={{ position: "absolute", width: "288px" }}>
@@ -75,7 +75,7 @@ const SideBar = () => {
               justifyContent: "center",
               alignItems: "center",
               width: "100%",
-              mt: 3,
+              mt: 5,
             }}
           >
             <Link to="/">
@@ -105,7 +105,7 @@ const SideBar = () => {
               HUMAN RESOURCE
             </Typography>
           </Box>
-          <Box sx={{ mt: 5 }}>
+          <Box sx={{ my: 5 }}>
             {links.map((item) => (
               <Box key={item.title} sx={{ width: "100%" }}>
                 <Typography

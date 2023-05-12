@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import GrassIcon from "@mui/icons-material/Grass";
 import { NavLink } from "react-router-dom";
 import { links } from "../../../data/dummy";
@@ -16,22 +16,38 @@ const NavigationCard = ({ cardColor, pathName, title, icon: Icon }) => {
     return link.path;
   };
 
+  function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  const hexColor = `#${cardColor}`;
+  const rgbaColor = hexToRgba(hexColor, 0.7);
+
   return (
-    <Card
-      sx={{
-        backgroundColor: `#${cardColor}`,
-        border: "solid 1px #bbb",
-        borderRadius: "15px",
-        width: "15vw",
-        height: "22vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        textAlign: "center",
-      }}
-    >
-      <NavLink to={`/${path(`${pathName}`)}`}>
+    <NavLink to={`/${path(`${pathName}`)}`}>
+      <Button
+        sx={{
+          backgroundColor: `#${cardColor}`,
+          borderRadius: "15px",
+          width: "15vw",
+          height: "22vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          textAlign: "center",
+          color: "black",
+          ":hover": {
+            backgroundColor: `${rgbaColor}`,
+            border: "solid 1px gray",
+            width: "16.5vw",
+            height: "23vh",
+          },
+        }}
+      >
         <Box
           sx={{
             width: "100%",
@@ -63,8 +79,8 @@ const NavigationCard = ({ cardColor, pathName, title, icon: Icon }) => {
         <Typography sx={{ fontWeight: "bold", fontFamily: "Poppins", mt: 2 }}>
           {title.toUpperCase()}
         </Typography>
-      </NavLink>
-    </Card>
+      </Button>
+    </NavLink>
   );
 };
 

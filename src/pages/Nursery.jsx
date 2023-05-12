@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import BarGraph from "../components/Charts/BarChart";
-import { Box, Button, Grid, Typography } from "@mui/material";
-import GrassIcon from '@mui/icons-material/Grass';
+import {
+  Box,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
+import GrassIcon from "@mui/icons-material/Grass";
+import SearchIcon from "@mui/icons-material/Search";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import DownloadIcon from "@mui/icons-material/Download";
 import moment from "moment";
+import nurseryService from "../services/nursery-service";
+import NurseryTable from "../components/Tables/NurseryTable";
+import ImportDataButton from "../components/Buttons/ImportDataButton";
+import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 
 const Nursery = () => {
-  const [startDate, setStartDate] = React.useState("");
-  const [endDate, setEndDate] = React.useState("");
-  const [startFilterBy, setFilterByStart] = React.useState("");
-  const [endFilterBy, setFilterByEnd] = React.useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [startFilterBy, setFilterByStart] = useState("");
+  const [endFilterBy, setFilterByEnd] = useState("");
+
+  const [nurseryData, setNurseryData] = useState([]);
+  const [search, setSearch] = useState(" ");
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const validateDateRange = (start, end) => {
     if (start && end) {
@@ -27,10 +42,38 @@ const Nursery = () => {
     }
   };
 
+  const handleSearch = () => {
+    setLoading(true);
+    nurseryService
+      .searchNursery(search)
+      .then((e) => {
+        setNurseryData(e);
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  React.useEffect(() => {
+    handleSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleRenderData = (e) => {
+    if (e[0]) {
+      handleSearch();
+      setLoading(e[1]);
+      setError(e[2]);
+    }
+  };
+
   const handleStartDate = (evt) => {
     const month = String(evt.$M + 1).padStart(2, "0");
     const day = String(evt.$D).padStart(2, "0");
-    const date = `${evt.$y}/${month}/${day}`;
+    const date = `${evt.$y}-${month}-${day}`;
     setStartDate(date);
     validateDateRange(date, endDate);
   };
@@ -38,7 +81,7 @@ const Nursery = () => {
   const handleEndDate = (evt) => {
     const month = String(evt.$M + 1).padStart(2, "0");
     const day = String(evt.$D).padStart(2, "0");
-    const date = `${evt.$y}/${month}/${day}`;
+    const date = `${evt.$y}-${month}-${day}`;
     setEndDate(date);
     validateDateRange(startDate, date);
   };
@@ -49,201 +92,22 @@ const Nursery = () => {
   const endDateMoment = moment(endDate);
   const EndDateDisplay = endDateMoment.format("MMMM D, YYYY");
 
-  console.log(StartDateDisplay);
-
-  const rows = [
-    {
-      reportDate: 1,
-      fundedBy: "Snow",
-      region: "Jon",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-    {
-      reportDate: 2,
-      fundedBy: "Lannister",
-      region: "Cersei",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-    {
-      reportDate: 3,
-      fundedBy: "Lannister",
-      region: "Jaime",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-    {
-      reportDate: 4,
-      fundedBy: "Stark",
-      region: "Arya",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-    {
-      reportDate: 5,
-      fundedBy: "Targaryen",
-      region: "Daenerys",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-    {
-      reportDate: 6,
-      fundedBy: "Melisandre",
-      region: null,
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-    {
-      reportDate: 7,
-      fundedBy: "Clifford",
-      region: "Ferrara",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-    {
-      reportDate: 8,
-      fundedBy: "Frances",
-      region: "Rossini",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-    {
-      reportDate: 9,
-      fundedBy: "Roxie",
-      region: "Harvey",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      cooperative: "hasd",
-      dateEstablished: "hasd",
-      area: "area",
-      variety: "area",
-      moaPeriod: "area",
-    },
-  ];
-
-  const columns = [
-    { field: "reportDate", headerName: "Report Date", width: 200 },
-    { field: "fundedBy", headerName: "Funded By", width: 200 },
-    { field: "region", headerName: "Region", width: 200 },
-    { field: "province", headerName: "Province", width: 200 },
-    {
-      field: "district",
-      headerName: "District",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "municipality",
-      headerName: "Municipality",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "barangay",
-      headerName: "Barangay",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "cooperative",
-      headerName: "Name of Cooperative",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "dateEstablished",
-      headerName: "Date Established",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "area",
-      headerName: "Area(in hectars)",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "variety",
-      headerName: "Variety",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "moaPeriod",
-      headerName: "Period of MOA",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "Actions",
-      width: 200,
-      // eslint-disable-next-line react/no-unstable-nested-components
-      getActions: (params) => [
-        <GridActionsCellItem icon={<VisibilityIcon />} label="View" />,
-      ],
-    },
-  ];
+  // const rows = [
+  //   {
+  //     reportDate: 1,
+  //     fundedBy: "Snow",
+  //     region: "Jon",
+  //     province: "province",
+  //     district: "district",
+  //     municipality: "municipality",
+  //     barangay: "barangay",
+  //     cooperative: "cooperative",
+  //     dateEstablished: "dateEstablished",
+  //     area: "area",
+  //     variety: "variety",
+  //     moaPeriod: "moaPeriod",
+  //   },
+  // ];
 
   return (
     <PageContainer>
@@ -254,7 +118,7 @@ const Nursery = () => {
         </Typography>
       </Box>
       <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
-        Nurseries Maintained
+        NURSERIES MAINTAINED
       </Typography>
       <Grid container spacing={0} sx={{ pb: 4 }}>
         <Grid
@@ -283,7 +147,6 @@ const Nursery = () => {
             >
               <Typography
                 sx={{
-                  fontWeight: "bold",
                   mr: 4,
                 }}
               >
@@ -299,7 +162,7 @@ const Nursery = () => {
             </Box>
 
             <TextFieldDatePicker
-              label="Start Date"
+              label="Date"
               value={startDate}
               onChange={handleStartDate}
               format="MM/DD/YYYY"
@@ -312,9 +175,7 @@ const Nursery = () => {
               fontSize: "20px",
             }}
           >
-            {StartDateDisplay !== "Invalid date"
-              ? StartDateDisplay
-              : "Start Date"}
+            {StartDateDisplay !== "Invalid date" ? StartDateDisplay : "Date"}
           </Typography>
           <BarGraph />
         </Grid>
@@ -344,7 +205,6 @@ const Nursery = () => {
             >
               <Typography
                 sx={{
-                  fontWeight: "bold",
                   mr: 4,
                 }}
               >
@@ -359,7 +219,7 @@ const Nursery = () => {
               />
             </Box>
             <TextFieldDatePicker
-              label="End Date"
+              label="Date"
               value={endDate}
               onChange={handleEndDate}
               format="MM/DD/YYYY"
@@ -372,56 +232,50 @@ const Nursery = () => {
               fontSize: "20px",
             }}
           >
-            {EndDateDisplay !== "Invalid date" ? EndDateDisplay : "End Date"}
+            {EndDateDisplay !== "Invalid date" ? EndDateDisplay : "Date"}
           </Typography>
           <BarGraph />
         </Grid>
       </Grid>
 
-      <div style={{ height: 530, width: "100%", position: "relative" }}>
-        <DataGrid
-          getRowId={(row) => row.reportDate}
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[1]}
-        />
+      <Divider sx={{ m: 4 }} />
+
+      <Grid container>
+        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
+          <Typography
+            variant="label"
+            component="label"
+            sx={{ ml: 1, fontWeight: "bold", fontSize: "25px" }}
+          >
+            NURSERY DATA
+          </Typography>
+        </Grid>
+        <Grid item xs={6} sx={{ textAlign: "right", py: 2 }}>
+          <TextField
+            label="Search"
+            size="small"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <IconButton onClick={handleSearch}>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            sx={{ my: 1, mx: 1 }}
+            onChange={(evt) => setSearch(evt.target.value)}
+            value={search}
+          />
+        </Grid>
+      </Grid>
+      <div>
+        <NurseryTable nurseryData={nurseryData} loading={loading} />
       </div>
-      <Box sx={{ display: "flex", px: 2, mt: 10 }}>
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{
-            mr: 6,
-            height: 50,
-            width: 200,
-            backgroundColor: "#76a66e",
-            "&:hover": {
-              textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-              color: "black",
-              backgroundColor: "#60ec60",
-            },
-          }}
-        >
-          Import Data
-          <ArrowUpwardIcon sx={{ ml: 1 }} />
-        </Button>
-        <Button
-          variant="contained"
-          sx={{
-            height: 50,
-            width: 200,
-            backgroundColor: "#76a66e",
-            "&:hover": {
-              textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-              color: "black",
-              backgroundColor: "#60ec60",
-            },
-          }}
-        >
-          Download Data
-          <DownloadIcon sx={{ ml: 1 }} />
-        </Button>
+      {error}
+      <Box sx={{ display: "flex", alignItems: "end", px: 2, mt: 10 }}>
+        <ImportDataButton renderData={handleRenderData} />
+        <DownloadDataButton />
       </Box>
     </PageContainer>
   );
