@@ -10,15 +10,24 @@ function getNurseryById(id) {
   return axios.get(`${BASE_URL}/login/getAccount/${id}`);
 }
 
-function getNurseries() {
-  return axios.get(`${BASE_URL}/nurseries`);
+function getNurseries(search = "") {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      axios
+        .get(`${BASE_URL}/nursery/search`, { params: { key: search } })
+        .then((res) => resolve(res.data))
+        .catch((err) => {
+          reject(err);
+        });
+    }, DEFAULT_DELAY);
+  });
 }
 
 function searchNursery(search = "") {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       axios
-        .get(`${BASE_URL}/nurseries`, { params: { username: search } })
+        .get(`${BASE_URL}/nursery/search`, { params: { key: search } })
         .then((res) => resolve(res.data))
         .catch((err) => {
           reject(err);

@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import Tooltip from "@mui/material/Tooltip";
+import RequireAuth from "./contexts/RequireAuth";
+
 import { Navbar, Sidebar } from "./components";
 
 import {

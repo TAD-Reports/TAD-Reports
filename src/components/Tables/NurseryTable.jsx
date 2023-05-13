@@ -1,11 +1,20 @@
 import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import Moment from "react-moment";
 
 const NurseryTable = ({ nurseryData, loading }) => {
   const columns = [
-    { field: "reportDate", headerName: "Report Date", width: 200 },
-    { field: "fundedBy", headerName: "Funded By", width: 200 },
+    {
+      field: "month_report",
+      headerName: "Report Date",
+      renderCell: ({ row }) =>
+        row?.month_report && (
+          <Moment format="YYYY/MM/DD">{row?.month_report}</Moment>
+        ),
+      width: 200,
+    },
+    { field: "funded_by", headerName: "Funded By", width: 200 },
     { field: "region", headerName: "Region", width: 200 },
     { field: "province", headerName: "Province", width: 200 },
     {
@@ -27,31 +36,31 @@ const NurseryTable = ({ nurseryData, loading }) => {
       width: 200,
     },
     {
-      field: "cooperative",
+      field: "complete_name_of_cooperator_organization",
       headerName: "Name of Cooperative",
       type: "string",
       width: 200,
     },
     {
-      field: "dateEstablished",
+      field: "date_established",
       headerName: "Date Established",
       type: "string",
       width: 200,
     },
     {
-      field: "area",
+      field: "area_in_hectares_ha",
       headerName: "Area(in hectars)",
       type: "string",
       width: 200,
     },
     {
-      field: "variety",
+      field: "variety_used",
       headerName: "Variety",
       type: "string",
       width: 200,
     },
     {
-      field: "moaPeriod",
+      field: "period_of_moa",
       headerName: "Period of MOA",
       type: "string",
       width: 200,
@@ -70,7 +79,7 @@ const NurseryTable = ({ nurseryData, loading }) => {
   return (
     <div style={{ height: 530, width: "100%", position: "relative" }}>
       <DataGrid
-        getRowId={(row) => row.reportDate}
+        getRowId={(row) => row.uuid}
         rows={nurseryData}
         columns={columns}
         pageSize={10}

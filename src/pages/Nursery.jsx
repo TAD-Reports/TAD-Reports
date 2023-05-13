@@ -27,7 +27,7 @@ const Nursery = () => {
   const [endFilterBy, setFilterByEnd] = useState("");
 
   const [nurseryData, setNurseryData] = useState([]);
-  const [search, setSearch] = useState(" ");
+  const [search, setSearch] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -47,7 +47,7 @@ const Nursery = () => {
     nurseryService
       .searchNursery(search)
       .then((e) => {
-        setNurseryData(e);
+        setNurseryData(e.data);
       })
       .catch((error) => {
         setError(error.message);
@@ -56,6 +56,8 @@ const Nursery = () => {
         setLoading(false);
       });
   };
+
+  console.log(nurseryData);
 
   React.useEffect(() => {
     handleSearch();
@@ -91,23 +93,6 @@ const Nursery = () => {
 
   const endDateMoment = moment(endDate);
   const EndDateDisplay = endDateMoment.format("MMMM D, YYYY");
-
-  // const rows = [
-  //   {
-  //     reportDate: 1,
-  //     fundedBy: "Snow",
-  //     region: "Jon",
-  //     province: "province",
-  //     district: "district",
-  //     municipality: "municipality",
-  //     barangay: "barangay",
-  //     cooperative: "cooperative",
-  //     dateEstablished: "dateEstablished",
-  //     area: "area",
-  //     variety: "variety",
-  //     moaPeriod: "moaPeriod",
-  //   },
-  // ];
 
   return (
     <PageContainer>
