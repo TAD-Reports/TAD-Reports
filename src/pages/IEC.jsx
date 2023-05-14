@@ -1,7 +1,16 @@
 import React from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import IECBarGraph from "../components/Charts/IECChart";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Divider,
+    Grid,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography,
+} from "@mui/material";
 import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -10,6 +19,7 @@ import SelectFilterBy from "../components/Textfields/select-filterBy";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import DownloadIcon from "@mui/icons-material/Download";
 import moment from "moment";
+import SearchIcon from "@mui/icons-material/Search";
 
 const IEC = () => {
     const [startDate, setStartDate] = React.useState("");
@@ -374,6 +384,44 @@ const IEC = () => {
                             : "End Date"}
                     </Typography>
                     <IECBarGraph />
+                </Grid>
+            </Grid>
+
+            <Divider sx={{ m: 4 }} />
+
+            <Grid container>
+                <Grid
+                    item
+                    xs={6}
+                    sx={{ display: "flex", alignItems: "center", py: 2 }}
+                >
+                    <Typography
+                        variant="label"
+                        component="label"
+                        sx={{ ml: 1, fontWeight: "bold", fontSize: "25px" }}
+                    >
+                        IEC MATERIALS DATA
+                    </Typography>
+                </Grid>
+                <Grid item xs={6} sx={{ textAlign: "right", py: 2 }}>
+                    <TextField
+                        label="Search"
+                        size="small"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment>
+                                    <IconButton
+                                    // onClick={handleSearch}
+                                    >
+                                        <SearchIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                        sx={{ my: 1, mx: 1 }}
+                        // onChange={(evt) => setSearch(evt.target.value)}
+                        // value={search}
+                    />
                 </Grid>
             </Grid>
 
