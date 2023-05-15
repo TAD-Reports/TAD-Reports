@@ -3,10 +3,15 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 import Avatar from "../data/avatar.jpg";
 
-import { links } from "../data/dummy";
+import { links } from "./SidebarLinks";
 import { Box, Button, Typography } from "@mui/material";
 
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useStateContext } from "../contexts/ContextProvider";
+
 const SideBar = () => {
+  const { setAuth } = useStateContext();
+
   const location = useLocation();
 
   const activeLink = {
@@ -137,6 +142,25 @@ const SideBar = () => {
                 ))}
               </Box>
             ))}
+            <Box sx={{ width: "100%" }}>
+              <Typography
+                sx={{
+                  color: "#fff",
+                  m: 2,
+                  mt: 4,
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                }}
+              >
+                Log out
+              </Typography>
+              <Button sx={normalLink} onClick={() => setAuth(false)}>
+                <LogoutIcon />
+                <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                  Logout
+                </Typography>
+              </Button>
+            </Box>
           </Box>
         </>
       </Box>

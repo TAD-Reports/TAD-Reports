@@ -6,15 +6,20 @@ const DEFAULT_DELAY = 1000;
 
 const BASE_URL = "http://localhost:9000";
 
-function getNurseryById(id) {
+function getById(id) {
   return axios.get(`${BASE_URL}/login/getAccount/${id}`);
 }
 
-function getNurseries(search = "") {
+function getGraphData(date = "", region = "") {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       axios
-        .get(`${BASE_URL}/nursery/search`, { params: { key: search } })
+        .get(`${BASE_URL}/nursery/graph`, {
+          params: {
+            date: date,
+            region: region,
+          },
+        })
         .then((res) => resolve(res.data))
         .catch((err) => {
           reject(err);
@@ -65,8 +70,8 @@ function downloadNurseryData(report, filename, fileType) {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  getNurseryById,
-  getNurseries,
+  getById,
+  getGraphData,
   searchNursery,
   importNurseryData,
   downloadNurseryData,

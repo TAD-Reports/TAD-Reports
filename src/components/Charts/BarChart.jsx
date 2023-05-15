@@ -23,6 +23,17 @@ const data = [
 
 export default class BarGraph extends PureComponent {
   render() {
+    const datas = this.props.data;
+
+    if (datas) {
+      const graphData = datas.map((data) => ({
+        name: data.funded_by,
+        NurseriesMaintained: data.count,
+      }));
+
+      console.log(graphData);
+    }
+
     return (
       <ResponsiveContainer width="100%" height={400}>
         <BarChart

@@ -2,13 +2,11 @@ import React, { createContext, useContext, useState } from "react";
 
 const StateContext = createContext();
 
-const initialState = { notification: false };
-
 export const ContextProvider = ({ children }) => {
-  const [activeMenu, setActiveMenu] = useState(true);
+  const [auth, setAuth] = useState(false);
 
   return (
-    <StateContext.Provider value={{ activeMenu, setActiveMenu }}>
+    <StateContext.Provider value={{ auth, setAuth }}>
       {children}
     </StateContext.Provider>
   );

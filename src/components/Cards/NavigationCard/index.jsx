@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import GrassIcon from "@mui/icons-material/Grass";
 import { NavLink } from "react-router-dom";
-import { links } from "../../../data/dummy";
+import { links } from "../../SidebarLinks";
 import PropTypes from "prop-types";
 
 const NavigationCard = ({ cardColor, pathName, title, icon: Icon }) => {
