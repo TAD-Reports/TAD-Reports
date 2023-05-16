@@ -6,11 +6,11 @@ import Moment from "react-moment";
 const NurseryTable = ({ nurseryData, loading }) => {
   const columns = [
     {
-      field: "month_report",
+      field: "report_date",
       headerName: "Report Date",
       renderCell: ({ row }) =>
         row?.month_report && (
-          <Moment format="YYYY/MM/DD">{row?.month_report}</Moment>
+          <Moment format="YYYY/MM/DD">{row?.report_date}</Moment>
         ),
       width: 200,
     },

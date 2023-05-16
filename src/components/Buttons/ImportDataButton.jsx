@@ -12,10 +12,6 @@ const ImportDataButton = ({ renderData }) => {
   function handleFile(e) {
     const file = e.target.files[0];
 
-    const formData = new FormData();
-    formData.append("imported_by", "1");
-    formData.append("file", file);
-
     if (!file) {
       renderData(file);
     } else {
@@ -23,13 +19,12 @@ const ImportDataButton = ({ renderData }) => {
       setLoading(true);
 
       nurseryService
-        .importNurseryData(formData)
+        .importNurseryData(1, file)
         .then(() => {
-          const data = [file, loading, error];
-          renderData(data);
+          renderData(file);
         })
         .catch((error) => {
-          setError(error.message);
+          setError(error.response.data.message);
         })
         .finally(() => {
           setLoading(false);

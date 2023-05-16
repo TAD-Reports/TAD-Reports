@@ -25,8 +25,10 @@ export default class BarGraph extends PureComponent {
   render() {
     const datas = this.props.data;
 
+    let graphData = [];
+
     if (datas) {
-      const graphData = datas.map((data) => ({
+      graphData = datas.map((data) => ({
         name: data.funded_by,
         NurseriesMaintained: data.count,
       }));
@@ -39,7 +41,7 @@ export default class BarGraph extends PureComponent {
         <BarChart
           width={500}
           height={300}
-          data={data}
+          data={graphData}
           margin={{
             top: 5,
             right: 30,

@@ -14,7 +14,6 @@ import GrassIcon from "@mui/icons-material/Grass";
 import SearchIcon from "@mui/icons-material/Search";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
-import moment from "moment";
 import nurseryService from "../services/nursery-service";
 import NurseryTable from "./Tables/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
@@ -24,14 +23,15 @@ const Nursery = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [startFilterBy, setFilterByStart] = useState("");
-  const [endFilterBy, setFilterByEnd] = useState("");
 
   const [nurseryData, setNurseryData] = useState([]);
-  const [graphData, setGraphData] = useState();
+  const [startGraphData, setGraphDataStart] = useState();
+  const [endGraphData, setGraphDataEnd] = useState();
   const [search, setSearch] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [graphError, setGraphError] = useState("");
 
   const handleSearch = () => {
     setLoading(true);
@@ -46,29 +46,7 @@ const Nursery = () => {
       .finally(() => {
         setLoading(false);
       });
-  };
-
-  const handleGraphData = () => {
-    setLoading(true);
-    nurseryService
-      .getGraphData(startDate, startFilterBy)
-      .then((e) => {
-        setGraphData(e.data);
-      })
-      .catch((error) => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
-  console.log(graphData);
-
-  React.useEffect(() => {
-    handleGraphData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, startFilterBy]);
+  }; 
 
   React.useEffect(() => {
     handleSearch();
@@ -76,10 +54,10 @@ const Nursery = () => {
   }, []);
 
   const handleRenderData = (e) => {
-    if (e[0]) {
+    if (e) {
       handleSearch();
-      setLoading(e[1]);
-      setError(e[2]);
+      // setLoading(e[1]);
+      // setError(e[2]);
     }
   };
 
@@ -109,18 +87,12 @@ const Nursery = () => {
     validateDateRange(startDate, date);
   };
 
-  const startDateMoment = moment(startDate);
-  const StartDateDisplay = startDateMoment.format("MMMM D, YYYY");
-
-  const endDateMoment = moment(endDate);
-  const EndDateDisplay = endDateMoment.format("MMMM D, YYYY");
-
   return (
     <PageContainer>
       <Box sx={{ display: "flex", alignItems: "center", py: 3 }}>
         <GrassIcon style={{ fontSize: "80px" }} />
         <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
-          Nursery Reports (Last 2 months)
+          Nursery Reports
         </Typography>
       </Box>
       <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
@@ -129,7 +101,7 @@ const Nursery = () => {
       <Grid container spacing={0} sx={{ pb: 4 }}>
         <Grid
           item
-          xs={6}
+          xs={12}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -153,7 +125,7 @@ const Nursery = () => {
             >
               <Typography
                 sx={{
-                  mr: 4,
+                  mr: 6,
                 }}
               >
                 Filter by:
@@ -167,83 +139,34 @@ const Nursery = () => {
               />
             </Box>
 
-            <TextFieldDatePicker
-              label="Date"
-              value={startDate}
-              onChange={handleStartDate}
-              format="MM/DD/YYYY"
-            />
-          </Box>
-          <Typography
-            sx={{
-              p: 2,
-              fontWeight: "bold",
-              fontSize: "20px",
-            }}
-          >
-            {StartDateDisplay !== "Invalid date" ? StartDateDisplay : "Date"}
-          </Typography>
-          <BarGraph data={graphData} />
-        </Grid>
-        <Grid
-          item
-          xs={6}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            p: 2,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              p: 2,
-            }}
-          >
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
+                width: "25vw",
               }}
             >
-              <Typography
-                sx={{
-                  mr: 4,
-                }}
-              >
-                Filter by:
-              </Typography>
-              <SelectFilterBy
-                id="outlined-basic"
-                name="endFilterBy"
-                value={endFilterBy}
-                onChange={(evt) => setFilterByEnd(evt.target.value)}
-                sx={{ width: "14vw" }}
+              <TextFieldDatePicker
+                label="Start Date"
+                value={startDate}
+                onChange={handleStartDate}
+                format="MM/DD/YYYY"
+              />
+              <Typography sx={{ mx: 2 }}>to</Typography>
+              <TextFieldDatePicker
+                label="Date"
+                value={endDate}
+                onChange={handleEndDate}
+                format="MM/DD/YYYY"
               />
             </Box>
-            <TextFieldDatePicker
-              label="Date"
-              value={endDate}
-              onChange={handleEndDate}
-              format="MM/DD/YYYY"
-            />
           </Box>
-          <Typography
-            sx={{
-              p: 2,
-              fontWeight: "bold",
-              fontSize: "20px",
-            }}
-          >
-            {EndDateDisplay !== "Invalid date" ? EndDateDisplay : "Date"}
-          </Typography>
-          <BarGraph />
+          <Box>
+            <BarGraph data={endGraphData} />
+          </Box>
         </Grid>
       </Grid>
-
+      {graphError}
       <Divider sx={{ m: 4 }} />
 
       <Grid container>

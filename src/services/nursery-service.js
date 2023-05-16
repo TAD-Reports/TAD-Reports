@@ -41,8 +41,15 @@ function searchNursery(search = "") {
   });
 }
 
-function importNurseryData(nurseryData) {
-  return axios.post(`${BASE_URL}/nursery`, nurseryData);
+function importNurseryData(imported_by, file) {
+  const formData = new FormData();
+  formData.append("imported_by", imported_by);
+  formData.append("file", file);
+  return axios.post(`${BASE_URL}/nursery`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
 function downloadNurseryData(report, filename, fileType) {
