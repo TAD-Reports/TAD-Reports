@@ -10,29 +10,18 @@ function getById(id) {
   return axios.get(`${BASE_URL}/login/getAccount/${id}`);
 }
 
-function getGraphData(date = "", region = "") {
+function searchNursery(region = "", start = "", end = "", search = "") {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       axios
-        .get(`${BASE_URL}/nursery/graph`, {
+        .get(`${BASE_URL}/nursery/data`, {
           params: {
-            date: date,
             region: region,
+            start: start,
+            end: end,
+            search: search,
           },
         })
-        .then((res) => resolve(res.data))
-        .catch((err) => {
-          reject(err);
-        });
-    }, DEFAULT_DELAY);
-  });
-}
-
-function searchNursery(search = "") {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      axios
-        .get(`${BASE_URL}/nursery/search`, { params: { key: search } })
         .then((res) => resolve(res.data))
         .catch((err) => {
           reject(err);
@@ -78,7 +67,6 @@ function downloadNurseryData(report, filename, fileType) {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getById,
-  getGraphData,
   searchNursery,
   importNurseryData,
   downloadNurseryData,

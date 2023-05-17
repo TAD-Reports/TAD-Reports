@@ -11,6 +11,20 @@ import {
 } from "recharts";
 import chroma from "chroma-js";
 
+// const apiData = this.props.monthData;
+// const totalData = this.props.totalData;
+
+// let graphData = [];
+
+// if (datas) {
+//   graphData = datas.map((data) => ({
+//     name: data.funded_by,
+//     NurseriesMaintained: data.count,
+//   }));
+
+//   console.log(graphData);
+// }
+
 let apiData = [
   {
     name: "LGU",
@@ -42,6 +56,22 @@ let apiData = [
       },
     ],
   },
+  {
+    name: "LGU_Total",
+    months: [
+      {
+        jan_2021: 5000.75,
+      },
+    ],
+  },
+  {
+    name: "PhilFIDA_Total",
+    months: [
+      {
+        jan_2021: 5000.25,
+      },
+    ],
+  },
 ];
 
 let keys = Object.keys(apiData[0].months);
@@ -54,6 +84,14 @@ const data = [
   {
     name: apiData[1].name,
     ...apiData[1].months[0],
+  },
+  {
+    name: apiData[2].name,
+    ...apiData[2].months[0],
+  },
+  {
+    name: apiData[3].name,
+    ...apiData[3].months[0],
   },
 ];
 

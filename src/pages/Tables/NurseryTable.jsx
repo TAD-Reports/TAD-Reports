@@ -1,5 +1,6 @@
 import React from "react";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import Moment from "react-moment";
 
@@ -72,7 +73,8 @@ const NurseryTable = ({ nurseryData, loading }) => {
       width: 200,
       // eslint-disable-next-line react/no-unstable-nested-components
       getActions: (params) => [
-        <GridActionsCellItem icon={<VisibilityIcon />} label="View" />,
+        <GridActionsCellItem icon={<EditIcon />} label="View" />,
+        <GridActionsCellItem icon={<DeleteIcon />} label="View" />,
       ],
     },
   ];
