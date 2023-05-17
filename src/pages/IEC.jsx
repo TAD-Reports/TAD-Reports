@@ -1,6 +1,6 @@
 import React from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
-import IECBarGraph from "../components/Charts/IECChart";
+import DistributionOfIECMaterialsBarChart from "../components/Charts/DistributionOfIECMaterialsCharts";
 import {
     Box,
     Button,
@@ -253,16 +253,16 @@ const IEC = () => {
                 <Typography
                     sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}
                 >
-                    IEC Materials Reports (Last 2 months)
+                    Distribution of IEC Materials Reports
                 </Typography>
             </Box>
             <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
-                Distribution of IEC Materials
+                Distribution of IEC Materials (Total No. of Copies Distributed)
             </Typography>
             <Grid container spacing={0} sx={{ pb: 4 }}>
                 <Grid
                     item
-                    xs={6}
+                    xs={12}
                     sx={{
                         display: "flex",
                         flexDirection: "column",
@@ -286,8 +286,7 @@ const IEC = () => {
                         >
                             <Typography
                                 sx={{
-                                    fontWeight: "bold",
-                                    mr: 4,
+                                    mr: 6,
                                 }}
                             >
                                 Filter by:
@@ -303,87 +302,31 @@ const IEC = () => {
                             />
                         </Box>
 
-                        <TextFieldDatePicker
-                            label="Start Date"
-                            value={startDate}
-                            onChange={handleStartDate}
-                            format="MM/DD/YYYY"
-                        />
-                    </Box>
-                    <Typography
-                        sx={{
-                            p: 2,
-                            fontWeight: "bold",
-                            fontSize: "20px",
-                        }}
-                    >
-                        {StartDateDisplay !== "Invalid date"
-                            ? StartDateDisplay
-                            : "Start Date"}
-                    </Typography>
-                    <IECBarGraph />
-                </Grid>
-                <Grid
-                    item
-                    xs={6}
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        p: 2,
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            p: 2,
-                        }}
-                    >
                         <Box
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
+                                width: "25vw",
                             }}
                         >
-                            <Typography
-                                sx={{
-                                    fontWeight: "bold",
-                                    mr: 4,
-                                }}
-                            >
-                                Filter by:
-                            </Typography>
-                            <SelectFilterBy
-                                id="outlined-basic"
-                                name="endFilterBy"
-                                value={endFilterBy}
-                                onChange={(evt) =>
-                                    setFilterByEnd(evt.target.value)
-                                }
-                                sx={{ width: "14vw" }}
+                            <TextFieldDatePicker
+                                label="Start Date"
+                                value={startDate}
+                                onChange={handleStartDate}
+                                format="MM/DD/YYYY"
+                            />
+                            <Typography sx={{ mx: 2 }}>to</Typography>
+                            <TextFieldDatePicker
+                                label="Date"
+                                value={endDate}
+                                onChange={handleEndDate}
+                                format="MM/DD/YYYY"
                             />
                         </Box>
-                        <TextFieldDatePicker
-                            label="End Date"
-                            value={endDate}
-                            onChange={handleEndDate}
-                            format="MM/DD/YYYY"
-                        />
                     </Box>
-                    <Typography
-                        sx={{
-                            p: 2,
-                            fontWeight: "bold",
-                            fontSize: "20px",
-                        }}
-                    >
-                        {EndDateDisplay !== "Invalid date"
-                            ? EndDateDisplay
-                            : "End Date"}
-                    </Typography>
-                    <IECBarGraph />
+                    <Box>
+                        <DistributionOfIECMaterialsBarChart />
+                    </Box>
                 </Grid>
             </Grid>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
-import ExpansionUnderCocoBarGraph from "../components/Charts/ExpansionUnderCocoChart";
+import AbacaExpansionUnderCoconutBarChart from "../components/Charts/AbacaExpansionUnderCoconutChart";
 import {
     Box,
     Button,
@@ -294,7 +294,7 @@ const ExpansionUnderCoconutProj = () => {
                 <Typography
                     sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}
                 >
-                    Expansion Under Coconut Project Reports (Last 2 months)
+                    Expansion Under Coconut Project Reports
                 </Typography>
             </Box>
             <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
@@ -303,7 +303,7 @@ const ExpansionUnderCoconutProj = () => {
             <Grid container spacing={0} sx={{ pb: 4 }}>
                 <Grid
                     item
-                    xs={6}
+                    xs={12}
                     sx={{
                         display: "flex",
                         flexDirection: "column",
@@ -327,8 +327,7 @@ const ExpansionUnderCoconutProj = () => {
                         >
                             <Typography
                                 sx={{
-                                    fontWeight: "bold",
-                                    mr: 4,
+                                    mr: 6,
                                 }}
                             >
                                 Filter by:
@@ -344,90 +343,33 @@ const ExpansionUnderCoconutProj = () => {
                             />
                         </Box>
 
-                        <TextFieldDatePicker
-                            label="Start Date"
-                            value={startDate}
-                            onChange={handleStartDate}
-                            format="MM/DD/YYYY"
-                        />
-                    </Box>
-                    <Typography
-                        sx={{
-                            p: 2,
-                            fontWeight: "bold",
-                            fontSize: "20px",
-                        }}
-                    >
-                        {StartDateDisplay !== "Invalid date"
-                            ? StartDateDisplay
-                            : "Start Date"}
-                    </Typography>
-                    <ExpansionUnderCocoBarGraph />
-                </Grid>
-                <Grid
-                    item
-                    xs={6}
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        p: 2,
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            p: 2,
-                        }}
-                    >
                         <Box
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
+                                width: "25vw",
                             }}
                         >
-                            <Typography
-                                sx={{
-                                    fontWeight: "bold",
-                                    mr: 4,
-                                }}
-                            >
-                                Filter by:
-                            </Typography>
-                            <SelectFilterBy
-                                id="outlined-basic"
-                                name="endFilterBy"
-                                value={endFilterBy}
-                                onChange={(evt) =>
-                                    setFilterByEnd(evt.target.value)
-                                }
-                                sx={{ width: "14vw" }}
+                            <TextFieldDatePicker
+                                label="Start Date"
+                                value={startDate}
+                                onChange={handleStartDate}
+                                format="MM/DD/YYYY"
+                            />
+                            <Typography sx={{ mx: 2 }}>to</Typography>
+                            <TextFieldDatePicker
+                                label="Date"
+                                value={endDate}
+                                onChange={handleEndDate}
+                                format="MM/DD/YYYY"
                             />
                         </Box>
-                        <TextFieldDatePicker
-                            label="End Date"
-                            value={endDate}
-                            onChange={handleEndDate}
-                            format="MM/DD/YYYY"
-                        />
                     </Box>
-                    <Typography
-                        sx={{
-                            p: 2,
-                            fontWeight: "bold",
-                            fontSize: "20px",
-                        }}
-                    >
-                        {EndDateDisplay !== "Invalid date"
-                            ? EndDateDisplay
-                            : "End Date"}
-                    </Typography>
-                    <ExpansionUnderCocoBarGraph />
+                    <Box>
+                        <AbacaExpansionUnderCoconutBarChart />
+                    </Box>
                 </Grid>
             </Grid>
-
             <Divider sx={{ m: 4 }} />
 
             <Grid container>

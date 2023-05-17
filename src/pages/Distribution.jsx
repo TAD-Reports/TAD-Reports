@@ -1,6 +1,6 @@
 import React from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
-import DistributionBarGraph from "../components/Charts/DistributionChart";
+import DistributionOfPMBarChart from "../components/Charts/DistributionOfPMBarChart";
 import {
     Divider,
     Box,
@@ -224,7 +224,8 @@ const Distribution = () => {
         },
         {
             field: "nameOfCooperator",
-            headerName: "Name of Cooperator",
+            headerName:
+                "Complete Name of Cooperator / Organization / Individual",
             width: 200,
         },
         { field: "region", headerName: "Region", width: 200 },
@@ -272,13 +273,13 @@ const Distribution = () => {
         },
         {
             field: "nameOfRecipient",
-            headerName: "Name Of Recipient",
+            headerName: "Complete Name Of Recipient / Beneficiary",
             type: "string",
             width: 200,
         },
         {
             field: "addressOfBeneficiary",
-            headerName: "Address Of Beneficiary",
+            headerName: "Address Of Recipient / Beneficiary",
             type: "string",
             width: 200,
         },
@@ -313,16 +314,17 @@ const Distribution = () => {
                 <Typography
                     sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}
                 >
-                    Distribution of Planting Materials (Last 2 months)
+                    Distribution of Planting Materials
                 </Typography>
             </Box>
             <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
-                Distribution of Planting Materials
+                Distribution of Planting Materials (Total No. Of Planting
+                Materials Distributed)
             </Typography>
             <Grid container spacing={0} sx={{ pb: 4 }}>
                 <Grid
                     item
-                    xs={6}
+                    xs={12}
                     sx={{
                         display: "flex",
                         flexDirection: "column",
@@ -346,8 +348,7 @@ const Distribution = () => {
                         >
                             <Typography
                                 sx={{
-                                    fontWeight: "bold",
-                                    mr: 4,
+                                    mr: 6,
                                 }}
                             >
                                 Filter by:
@@ -363,87 +364,31 @@ const Distribution = () => {
                             />
                         </Box>
 
-                        <TextFieldDatePicker
-                            label="Start Date"
-                            value={startDate}
-                            onChange={handleStartDate}
-                            format="MM/DD/YYYY"
-                        />
-                    </Box>
-                    <Typography
-                        sx={{
-                            p: 2,
-                            fontWeight: "bold",
-                            fontSize: "20px",
-                        }}
-                    >
-                        {StartDateDisplay !== "Invalid date"
-                            ? StartDateDisplay
-                            : "Start Date"}
-                    </Typography>
-                    <DistributionBarGraph />
-                </Grid>
-                <Grid
-                    item
-                    xs={6}
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        p: 2,
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            p: 2,
-                        }}
-                    >
                         <Box
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
+                                width: "25vw",
                             }}
                         >
-                            <Typography
-                                sx={{
-                                    fontWeight: "bold",
-                                    mr: 4,
-                                }}
-                            >
-                                Filter by:
-                            </Typography>
-                            <SelectFilterBy
-                                id="outlined-basic"
-                                name="endFilterBy"
-                                value={endFilterBy}
-                                onChange={(evt) =>
-                                    setFilterByEnd(evt.target.value)
-                                }
-                                sx={{ width: "14vw" }}
+                            <TextFieldDatePicker
+                                label="Start Date"
+                                value={startDate}
+                                onChange={handleStartDate}
+                                format="MM/DD/YYYY"
+                            />
+                            <Typography sx={{ mx: 2 }}>to</Typography>
+                            <TextFieldDatePicker
+                                label="Date"
+                                value={endDate}
+                                onChange={handleEndDate}
+                                format="MM/DD/YYYY"
                             />
                         </Box>
-                        <TextFieldDatePicker
-                            label="End Date"
-                            value={endDate}
-                            onChange={handleEndDate}
-                            format="MM/DD/YYYY"
-                        />
                     </Box>
-                    <Typography
-                        sx={{
-                            p: 2,
-                            fontWeight: "bold",
-                            fontSize: "20px",
-                        }}
-                    >
-                        {EndDateDisplay !== "Invalid date"
-                            ? EndDateDisplay
-                            : "End Date"}
-                    </Typography>
-                    <DistributionBarGraph />
+                    <Box>
+                        <DistributionOfPMBarChart />
+                    </Box>
                 </Grid>
             </Grid>
 
