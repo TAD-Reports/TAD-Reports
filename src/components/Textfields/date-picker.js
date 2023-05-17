@@ -21,10 +21,15 @@ export default function TextFieldDatePicker({
           onChange?.(newValue);
         }}
         renderInput={(params) => (
-          <TextField {...params} {...txprops} error={false} fullWidth />
+          <TextField
+            size="small"
+            {...params}
+            {...txprops}
+            error={false}
+            fullWidth
+          />
         )}
         {...rest}
-        size="small"
       />
     </LocalizationProvider>
   );

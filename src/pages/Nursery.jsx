@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
-import BarGraph from "../components/Charts/BarChart";
 import {
   Box,
   Divider,
@@ -18,6 +17,7 @@ import nurseryService from "../services/nursery-service";
 import NurseryTable from "./Tables/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
+import BarChart from "../components/Charts/NurseryBarChart.jsx";
 
 const Nursery = () => {
   const [startDate, setStartDate] = useState("");
@@ -25,13 +25,11 @@ const Nursery = () => {
   const [startFilterBy, setFilterByStart] = useState("");
 
   const [nurseryData, setNurseryData] = useState([]);
-  const [startGraphData, setGraphDataStart] = useState();
-  const [endGraphData, setGraphDataEnd] = useState();
   const [search, setSearch] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [graphError, setGraphError] = useState("");
+  // const [graphError, setGraphError] = useState("");
 
   const handleSearch = () => {
     setLoading(true);
@@ -46,7 +44,7 @@ const Nursery = () => {
       .finally(() => {
         setLoading(false);
       });
-  }; 
+  };
 
   React.useEffect(() => {
     handleSearch();
@@ -162,11 +160,12 @@ const Nursery = () => {
             </Box>
           </Box>
           <Box>
-            <BarGraph data={endGraphData} />
+            <BarChart />
           </Box>
         </Grid>
       </Grid>
-      {graphError}
+
+      {/* {graphError} */}
       <Divider sx={{ m: 4 }} />
 
       <Grid container>

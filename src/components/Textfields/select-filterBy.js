@@ -7,7 +7,7 @@ import Select from "@mui/material/Select";
 export default function SelectFilterBy(props) {
   return (
     <Box>
-      <FormControl fullWidth>
+      <FormControl size="small" fullWidth>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"

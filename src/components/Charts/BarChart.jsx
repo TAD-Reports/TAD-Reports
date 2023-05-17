@@ -55,7 +55,7 @@ export default class BarGraph extends PureComponent {
           <Tooltip />
           <Legend />
           {/* <Bar dataKey="pv" fill="#82ca9d" background={{ fill: "#eee" }} /> */}
-          <Bar dataKey="NurseriesMaintained" fill="#76a66e" />
+          <Bar dataKey="NurseriesMaintained" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
     );
