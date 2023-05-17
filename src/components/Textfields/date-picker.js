@@ -13,7 +13,7 @@ export default function TextFieldDatePicker({
   ...rest
 }) {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ height: "10px" }}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         label={label}
         value={value}
@@ -21,14 +21,14 @@ export default function TextFieldDatePicker({
           onChange?.(newValue);
         }}
         renderInput={(params) => (
-          <TextField
-            size="small"
-            {...params}
-            {...txprops}
-            error={false}
-            fullWidth
-          />
+          <TextField {...params} {...txprops} error={false} fullWidth />
         )}
+        slotProps={{
+          textField: {
+            size: "small",
+            error: false,
+          },
+        }}
         {...rest}
       />
     </LocalizationProvider>

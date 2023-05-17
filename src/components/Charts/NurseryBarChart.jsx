@@ -58,7 +58,7 @@ const data = [
 ];
 
 const colors = chroma
-  .scale(["#e393cf", "#6ee5ae", "#8fe577"])
+  .scale(["#e393cf", "#1ba742"])
   .mode("hsl")
   .colors(keys.length);
 
@@ -66,7 +66,7 @@ let barkeys = keys.map((key, index) => (
   <Bar key={key} dataKey={key} stackId="a" fill={colors[index]} />
 ));
 
-export default class MixBarChart extends PureComponent {
+export default class NurseryBarChart extends PureComponent {
   render() {
     return (
       <ResponsiveContainer width="100%" height={400}>
