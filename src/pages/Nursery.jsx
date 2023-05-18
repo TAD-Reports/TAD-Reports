@@ -31,22 +31,13 @@ const Nursery = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // const [graphError, setGraphError] = useState("");
-
-  function formatArea(areaKey) {
-    const formattedArea = areaKey
-      .replace(/`/g, "")
-      .replace("(", "")
-      .replace(")", "");
-    return formattedArea;
-  }
+  const [buttonError, setButtonError] = useState("");
 
   const handleSearch = () => {
     setLoading(true);
     nurseryService
       .searchNursery(region, startDate, endDate, search)
       .then((e) => {
-        console.log(e);
         setGraphData(e.monthGraph);
         setTotalGraph(e.totalGraph);
         setNurseryData(e.table);
@@ -62,13 +53,13 @@ const Nursery = () => {
   React.useEffect(() => {
     handleSearch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [region, startDate, endDate]);
 
   const handleRenderData = (e) => {
-    if (e) {
+    if (e[0]) {
       handleSearch();
-      // setLoading(e[1]);
-      // setError(e[2]);
+      setLoading(e[1]);
+      setButtonError(e[2]);
     }
   };
 
@@ -177,7 +168,6 @@ const Nursery = () => {
         </Grid>
       </Grid>
 
-      {/* {graphError} */}
       <Divider sx={{ m: 4 }} />
 
       <Grid container>
@@ -213,6 +203,7 @@ const Nursery = () => {
         <NurseryTable nurseryData={nurseryData} loading={loading} />
       </div>
       {error}
+      {buttonError}
       <Box sx={{ display: "flex", alignItems: "end", px: 2, mt: 10 }}>
         <ImportDataButton renderData={handleRenderData} />
         <DownloadDataButton />

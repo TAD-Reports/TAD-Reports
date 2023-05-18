@@ -16,7 +16,7 @@ export default function SelectFilterBy(props) {
           label="Select Region"
           {...props}
         >
-          <MenuItem value="All">All</MenuItem>
+          <MenuItem value="">All</MenuItem>
           <MenuItem value="Regional Office 1">Region 1</MenuItem>
           <MenuItem value="Regional Office 3">Region 3</MenuItem>
           <MenuItem value="Regional Office 4">Region 4</MenuItem>

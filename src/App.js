@@ -21,11 +21,13 @@ import {
   Training,
 } from "./pages";
 
-import { useStateContext } from "./contexts/ContextProvider";
+// import { useStateContext } from "./contexts/ContextProvider";
 import Login from "./pages/Auth";
 
 const App = () => {
-  const { auth } = useStateContext();
+  // const { auth } = useStateContext();
+
+  const auth = true;
 
   return (
     <Box>
@@ -68,6 +70,7 @@ const App = () => {
                 "@media screen and (prefers-color-scheme: dark)": {
                   backgroundColor: "secondary-dark-bg",
                 },
+                zIndex: 1000,
               }}
             >
               <Sidebar />

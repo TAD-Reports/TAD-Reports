@@ -11,101 +11,85 @@ import {
 } from "recharts";
 import chroma from "chroma-js";
 
-// const apiData = this.props.monthData;
-// const totalData = this.props.totalData;
-
-// let graphData = [];
-
-// if (datas) {
-//   graphData = datas.map((data) => ({
-//     name: data.funded_by,
-//     NurseriesMaintained: data.count,
-//   }));
-
-//   console.log(graphData);
-// }
-
-let apiData = [
-  {
-    name: "LGU",
-    months: {
-      jan_2021: 1000,
-      feb_2021: 2000,
-      mar_2021: 4500,
-      jan_2022: 3000,
-      feb_2022: 5000,
-      mar_2022: 7500,
-      jan_2023: 40000,
-      feb_2023: 3000,
-      mar_2023: 1500,
-    },
-  },
-  {
-    name: "PhilFIDA",
-    months: [
-      {
-        jan_2021: 2000,
-        feb_2021: 2000,
-        mar_2021: 2500,
-        jan_2022: 2000,
-        feb_2022: 2000,
-        mar_2022: 2500,
-        jan_2023: 4000,
-        feb_2023: 4000,
-        mar_2023: 4500,
-      },
-    ],
-  },
-  {
-    name: "LGU_Total",
-    months: [
-      {
-        jan_2021: 5000.75,
-      },
-    ],
-  },
-  {
-    name: "PhilFIDA_Total",
-    months: [
-      {
-        jan_2021: 5000.25,
-      },
-    ],
-  },
-];
-
-let keys = Object.keys(apiData[0].months);
-
-const data = [
-  {
-    name: apiData[0].name,
-    ...apiData[0].months,
-  },
-  {
-    name: apiData[1].name,
-    ...apiData[1].months[0],
-  },
-  {
-    name: apiData[2].name,
-    ...apiData[2].months[0],
-  },
-  {
-    name: apiData[3].name,
-    ...apiData[3].months[0],
-  },
-];
-
-const colors = chroma
-  .scale(["#e393cf", "#1ba742"])
-  .mode("hsl")
-  .colors(keys.length);
-
-let barkeys = keys.map((key, index) => (
-  <Bar key={key} dataKey={key} stackId="a" fill={colors[index]} />
-));
-
 export default class NurseryBarChart extends PureComponent {
   render() {
+    const apiData = this.props.monthData;
+    const totalData = this.props.totalData;
+
+    console.log(apiData);
+    console.log(totalData);
+
+    if (!apiData || !totalData) {
+      // Handle the case when apiData or totalData is undefined or null
+      return null; // or display an error message
+    }
+
+    let data = [];
+    let keys = [];
+    let barkeys = [];
+
+    if (apiData.length < 2) {
+      const firstApiData = apiData[0] || {};
+      const firstApiDataMonths = firstApiData.months || {};
+      data = [
+        {
+          name: firstApiData.name,
+          ...firstApiDataMonths,
+        },
+        {
+          name: totalData[0]?.name + " Total",
+          Total: totalData[0]?.total,
+        },
+      ];
+      keys = Object.keys(firstApiDataMonths);
+      const colors = chroma
+        .scale(["#7ca1d4", "#1ba742"])
+        .mode("hsl")
+        .colors(keys.length);
+
+      barkeys = keys.map((key, index) => (
+        <Bar key={key} dataKey={key} stackId="a" fill={colors[index]} />
+      ));
+    } else {
+      const firstApiData = apiData[0] || {};
+      const firstApiDataMonths = firstApiData.months || {};
+      const secondApiData = apiData[1] || {};
+      const secondApiDataMonths = secondApiData.months || {};
+      data = [
+        {
+          name: firstApiData.name,
+          ...firstApiDataMonths,
+        },
+        {
+          name: secondApiData.name,
+          ...secondApiDataMonths,
+        },
+        {
+          name: totalData[0]?.name + " Total",
+          Total: totalData[0]?.total,
+        },
+        {
+          name: totalData[1]?.name + " Total",
+          Total: totalData[1]?.total,
+        },
+      ];
+      keys = [
+        ...new Set([
+          ...Object.keys(firstApiDataMonths),
+          ...Object.keys(secondApiDataMonths),
+        ]),
+      ];
+
+      const colors = chroma
+        .scale(["#7ca1d4", "#1ba742"])
+        .mode("hsl")
+        .colors(keys.length);
+
+      barkeys = keys.map((key, index) => (
+        <Bar key={key} dataKey={key} stackId="a" fill={colors[index]} />
+      ));
+    }
+
     return (
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
@@ -125,6 +109,7 @@ export default class NurseryBarChart extends PureComponent {
           <Tooltip />
           <Legend />
           {barkeys}
+          <Bar dataKey="Total" stackId="a" fill="#0ed145" />
         </BarChart>
       </ResponsiveContainer>
     );

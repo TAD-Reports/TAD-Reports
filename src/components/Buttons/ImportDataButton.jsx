@@ -13,7 +13,7 @@ const ImportDataButton = ({ renderData }) => {
     const file = e.target.files[0];
 
     if (!file) {
-      renderData(file);
+      renderData([file, loading, error]);
     } else {
       setFileName(file.name);
       setLoading(true);
@@ -21,7 +21,7 @@ const ImportDataButton = ({ renderData }) => {
       nurseryService
         .importNurseryData(1, file)
         .then(() => {
-          renderData(file);
+          renderData([file, loading, error]);
         })
         .catch((error) => {
           setError(error.response.data.message);
