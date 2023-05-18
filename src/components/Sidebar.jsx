@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-import Avatar from "../data/avatarFemale.png";
+import Avatar from "../data/avatarMale.jpg";
 
 import { links } from "./SidebarLinks";
 import { Box, Button, Typography } from "@mui/material";

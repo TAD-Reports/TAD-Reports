@@ -18,6 +18,7 @@ import NurseryTable from "./Tables/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import BarChart from "../components/Charts/NurseryBarChart.jsx";
+import dayjs from "dayjs";
 
 const Nursery = () => {
   const [startDate, setStartDate] = useState("");
@@ -63,28 +64,25 @@ const Nursery = () => {
     }
   };
 
-  const validateDateRange = (start, end) => {
-    if (start && end) {
-      if (new Date(start) >= new Date(end)) {
-        alert("Start date can't be equal or later than the End date.");
-        setStartDate(null);
-        setEndDate(null);
-      }
+  const validateDateRange = (startDate, endDate) => {
+    const start = dayjs(startDate, "YYYY/MM/DD");
+    const end = dayjs(endDate, "YYYY/MM/DD");
+
+    if (start.isAfter(end)) {
+      alert("Start date cannot be after end date");
+      setStartDate(null);
+      setEndDate(null);
     }
   };
 
   const handleStartDate = (evt) => {
-    const month = String(evt.$M + 1).padStart(2, "0");
-    const day = String(evt.$D).padStart(2, "0");
-    const date = `${evt.$y}/${month}/${day}`;
+    const date = dayjs(evt).format("YYYY/MM/DD");
     setStartDate(date);
     validateDateRange(date, endDate);
   };
 
   const handleEndDate = (evt) => {
-    const month = String(evt.$M + 1).padStart(2, "0");
-    const day = String(evt.$D).padStart(2, "0");
-    const date = `${evt.$y}/${month}/${day}`;
+    const date = dayjs(evt).format("YYYY/MM/DD");
     setEndDate(date);
     validateDateRange(startDate, date);
   };

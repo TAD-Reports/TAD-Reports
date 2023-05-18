@@ -105,7 +105,7 @@ const App = () => {
               </Box>
 
               <Box
-                sx={{ display: "flex", justifyContent: "center", mt: "130px" }}
+                sx={{ display: "flex", justifyContent: "center", mt: "150px" }}
               >
                 <Routes>
                   {/* Dashboard */}
