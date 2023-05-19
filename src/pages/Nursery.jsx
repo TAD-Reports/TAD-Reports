@@ -225,7 +225,7 @@ const Nursery = () => {
           importFunction={handleFile}
           clearFileName={clearFileName}
         />
-        <DownloadDataButton />
+        <DownloadDataButton data={nurseryData} />
       </Box>
       {error}
       {buttonError}

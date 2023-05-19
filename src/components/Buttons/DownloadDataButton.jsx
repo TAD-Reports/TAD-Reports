@@ -2,7 +2,8 @@ import React from "react";
 import { Button } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 
-const DownloadDataButton = () => {
+const DownloadDataButton = ({ data }) => {
+  console.log(data);
   // DITO NILALAGAY ANG MGA FUNCTIONS AND CONST
 
   // const function = () => {
