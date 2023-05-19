@@ -1,23 +1,36 @@
 import React from "react";
 import { Button } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
+import * as XLSX from "xlsx";
 
 const DownloadDataButton = ({ data }) => {
-  console.log(data);
-  // DITO NILALAGAY ANG MGA FUNCTIONS AND CONST
+  const handleDownload = () => {
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(data);
 
-  // const function = () => {
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
 
-  // };
-
-  // function functionmo() {
-
-  // }
+    const blob = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    const filename = "data.xlsx";
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      // For IE browser
+      window.navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+      // For other browsers
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    }
+  };
 
   return (
     <Button
       variant="contained"
-      // onClick={function}
+      onClick={handleDownload}
       sx={{
         height: 50,
         width: 200,
