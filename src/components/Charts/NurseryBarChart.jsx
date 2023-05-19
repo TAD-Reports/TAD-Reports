@@ -39,7 +39,7 @@ export default class NurseryBarChart extends PureComponent {
         },
         {
           name: firstApiData.name === "LGU" ? "PhilFIDA" : "LGU",
-          none: 0,
+          _: 0,
         },
         {
           name: totalData[0]?.name + " Total",
@@ -128,7 +128,7 @@ export default class NurseryBarChart extends PureComponent {
           <Tooltip />
           <Legend />
           {barkeys}
-          <Bar dataKey="none" stackId="a" fill="green" />
+          <Bar dataKey="_" stackId="a" fill="white" />
           <Bar dataKey="Total" stackId="a" fill="#9195cb" />
         </BarChart>
       </ResponsiveContainer>

@@ -2,8 +2,6 @@
 import axios from "axios";
 // import API_URL from "env";
 
-const DEFAULT_DELAY = 1000;
-
 const BASE_URL = "http://localhost:9000";
 
 function getById(id) {
@@ -12,21 +10,19 @@ function getById(id) {
 
 function searchNursery(region = "", start = "", end = "", search = "") {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      axios
-        .get(`${BASE_URL}/nursery/data`, {
-          params: {
-            region: region,
-            start: start,
-            end: end,
-            search: search,
-          },
-        })
-        .then((res) => resolve(res.data))
-        .catch((err) => {
-          reject(err);
-        });
-    }, DEFAULT_DELAY);
+    axios
+      .get(`${BASE_URL}/nursery/data`, {
+        params: {
+          region: region,
+          start: start,
+          end: end,
+          search: search,
+        },
+      })
+      .then((res) => resolve(res.data))
+      .catch((err) => {
+        reject(err);
+      });
   });
 }
 
