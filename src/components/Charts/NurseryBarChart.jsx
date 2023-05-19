@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import chroma from "chroma-js";
+import randomColor from "randomcolor";
 
 export default class NurseryBarChart extends PureComponent {
   render() {
@@ -37,18 +38,31 @@ export default class NurseryBarChart extends PureComponent {
           ...firstApiDataMonths,
         },
         {
+          name: firstApiData.name === "LGU" ? "PhilFIDA" : "LGU",
+          none: 0,
+        },
+        {
           name: totalData[0]?.name + " Total",
           Total: totalData[0]?.total,
         },
+        {
+          name: totalData[0]?.name === "LGU" ? "PhilFIDA Total" : "LGU Total",
+          Total: 0,
+        },
       ];
       keys = Object.keys(firstApiDataMonths);
-      const colors = chroma
-        .scale(["#7ca1d4", "#1ba742"])
-        .mode("hsl")
-        .colors(keys.length);
+      const colors = randomColor({
+        count: keys.length,
+        format: "hslArray",
+      });
 
       barkeys = keys.map((key, index) => (
-        <Bar key={key} dataKey={key} stackId="a" fill={colors[index]} />
+        <Bar
+          key={key}
+          dataKey={key}
+          stackId="a"
+          fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+        />
       ));
     } else {
       const firstApiData = apiData[0] || {};
@@ -80,13 +94,18 @@ export default class NurseryBarChart extends PureComponent {
         ]),
       ];
 
-      const colors = chroma
-        .scale(["#7ca1d4", "#1ba742"])
-        .mode("hsl")
-        .colors(keys.length);
+      const colors = randomColor({
+        count: keys.length,
+        format: "hslArray",
+      });
 
       barkeys = keys.map((key, index) => (
-        <Bar key={key} dataKey={key} stackId="a" fill={colors[index]} />
+        <Bar
+          key={key}
+          dataKey={key}
+          stackId="a"
+          fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+        />
       ));
     }
 
@@ -109,7 +128,8 @@ export default class NurseryBarChart extends PureComponent {
           <Tooltip />
           <Legend />
           {barkeys}
-          <Bar dataKey="Total" stackId="a" fill="#0ed145" />
+          <Bar dataKey="none" stackId="a" fill="green" />
+          <Bar dataKey="Total" stackId="a" fill="#9195cb" />
         </BarChart>
       </ResponsiveContainer>
     );

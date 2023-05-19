@@ -34,6 +34,8 @@ const Nursery = () => {
   const [error, setError] = useState("");
   const [buttonError, setButtonError] = useState("");
 
+  const [fileName, setFileName] = useState("");
+
   const handleSearch = () => {
     setLoading(true);
     nurseryService
@@ -55,14 +57,6 @@ const Nursery = () => {
     handleSearch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [region, startDate, endDate]);
-
-  const handleRenderData = (e) => {
-    if (e[0]) {
-      handleSearch();
-      setLoading(e[1]);
-      setButtonError(e[2]);
-    }
-  };
 
   const validateDateRange = (startDate, endDate) => {
     const start = dayjs(startDate, "YYYY/MM/DD");
@@ -87,6 +81,33 @@ const Nursery = () => {
     validateDateRange(startDate, date);
   };
 
+  function handleFile(e) {
+    const file = e.target.files[0];
+
+    if (!file) {
+      return null;
+    } else {
+      setFileName(file.name);
+      setLoading(true);
+      nurseryService
+        .importNurseryData(1, file)
+        .then((e) => {
+          alert(e.data.message);
+          handleSearch();
+        })
+        .catch((error) => {
+          setButtonError(error.response.data.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }
+
+  const clearFileName = () => {
+    setFileName("");
+  };
+
   return (
     <PageContainer>
       <Box sx={{ display: "flex", alignItems: "center", py: 3 }}>
@@ -95,10 +116,30 @@ const Nursery = () => {
           Nursery Reports
         </Typography>
       </Box>
-      <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
-        NURSERIES MAINTAINED
-      </Typography>
-      <Grid container spacing={0} sx={{ pb: 4 }}>
+      <Grid container spacing={0}>
+        <Grid item xs={6}>
+          <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
+            NURSERIES MAINTAINED
+          </Typography>
+        </Grid>
+        <Grid item xs={6} sx={{ textAlign: "right", py: 2 }}>
+          <TextField
+            label="Search"
+            size="small"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <IconButton onClick={handleSearch}>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            sx={{ my: 1, mx: 1 }}
+            onChange={(evt) => setSearch(evt.target.value)}
+            value={search}
+          />
+        </Grid>
         <Grid
           item
           xs={12}
@@ -161,51 +202,33 @@ const Nursery = () => {
             </Box>
           </Box>
           <Box>
-            <BarChart monthData={graphData} totalData={totalGraphData} />
+            <NurseryTable nurseryData={nurseryData} loading={loading} />
           </Box>
         </Grid>
       </Grid>
+      <Divider sx={{ my: 8 }} />
 
-      <Divider sx={{ m: 4 }} />
-
-      <Grid container>
-        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
-          <Typography
-            variant="label"
-            component="label"
-            sx={{ ml: 1, fontWeight: "bold", fontSize: "25px" }}
-          >
-            NURSERIES MAINTAINED DATA
-          </Typography>
-        </Grid>
-        <Grid item xs={6} sx={{ textAlign: "right", py: 2 }}>
-          <TextField
-            label="Search"
-            size="small"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment>
-                  <IconButton onClick={handleSearch}>
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{ my: 1, mx: 1 }}
-            onChange={(evt) => setSearch(evt.target.value)}
-            value={search}
-          />
-        </Grid>
-      </Grid>
-      <div>
-        <NurseryTable nurseryData={nurseryData} loading={loading} />
-      </div>
-      {error}
-      {buttonError}
-      <Box sx={{ display: "flex", alignItems: "end", px: 2, mt: 10 }}>
-        <ImportDataButton renderData={handleRenderData} />
+      <Box sx={{ my: 10 }}>
+        <BarChart monthData={graphData} totalData={totalGraphData} />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "end",
+          px: 2,
+          my: 4,
+        }}
+      >
+        <ImportDataButton
+          fileName={fileName}
+          importFunction={handleFile}
+          clearFileName={clearFileName}
+        />
         <DownloadDataButton />
       </Box>
+      {error}
+      {buttonError}
     </PageContainer>
   );
 };
