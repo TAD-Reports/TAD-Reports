@@ -3,8 +3,13 @@ import { Button } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 import * as XLSX from "xlsx";
 
-const DownloadDataButton = ({ data }) => {
+const DownloadDataButton = ({ data, moduleName }) => {
   const handleDownload = () => {
+    if (!data || data.length === 0) {
+      console.log("No data available to export.");
+      return;
+    }
+
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(data);
 
@@ -12,7 +17,7 @@ const DownloadDataButton = ({ data }) => {
     const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
 
     const blob = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-    const filename = "data.xlsx";
+    const filename = `${moduleName}${data[0].report_date}.xlsx`;
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
       // For IE browser
       window.navigator.msSaveOrOpenBlob(blob, filename);
