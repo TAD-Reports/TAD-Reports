@@ -117,7 +117,14 @@ const Nursery = () => {
         </Typography>
       </Box>
       <Grid container spacing={0}>
-        <Grid item xs={6}>
+        <Grid
+          item
+          xs={6}
+          sx={{
+            display: "flex",
+            textAlign: "center",
+          }}
+        >
           <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
             NURSERIES MAINTAINED
           </Typography>
@@ -206,9 +213,15 @@ const Nursery = () => {
           </Box>
         </Grid>
       </Grid>
-      <Divider sx={{ my: 8 }} />
+      <Divider sx={{ my: 4 }} />
 
-      <Box sx={{ my: 10 }}>
+      <Box>
+        <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
+          Graphical Representation of Nurseries Maintained
+        </Typography>
+      </Box>
+
+      <Box sx={{ mt: 5, mb: 10 }}>
         <BarChart monthData={graphData} totalData={totalGraphData} />
       </Box>
       <Box

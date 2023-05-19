@@ -5,7 +5,7 @@ import axios from "axios";
 const BASE_URL = "http://localhost:9000";
 
 function getById(id) {
-  return axios.get(`${BASE_URL}/login/getAccount/${id}`);
+  return axios.get(`${BASE_URL}/nursery/get/${id}`);
 }
 
 function searchNursery(region = "", start = "", end = "", search = "") {
@@ -24,6 +24,14 @@ function searchNursery(region = "", start = "", end = "", search = "") {
         reject(err);
       });
   });
+}
+
+function deleteNursery(id) {
+  return axios.get(`${BASE_URL}/nursery/delete/${id}`);
+}
+
+function updateNursery(id, nursery) {
+  return axios.get(`${BASE_URL}/nursery/update/${id}`, nursery);
 }
 
 function importNurseryData(imported_by, file) {
@@ -64,6 +72,8 @@ function downloadNurseryData(report, filename, fileType) {
 export default {
   getById,
   searchNursery,
+  deleteNursery,
+  updateNursery,
   importNurseryData,
   downloadNurseryData,
 };
