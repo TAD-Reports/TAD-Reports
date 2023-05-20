@@ -113,7 +113,7 @@ const Nursery = () => {
       <Box sx={{ display: "flex", alignItems: "center", py: 0 }}>
         <GrassIcon style={{ fontSize: "80px" }} />
         <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
-          NURSERIES MAINTAINED
+          NURSERY REPORTS 
         </Typography>
       </Box>
       <Grid container spacing={0}>
@@ -209,19 +209,19 @@ const Nursery = () => {
               />
             </Box>
           </Box>
+          
+
+          <Box>
+            <Typography sx={{ fontWeight: "bold", fontSize: "20px", pt: 0 }}>
+              Nurseries Maintained (Area in Hectares)
+            </Typography>
+          </Box>
           <Box sx={{mb: 1 }}>
             <BarChart monthData={graphData} totalData={totalGraphData} />
           </Box>
           
         </Grid>
       </Grid>
-      {/* <Divider sx={{ my: 4 }} /> */}
-
-      {/* <Box>
-        <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
-          Graphical Representation of Nurseries Maintained
-        </Typography>
-      </Box> */}
       <Box>
         <NurseryTable nurseryData={nurseryData} loading={loading} />
       </Box>
