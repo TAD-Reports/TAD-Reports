@@ -29,26 +29,29 @@ export default class NurseryBarChart extends PureComponent {
     let keys = [];
     let barkeys = [];
 
+    // return condition1 ? value1
+    //   : condition2 ? value2
+    //     : condition3 ? value3
+    //       : value4;
+
     if (apiData.length < 2) {
       const firstApiData = apiData[0] || {};
       const firstApiDataMonths = firstApiData.months || {};
+      const formattedTotalData = totalData.slice(0, 2).map((item) => ({
+        name: item.name + " Total",
+        Total: item.total || 0,
+      }));
+      console.log(firstApiData.name);
       data = [
         {
           name: firstApiData.name,
           ...firstApiDataMonths,
         },
         {
-          name: firstApiData.name === "LGU" ? "PhilFIDA" : "LGU",
+          name: firstApiData.name === "LGU" ? "PhilFIDA" : undefined ? "" : "",
           _: 0,
         },
-        {
-          name: totalData[0]?.name + " Total",
-          Total: totalData[0]?.total,
-        },
-        {
-          name: totalData[0]?.name === "LGU" ? "PhilFIDA Total" : "LGU Total",
-          Total: 0,
-        },
+        ...formattedTotalData,
       ];
       keys = Object.keys(firstApiDataMonths);
       const colors = randomColor({
@@ -69,6 +72,10 @@ export default class NurseryBarChart extends PureComponent {
       const firstApiDataMonths = firstApiData.months || {};
       const secondApiData = apiData[1] || {};
       const secondApiDataMonths = secondApiData.months || {};
+      const formattedTotalData = totalData.slice(0, 2).map((item) => ({
+        name: item.name + " Total",
+        Total: item.total || 0,
+      }));
       data = [
         {
           name: firstApiData.name,
@@ -78,14 +85,7 @@ export default class NurseryBarChart extends PureComponent {
           name: secondApiData.name,
           ...secondApiDataMonths,
         },
-        {
-          name: totalData[0]?.name + " Total",
-          Total: totalData[0]?.total,
-        },
-        {
-          name: totalData[1]?.name + " Total",
-          Total: totalData[1]?.total,
-        },
+        ...formattedTotalData,
       ];
       keys = [
         ...new Set([
@@ -110,10 +110,10 @@ export default class NurseryBarChart extends PureComponent {
     }
 
     return (
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={300}>
         <BarChart
           width={500}
-          height={300}
+          height={100}
           data={data}
           margin={{
             top: 20,
@@ -128,7 +128,6 @@ export default class NurseryBarChart extends PureComponent {
           <Tooltip />
           <Legend />
           {barkeys}
-          <Bar dataKey="_" stackId="a" fill="white" />
           <Bar dataKey="Total" stackId="a" fill="#9195cb" />
         </BarChart>
       </ResponsiveContainer>
