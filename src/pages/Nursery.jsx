@@ -110,14 +110,14 @@ const Nursery = () => {
 
   return (
     <PageContainer>
-      <Box sx={{ display: "flex", alignItems: "center", py: 3 }}>
+      <Box sx={{ display: "flex", alignItems: "center", py: 0 }}>
         <GrassIcon style={{ fontSize: "80px" }} />
         <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
-          Nursery Reports
+          NURSERIES MAINTAINED
         </Typography>
       </Box>
       <Grid container spacing={0}>
-        <Grid
+        {/* <Grid
           item
           xs={6}
           sx={{
@@ -128,25 +128,8 @@ const Nursery = () => {
           <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
             NURSERIES MAINTAINED
           </Typography>
-        </Grid>
-        <Grid item xs={6} sx={{ textAlign: "right", py: 2 }}>
-          <TextField
-            label="Search"
-            size="small"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment>
-                  <IconButton onClick={handleSearch}>
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{ my: 1, mx: 1 }}
-            onChange={(evt) => setSearch(evt.target.value)}
-            value={search}
-          />
-        </Grid>
+        </Grid> */}
+        
         <Grid
           item
           xs={12}
@@ -189,7 +172,7 @@ const Nursery = () => {
             <Box
               sx={{
                 display: "flex",
-                alignItems: "center",
+                marginRight: "18vw",
                 width: "25vw",
               }}
             >
@@ -207,23 +190,42 @@ const Nursery = () => {
                 format="MM/DD/YYYY"
               />
             </Box>
+            <Box item xs={6} sx={{ textAlign: "right", py: 2 }}>
+              <TextField
+                label="Search"
+                size="small"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton onClick={handleSearch}>
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ my: 1, mx: 1 }}
+                onChange={(evt) => setSearch(evt.target.value)}
+                value={search}
+              />
+            </Box>
           </Box>
-          <Box>
-            <NurseryTable nurseryData={nurseryData} loading={loading} />
+          <Box sx={{mb: 1 }}>
+            <BarChart monthData={graphData} totalData={totalGraphData} />
           </Box>
+          
         </Grid>
       </Grid>
-      <Divider sx={{ my: 4 }} />
+      {/* <Divider sx={{ my: 4 }} /> */}
 
-      <Box>
+      {/* <Box>
         <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
           Graphical Representation of Nurseries Maintained
         </Typography>
+      </Box> */}
+      <Box>
+        <NurseryTable nurseryData={nurseryData} loading={loading} />
       </Box>
 
-      <Box sx={{ mt: 5, mb: 10 }}>
-        <BarChart monthData={graphData} totalData={totalGraphData} />
-      </Box>
       <Box
         sx={{
           display: "flex",
