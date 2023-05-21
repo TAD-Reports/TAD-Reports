@@ -9,7 +9,7 @@ const DownloadDataButton = ({ data, moduleName }) => {
       console.log("No data available to export.");
       return;
     }
-
+    
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(data);
 
@@ -54,3 +54,4 @@ const DownloadDataButton = ({ data, moduleName }) => {
 };
 
 export default DownloadDataButton;
+
