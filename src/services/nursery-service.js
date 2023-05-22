@@ -68,6 +68,28 @@ function downloadNurseryData(report, filename, fileType) {
   });
 }
 
+function downloadNurseryTemplate(fileName) {
+  return axios
+    .get(`${BASE_URL}/download/${fileName}`, {
+      responseType: "arraybuffer",
+    })
+    .then((response) => {
+      const blob = new Blob([response.data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link); // Clean up by removing the link element
+      window.URL.revokeObjectURL(url); // Clean up by revoking the temporary URL
+    })
+    .catch((error) => {
+      console.error("Error occurred while downloading template:", error);
+    });
+}
+
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getById,
@@ -76,4 +98,5 @@ export default {
   updateNursery,
   importNurseryData,
   downloadNurseryData,
+  downloadNurseryTemplate,
 };

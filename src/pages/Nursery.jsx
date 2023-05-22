@@ -17,6 +17,7 @@ import nurseryService from "../services/nursery-service";
 import NurseryTable from "./Tables/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
+import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
 import BarChart from "../components/Charts/NurseryBarChart.jsx";
 import dayjs from "dayjs";
 
@@ -110,12 +111,21 @@ const Nursery = () => {
 
   return (
     <PageContainer>
-      <Box sx={{ display: "flex", alignItems: "center", py: 0 }}>
-        <GrassIcon style={{ fontSize: "80px" }} />
-        <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
-          NURSERY REPORTS 
-        </Typography>
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 0 }}>
+          <GrassIcon style={{ fontSize: "80px" }} />
+          <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
+            NURSERY REPORTS
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={6}
+          sx={{ display: "flex", alignItems: "center", justifyContent: "right", pr: 0 }}
+        >
+          <DownloadTemplateButton templateName="Nursery_Template" />
+        </Grid>
+      </Grid>
       <Grid container spacing={0}>
         {/* <Grid
           item
@@ -129,7 +139,7 @@ const Nursery = () => {
             NURSERIES MAINTAINED
           </Typography>
         </Grid> */}
-        
+
         <Grid
           item
           xs={12}
@@ -203,23 +213,21 @@ const Nursery = () => {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ my: 1, mx: 1 }}
+                sx={{ my: 1}}
                 onChange={(evt) => setSearch(evt.target.value)}
                 value={search}
               />
             </Box>
           </Box>
-          
 
           <Box>
             <Typography sx={{ fontWeight: "bold", fontSize: "20px", pt: 0 }}>
               Nurseries Maintained (Area in Hectares)
             </Typography>
           </Box>
-          <Box sx={{mb: 1 }}>
+          <Box sx={{ mb: 1 }}>
             <BarChart monthData={graphData} totalData={totalGraphData} />
           </Box>
-          
         </Grid>
       </Grid>
       <Box>
