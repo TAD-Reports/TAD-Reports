@@ -29,10 +29,6 @@ export default class NurseryBarChart extends PureComponent {
     let keys = [];
     let barkeys = [];
 
-    // return condition1 ? value1
-    //   : condition2 ? value2
-    //     : condition3 ? value3
-    //       : value4;
 
     if (apiData.length < 2) {
       const firstApiData = apiData[0] || {};
