@@ -29,11 +29,6 @@ export default class NurseryBarChart extends PureComponent {
     let keys = [];
     let barkeys = [];
 
-    // return condition1 ? value1
-    //   : condition2 ? value2
-    //     : condition3 ? value3
-    //       : value4;
-
     if (apiData.length < 2) {
       const firstApiData = apiData[0] || {};
       const firstApiDataMonths = firstApiData.months || {};
@@ -46,10 +41,6 @@ export default class NurseryBarChart extends PureComponent {
         {
           name: firstApiData.name,
           ...firstApiDataMonths,
-        },
-        {
-          name: firstApiData.name === "LGU" ? "PhilFIDA" : undefined ? "" : "",
-          _: 0,
         },
         ...formattedTotalData,
       ];
@@ -128,7 +119,7 @@ export default class NurseryBarChart extends PureComponent {
           <Tooltip />
           <Legend />
           {barkeys}
-          <Bar dataKey="Total" stackId="a" fill="#9195cb" />
+          {apiData.length > 0 ? <Bar dataKey="Total" stackId="a" fill="#9195cb" /> : null }
         </BarChart>
       </ResponsiveContainer>
     );
