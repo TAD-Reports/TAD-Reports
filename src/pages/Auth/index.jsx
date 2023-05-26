@@ -5,7 +5,7 @@ import Logo from "../../assets/images/philfida.png";
 import { useStateContext } from "../../contexts/ContextProvider";
 import { useFormik } from "formik";
 import accountService from "../../services/account-service";
-import Schema, { initialLog } from "./schema";
+import Schema, { initialLog } from "../../schemas/login-schema";
 
 function Login() {
   const { setAuth } = useStateContext();

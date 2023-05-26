@@ -2,62 +2,52 @@ import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import Moment from "react-moment";
-import NurseryUpdateModal from "../Modal/nursery/nursery-update-modal";
-import nurseryService from "../../services/nursery-service";
+import DistributionUpdateModal from "../Modal/distribution/distribution-update-modal";
+import distributionService from "../../services/distribution-service";
 
-const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
+const DistributionTable = ({ distributionData, loading }) => {
   const [selected, setSelected] = useState(null);
-  const [loading, setLoading] = useState(loadingState);
-
   const handleUpdateClose = () => {
     setSelected(null);
   };
-
-  const handleRemove = (nursery) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to remove this data?"
-    );
-    if (!confirmed) {
-      return; // User cancelled the removal
-    }
-
-    console.log(nursery.uuid);
-    setLoading(true);
-    nurseryService
-      .deleteNursery(nursery.uuid)
+  const handleRemove = (distribution) => {
+    console.log(distribution.uuid);
+    loading(true);
+    distributionService
+      .deleteDistribution(distribution.uuid)
       .then((e) => {
         alert(e.data.message);
-        onSuccess();
       })
       .catch((error) => {
         console.log(error.response.data.message);
       })
       .finally(() => {
-        setLoading(false);
+        loading(false);
       });
   };
 
   const headerStyles = {
-    backgroundColor: "#f0f0f0",
-    color: "blue",
-    fontWeight: "bold",
+    backgroundColor: "#f0f0f0", // Set the desired background color
+    color: "blue", // Set the desired text color
+    fontWeight: "bold", // Optionally adjust the font weight
   };
 
   const columns = [
     {
-      field: "report_date",
+      field: "reportDate",
       headerName: "Report Date",
-      headerClassName: "custom-header", // Apply the header styles to all headers
-      renderCell: ({ row }) =>
-        row?.month_report && (
-          <Moment format="YYYY/MM/DD">{row?.report_date}</Moment>
-        ),
+      headerClassName: "custom-header",
       width: 200,
     },
     {
-      field: "funded_by",
-      headerName: "Funded By",
+      field: "typeOfPlantingMaterials",
+      headerName: "Type of Planting Materials",
+      headerClassName: "custom-header",
+      width: 200,
+    },
+    {
+      field: "nameOfCooperator",
+      headerName: "Name of Cooperator",
       headerClassName: "custom-header",
       width: 200,
     },
@@ -71,6 +61,7 @@ const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
       field: "province",
       headerName: "Province",
       headerClassName: "custom-header",
+      type: "string",
       width: 200,
     },
     {
@@ -95,36 +86,50 @@ const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
       width: 200,
     },
     {
-      field: "complete_name_of_cooperator_organization",
-      headerName: "Name of Cooperative",
+      field: "noOfPMAvailable",
+      headerName: "No of PM Available",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
     },
     {
-      field: "date_established",
-      headerName: "Date Established",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "area_in_hectares_ha",
-      headerName: "Area(in hectars)",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "variety_used",
+      field: "variety",
       headerName: "Variety",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
     },
     {
-      field: "period_of_moa",
-      headerName: "Period of MOA",
+      field: "noOfPMDistributed",
+      headerName: "No of PM Distributed",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+    },
+    {
+      field: "nameOfRecipient",
+      headerName: "Name of Recipient",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+    },
+    {
+      field: "addressOfBeneficiary",
+      headerName: "Address of Recipient",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+    },
+    {
+      field: "gender",
+      headerName: "Gender",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+    },
+    {
+      field: "category",
+      headerName: "Category",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
@@ -142,7 +147,7 @@ const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
           onClick={() => setSelected(params.row)}
           label="Edit"
         />,
-        <NurseryUpdateModal
+        <DistributionUpdateModal
           open={params.id === selected?.uuid}
           onClose={handleUpdateClose}
           selected={params.row}
@@ -159,9 +164,9 @@ const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
     <div style={{ height: 530, width: "100%", position: "relative" }}>
       <DataGrid
         getRowId={(row) => row.uuid}
-        rows={nurseryData}
+        rows={distributionData}
         columns={columns}
-        headerClassName={headerStyles} // Apply the header styles
+        headerClassName={headerStyles}
         pageSize={10}
         rowsPerPageOptions={[1]}
         loading={loading}
@@ -170,4 +175,4 @@ const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
   );
 };
 
-export default NurseryTable;
+export default DistributionTable;

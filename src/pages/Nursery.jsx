@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import {
   Box,
-  Divider,
   Grid,
   IconButton,
   InputAdornment,
@@ -39,6 +38,7 @@ const Nursery = () => {
 
   const handleSearch = () => {
     setLoading(true);
+    setError("");
     nurseryService
       .searchNursery(region, startDate, endDate, search)
       .then((e) => {
@@ -89,6 +89,7 @@ const Nursery = () => {
       return null;
     } else {
       setFileName(file.name);
+      setButtonError("");
       setLoading(true);
       nurseryService
         .importNurseryData(1, file)
@@ -121,25 +122,17 @@ const Nursery = () => {
         <Grid
           item
           xs={6}
-          sx={{ display: "flex", alignItems: "center", justifyContent: "right", pr: 0 }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "right",
+            pr: 0,
+          }}
         >
           <DownloadTemplateButton templateName="Nursery_Template" />
         </Grid>
       </Grid>
       <Grid container spacing={0}>
-        {/* <Grid
-          item
-          xs={6}
-          sx={{
-            display: "flex",
-            textAlign: "center",
-          }}
-        >
-          <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
-            NURSERIES MAINTAINED
-          </Typography>
-        </Grid> */}
-
         <Grid
           item
           xs={12}
@@ -213,7 +206,7 @@ const Nursery = () => {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ my: 1}}
+                sx={{ my: 1 }}
                 onChange={(evt) => setSearch(evt.target.value)}
                 value={search}
               />
@@ -231,7 +224,7 @@ const Nursery = () => {
         </Grid>
       </Grid>
       <Box>
-        <NurseryTable nurseryData={nurseryData} loading={loading} />
+        <NurseryTable nurseryData={nurseryData} loadingState={loading} onSuccess={handleSearch} />
       </Box>
 
       <Box

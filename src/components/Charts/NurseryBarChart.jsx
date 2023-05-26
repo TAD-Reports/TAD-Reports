@@ -9,7 +9,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import chroma from "chroma-js";
 import randomColor from "randomcolor";
 
 export default class NurseryBarChart extends PureComponent {

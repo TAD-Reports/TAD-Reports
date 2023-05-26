@@ -2,7 +2,7 @@ import React from "react";
 import { Box, IconButton, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const NurseryUpdateModal = ({ open, onClose, selected }) => {
+const DistributionUpdateModal = ({ open, onClose, selected }) => {
   const handleClose = () => {
     onClose?.();
   };
@@ -51,4 +51,4 @@ const NurseryUpdateModal = ({ open, onClose, selected }) => {
   );
 };
 
-export default NurseryUpdateModal;
+export default DistributionUpdateModal;

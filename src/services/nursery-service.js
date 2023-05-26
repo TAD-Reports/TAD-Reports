@@ -27,11 +27,11 @@ function searchNursery(region = "", start = "", end = "", search = "") {
 }
 
 function deleteNursery(id) {
-  return axios.get(`${BASE_URL}/nursery/delete/${id}`);
+  return axios.delete(`${BASE_URL}/nursery/delete/${id}`);
 }
 
 function updateNursery(id, nursery) {
-  return axios.get(`${BASE_URL}/nursery/update/${id}`, nursery);
+  return axios.put(`${BASE_URL}/nursery/update/${id}`, nursery);
 }
 
 function importNurseryData(imported_by, file) {
