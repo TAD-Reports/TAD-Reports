@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import {
   Box,
+  Divider,
   Grid,
   IconButton,
   InputAdornment,
@@ -13,7 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
 import nurseryService from "../services/nursery-service";
-import NurseryTable from "./Tables/NurseryTable";
+import NurseryTable from "../components/Tables/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
@@ -147,7 +148,6 @@ const Nursery = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              p: 2,
             }}
           >
             <Box
@@ -169,12 +169,13 @@ const Nursery = () => {
                 name="filterBy"
                 value={region}
                 onChange={(evt) => setRegion(evt.target.value)}
-                sx={{ width: "14vw" }}
+                sx={{ width: "12vw" }}
               />
             </Box>
             <Box
               sx={{
                 display: "flex",
+                alignItems: "center",
                 marginRight: "18vw",
                 width: "25vw",
               }}
@@ -214,7 +215,7 @@ const Nursery = () => {
           </Box>
 
           <Box>
-            <Typography sx={{ fontWeight: "bold", fontSize: "20px", pt: 0 }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
               Nurseries Maintained (Area in Hectares)
             </Typography>
           </Box>
@@ -223,6 +224,8 @@ const Nursery = () => {
           </Box>
         </Grid>
       </Grid>
+      <Divider sx={{ my: 4 }} />
+
       <Box>
         <NurseryTable nurseryData={nurseryData} loadingState={loading} onSuccess={handleSearch} />
       </Box>

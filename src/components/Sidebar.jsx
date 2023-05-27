@@ -58,8 +58,9 @@ const SideBar = () => {
   return (
     <Box
       sx={{
+        width: "300px",
         height: "100vh",
-        position: "relative",
+        position: "fixed",
         overflow: "hidden",
         "@media screen and (min-width: 768px)": {
           overflow: "auto",
@@ -83,7 +84,7 @@ const SideBar = () => {
               mt: 5,
             }}
           >
-            <Link to="/">
+            <Link to="/register">
               <img
                 src={Avatar}
                 alt="logo"

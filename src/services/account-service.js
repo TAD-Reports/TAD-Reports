@@ -10,15 +10,15 @@ function authenticate(account) {
   return axios.post(`${BASE_URL}/login`, account).then((res) => res.data);
 }
 
-function getAllAccount() {
-  return axios.get(`${BASE_URL}/login/getAllAccount`);
+function getAllUsers() {
+  return axios.get(`${BASE_URL}/users`);
 }
 
-function getAccount(id) {
+function getUser(id) {
   return axios.get(`${BASE_URL}/login/getAccount/${id}`);
 }
 
-function searchAccounts(search = "") {
+function searchUsers(search = "") {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       axios
@@ -31,19 +31,19 @@ function searchAccounts(search = "") {
   });
 }
 
-function addAccount(account) {
+function addUser(account) {
   return axios.post(`${BASE_URL}/login/addAccount`, account);
 }
 
-function updateAccount(account) {
+function updateUser(account) {
   return axios.put(`${BASE_URL}/login/updateAccount`, account);
 }
 
 export default {
-  getAllAccount,
-  getAccount,
-  searchAccounts,
-  addAccount,
-  updateAccount,
   authenticate,
+  getAllUsers,
+  getUser,
+  searchUsers,
+  addUser,
+  updateUser,
 };

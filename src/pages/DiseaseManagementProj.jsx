@@ -15,7 +15,7 @@ import CoronavirusIcon from "@mui/icons-material/Coronavirus";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
+import SelectFilterBy from "..//components/Textfields/select-filterBy";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import DownloadIcon from "@mui/icons-material/Download";
 import moment from "moment";

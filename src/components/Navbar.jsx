@@ -9,11 +9,13 @@ const NavBar = () => {
       sx={{
         display: "flex",
         position: "fixed",
-        height: 112,
+        height: "112px",
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: "white",
         width: "100%",
+        zIndex: 1,
+        marginLeft: "300px",
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", ml: 5 }}>

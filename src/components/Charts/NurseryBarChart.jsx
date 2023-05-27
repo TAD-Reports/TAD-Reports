@@ -36,7 +36,6 @@ export default class NurseryBarChart extends PureComponent {
         name: item.name + " Total",
         Total: item.total || 0,
       }));
-      console.log(firstApiData.name);
       data = [
         {
           name: firstApiData.name,

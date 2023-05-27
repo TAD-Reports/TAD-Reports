@@ -6,14 +6,19 @@ import App from "./App";
 import { ContextProvider } from "./contexts/ContextProvider";
 import { ThemeProvider } from "@mui/material";
 import theme from "./theme";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <ContextProvider>
-        <App />
-      </ContextProvider>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <ContextProvider>
+          <Routes>
+            <Route path="/*" element={<App />} />
+          </Routes>
+        </ContextProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

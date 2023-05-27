@@ -24,6 +24,12 @@ function Login() {
         .then((res) => {
           if (res.valid) {
             setAuth(true);
+            // try {
+            //   const jwtToken = jwtGenerator(formik?.values?.username);
+            //   console.log({ jwtToken });
+            // } catch (err) {
+            //   console.log(err.message);
+            // }
           }
         })
         .catch((err) => {
@@ -40,7 +46,7 @@ function Login() {
         });
     },
   });
-  
+
   return (
     <Box className="App">
       <Box className="stylish-design">
