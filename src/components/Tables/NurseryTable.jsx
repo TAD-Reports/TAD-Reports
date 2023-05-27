@@ -3,34 +3,45 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import Moment from "react-moment";
-import NurseryUpdateModal from "../Modal/nursery-update-modal";
+import NurseryUpdateModal from "../Modal/nursery/nursery-update-modal";
 import nurseryService from "../../services/nursery-service";
 
-const NurseryTable = ({ nurseryData, loading }) => {
+const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
   const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(loadingState);
+
   const handleUpdateClose = () => {
     setSelected(null);
   };
+
   const handleRemove = (nursery) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to remove this data?"
+    );
+    if (!confirmed) {
+      return; // User cancelled the removal
+    }
+
     console.log(nursery.uuid);
-    loading(true);
+    setLoading(true);
     nurseryService
       .deleteNursery(nursery.uuid)
       .then((e) => {
         alert(e.data.message);
+        onSuccess();
       })
       .catch((error) => {
         console.log(error.response.data.message);
       })
       .finally(() => {
-        loading(false);
+        setLoading(false);
       });
   };
 
   const headerStyles = {
-    backgroundColor: "#f0f0f0", // Set the desired background color
-    color: "blue", // Set the desired text color
-    fontWeight: "bold", // Optionally adjust the font weight
+    backgroundColor: "#f0f0f0",
+    color: "blue",
+    fontWeight: "bold",
   };
 
   const columns = [
@@ -44,22 +55,24 @@ const NurseryTable = ({ nurseryData, loading }) => {
         ),
       width: 200,
     },
-    { 
-      field: "funded_by", 
-      headerName: "Funded By", 
+    {
+      field: "funded_by",
+      headerName: "Funded By",
       headerClassName: "custom-header",
-      width: 200 
+      width: 200,
     },
-    { 
-      field: "region", 
+    {
+      field: "region",
       headerName: "Region",
-      headerClassName: "custom-header", 
-      width: 200 },
-    { 
-      field: "province", 
-      headerName: "Province", 
       headerClassName: "custom-header",
-      width: 200 },
+      width: 200,
+    },
+    {
+      field: "province",
+      headerName: "Province",
+      headerClassName: "custom-header",
+      width: 200,
+    },
     {
       field: "district",
       headerName: "District",
