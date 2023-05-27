@@ -9,17 +9,17 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import PropTypes from "prop-types";
 import randomColor from "randomcolor";
 
 export default class DistributionOfPMBarChart extends PureComponent {
   render() {
-    const apiData = this.props.monthData;
-    const totalData = this.props.totalData;
+    const { monthData, totalData } = this.props;
 
-    console.log(apiData);
+    console.log(monthData);
     console.log(totalData);
 
-    if (!apiData || !totalData) {
+    if (!monthData || !totalData) {
       // Handle the case when apiData or totalData is undefined or null
       return null; // or display an error message
     }
@@ -28,11 +28,11 @@ export default class DistributionOfPMBarChart extends PureComponent {
     let keys = [];
     let barkeys = [];
 
-    if (apiData.length < 2) {
-      const firstApiData = apiData[0] || {};
+    if (monthData.length < 2) {
+      const firstApiData = monthData[0] || {};
       const firstApiDataMonths = firstApiData.months || {};
       const formattedTotalData = totalData.slice(0, 2).map((item) => ({
-        name: item.name + " Total",
+        name: `${item.name} Total`,
         Total: item.total || 0,
       }));
       console.log(firstApiData.name);
@@ -58,12 +58,12 @@ export default class DistributionOfPMBarChart extends PureComponent {
         />
       ));
     } else {
-      const firstApiData = apiData[0] || {};
+      const firstApiData = monthData[0] || {};
       const firstApiDataMonths = firstApiData.months || {};
-      const secondApiData = apiData[1] || {};
+      const secondApiData = monthData[1] || {};
       const secondApiDataMonths = secondApiData.months || {};
       const formattedTotalData = totalData.slice(0, 2).map((item) => ({
-        name: item.name + " Total",
+        name: `${item.name} Total`,
         Total: item.total || 0,
       }));
       data = [
@@ -123,3 +123,15 @@ export default class DistributionOfPMBarChart extends PureComponent {
     );
   }
 }
+
+DistributionOfPMBarChart.defaultProps = {
+  monthData: [],
+  totalData: [],
+};
+
+DistributionOfPMBarChart.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  monthData: PropTypes.array,
+  // eslint-disable-next-line react/forbid-prop-types
+  totalData: PropTypes.array,
+};

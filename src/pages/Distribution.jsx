@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import PageContainer from "../components/LayoutContainers/PageContainer";
-import DistributionOfPMBarChart from "../components/Charts/DistributionOfPMBarChart";
 import {
   Divider,
   Box,
@@ -11,17 +9,19 @@ import {
   IconButton,
 } from "@mui/material";
 import { GiShakingHands } from "react-icons/gi";
+import SearchIcon from "@mui/icons-material/Search";
+import dayjs from "dayjs";
+import PageContainer from "../components/LayoutContainers/PageContainer";
+import DistributionOfPMBarChart from "../components/Charts/DistributionOfPMBarChart";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
-import SearchIcon from "@mui/icons-material/Search";
 import DistributionTable from "../components/Tables/DistributionTable";
 import distributionService from "../services/distribution-service";
-import dayjs from "dayjs";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 
-const Distribution = () => {
+export default function Distribution() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [region, setRegion] = useState("");
@@ -47,8 +47,8 @@ const Distribution = () => {
         setTotalGraph(e.totalGraph);
         setDistributionData(e.table);
       })
-      .catch((error) => {
-        setError(error.message);
+      .catch((err) => {
+        setError(err.message);
       })
       .finally(() => {
         setLoading(false);
@@ -57,14 +57,13 @@ const Distribution = () => {
 
   React.useEffect(() => {
     handleSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [region, startDate, endDate]);
 
-  const validateDateRange = (startDate, endDate) => {
-    const start = dayjs(startDate, "YYYY/MM/DD");
-    const end = dayjs(endDate, "YYYY/MM/DD");
+  const validateDateRange = (start, end) => {
+    const dateStart = dayjs(start, "YYYY/MM/DD");
+    const dateEnd = dayjs(end, "YYYY/MM/DD");
 
-    if (start.isAfter(end)) {
+    if (dateStart.isAfter(dateEnd)) {
       alert("Start date cannot be after end date");
       setStartDate(null);
       setEndDate(null);
@@ -83,29 +82,29 @@ const Distribution = () => {
     validateDateRange(startDate, date);
   };
 
-  function handleFile(e) {
+  const handleFile = (e) => {
     const file = e.target.files[0];
 
     if (!file) {
-      return null;
-    } else {
-      setFileName(file.name);
-      setButtonError("");
-      setLoading(true);
-      distributionService
-        .importDistributionData(1, file)
-        .then((e) => {
-          alert(e.data.message);
-          handleSearch();
-        })
-        .catch((error) => {
-          setButtonError(error.response.data.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      return;
     }
-  }
+
+    setFileName(file.name);
+    setButtonError("");
+    setLoading(true);
+    distributionService
+      .importDistributionData(1, file)
+      .then((res) => {
+        alert(res.data.message);
+        handleSearch();
+      })
+      .catch((err) => {
+        setButtonError(err.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const clearFileName = () => {
     setFileName("");
@@ -114,7 +113,7 @@ const Distribution = () => {
   return (
     <PageContainer>
       <Grid container spacing={2}>
-        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 0 }}>
+        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
           <GiShakingHands style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
             DISTRIBUTION OF PLANTING MATERIALS
@@ -127,7 +126,6 @@ const Distribution = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "right",
-            pr: 0,
           }}
         >
           <DownloadTemplateButton templateName="Distribution_Template" />
@@ -148,7 +146,6 @@ const Distribution = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              p: 2,
             }}
           >
             <Box
@@ -170,12 +167,13 @@ const Distribution = () => {
                 name="filterBy"
                 value={region}
                 onChange={(evt) => setRegion(evt.target.value)}
-                sx={{ width: "14vw" }}
+                sx={{ width: "12vw" }}
               />
             </Box>
             <Box
               sx={{
                 display: "flex",
+                alignItems: "center",
                 marginRight: "18vw",
                 width: "25vw",
               }}
@@ -215,7 +213,7 @@ const Distribution = () => {
           </Box>
 
           <Box>
-            <Typography sx={{ fontWeight: "bold", fontSize: "20px", pt: 0 }}>
+            <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
               Distribution of Planting Materials (Total No. Of Planting
               Materials Distributed)
             </Typography>
@@ -257,6 +255,4 @@ const Distribution = () => {
       {buttonError}
     </PageContainer>
   );
-};
-
-export default Distribution;
+}

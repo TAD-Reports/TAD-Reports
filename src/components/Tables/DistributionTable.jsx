@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import PropTypes from "prop-types";
 import DistributionUpdateModal from "../Modal/distribution/distribution-update-modal";
 import distributionService from "../../services/distribution-service";
 
-const DistributionTable = ({ distributionData, loading }) => {
+export default function DistributionTable({ distributionData, loading }) {
   const [selected, setSelected] = useState(null);
   const handleUpdateClose = () => {
     setSelected(null);
@@ -173,6 +174,15 @@ const DistributionTable = ({ distributionData, loading }) => {
       />
     </div>
   );
+}
+
+DistributionTable.defaultProps = {
+  distributionData: null,
+  loading: false,
 };
 
-export default DistributionTable;
+DistributionTable.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  distributionData: PropTypes.object,
+  loading: PropTypes.bool,
+};

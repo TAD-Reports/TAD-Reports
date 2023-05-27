@@ -1,21 +1,23 @@
 import React from "react";
 // import { useStateContext } from "../contexts/ContextProvider";
-import PageContainer from "../components/LayoutContainers/PageContainer";
 import { Grid } from "@mui/material";
 import GrassIcon from "@mui/icons-material/Grass";
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import { GiCottonFlower } from "react-icons/gi";
-import { GiShakingHands } from "react-icons/gi";
-import { GiCobweb } from "react-icons/gi";
+import {
+  GiCottonFlower,
+  GiShakingHands,
+  GiCobweb,
+  GiCoconuts,
+} from "react-icons/gi";
 import SchoolIcon from "@mui/icons-material/School";
 import FolderCopyIcon from "@mui/icons-material/FolderCopy";
-import { GiCoconuts } from "react-icons/gi";
 import CoronavirusIcon from "@mui/icons-material/Coronavirus";
+import PageContainer from "../components/LayoutContainers/PageContainer";
 
 import NavigationCard from "../components/Cards/NavigationCard";
 
-const Dashboard = () => {
+export default function Dashboard() {
   return (
     <PageContainer>
       <Grid container spacing={0}>
@@ -194,6 +196,4 @@ const Dashboard = () => {
       </Grid>
     </PageContainer>
   );
-};
-
-export default Dashboard;
+}

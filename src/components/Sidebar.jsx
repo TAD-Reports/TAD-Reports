@@ -1,15 +1,14 @@
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Box, Button, Typography } from "@mui/material";
 import Avatar from "../data/avatarMale.jpg";
 
-import { links } from "./SidebarLinks";
-import { Box, Button, Typography } from "@mui/material";
+import links from "./SidebarLinks";
 
-import LogoutIcon from "@mui/icons-material/Logout";
 import { useStateContext } from "../contexts/ContextProvider";
 
-const SideBar = () => {
+export default function SideBar() {
   const { setAuth } = useStateContext();
 
   const location = useLocation();
@@ -73,77 +72,46 @@ const SideBar = () => {
       }}
     >
       <Box sx={{ position: "absolute", width: "288px" }}>
-        <>
-          <Box
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            mt: 5,
+          }}
+        >
+          <Link to="/register">
+            <img
+              src={Avatar}
+              alt="logo"
+              style={{
+                width: "64px",
+                height: "64px",
+                borderRadius: "50%",
+              }}
+            />
+          </Link>
+          <Typography
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              mt: 5,
+              fontWeight: "bold",
+              fontSize: "14px",
+              color: "#fff",
+              mt: 1,
             }}
           >
-            <Link to="/register">
-              <img
-                src={Avatar}
-                alt="logo"
-                style={{
-                  width: "64px",
-                  height: "64px",
-                  borderRadius: "50%",
-                }}
-              />
-            </Link>
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                fontSize: "14px",
-                color: "#fff",
-                mt: 1,
-              }}
-            >
-              ROMERO, MATTHEW LEWIS E.
-            </Typography>
-            <Typography
-              sx={{ fontWeight: "bold", fontSize: "12px", color: "#fff" }}
-            >
-              HUMAN RESOURCE
-            </Typography>
-          </Box>
-          <Box sx={{ my: 5 }}>
-            {links.map((item) => (
-              <Box key={item.title} sx={{ width: "100%" }}>
-                <Typography
-                  sx={{
-                    color: "#fff",
-                    m: 2,
-                    mt: 4,
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {item.title}
-                </Typography>
-                {item.links.map((link) => (
-                  <NavLink to={`/${link.path}`} key={link.name}>
-                    <Button
-                      sx={
-                        location.pathname === `/${link.path}`
-                          ? activeLink
-                          : normalLink
-                      }
-                    >
-                      {link.icon}
-                      <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                        {link.name}
-                      </Typography>
-                    </Button>
-                  </NavLink>
-                ))}
-              </Box>
-            ))}
-            <Box sx={{ width: "100%" }}>
+            ROMERO, MATTHEW LEWIS E.
+          </Typography>
+          <Typography
+            sx={{ fontWeight: "bold", fontSize: "12px", color: "#fff" }}
+          >
+            HUMAN RESOURCE
+          </Typography>
+        </Box>
+        <Box sx={{ my: 5 }}>
+          {links.map((item) => (
+            <Box key={item.title} sx={{ width: "100%" }}>
               <Typography
                 sx={{
                   color: "#fff",
@@ -153,20 +121,47 @@ const SideBar = () => {
                   fontWeight: "bold",
                 }}
               >
-                Log out
+                {item.title}
               </Typography>
-              <Button sx={normalLink} onClick={() => setAuth(false)}>
-                <LogoutIcon />
-                <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                  Logout
-                </Typography>
-              </Button>
+              {item.links.map((link) => (
+                <NavLink to={`/${link.path}`} key={link.name}>
+                  <Button
+                    sx={
+                      location.pathname === `/${link.path}`
+                        ? activeLink
+                        : normalLink
+                    }
+                  >
+                    {link.icon}
+                    <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                      {link.name}
+                    </Typography>
+                  </Button>
+                </NavLink>
+              ))}
             </Box>
+          ))}
+          <Box sx={{ width: "100%" }}>
+            <Typography
+              sx={{
+                color: "#fff",
+                m: 2,
+                mt: 4,
+                textTransform: "uppercase",
+                fontWeight: "bold",
+              }}
+            >
+              Log out
+            </Typography>
+            <Button sx={normalLink} onClick={() => setAuth(false)}>
+              <LogoutIcon />
+              <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                Logout
+              </Typography>
+            </Button>
           </Box>
-        </>
+        </Box>
       </Box>
     </Box>
   );
-};
-
-export default SideBar;
+}

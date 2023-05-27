@@ -10,7 +10,7 @@ import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 import RiceBowlIcon from "@mui/icons-material/RiceBowl";
 import CoronavirusIcon from "@mui/icons-material/Coronavirus";
 
-export const links = [
+const links = [
   {
     title: "Dashboard",
     links: [
@@ -78,3 +78,5 @@ export const links = [
     ],
   },
 ];
+
+export default links;

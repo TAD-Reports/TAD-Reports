@@ -1,14 +1,14 @@
 import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import PageContainer from "../components/LayoutContainers/PageContainer";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
+import PageContainer from "../components/LayoutContainers/PageContainer";
 import accountService from "../services/account-service";
 import SelectRole from "../components/Textfields/select-role";
-import RegisterSchema, { initialAccount } from "../schemas/register-schema";
+import RegSchema, { initialAccount } from "../schemas/register-schema";
 
-const Register = () => {
+export default function Register() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -16,7 +16,7 @@ const Register = () => {
   const formik = useFormik({
     initialValues: initialAccount,
 
-    validationSchema: RegisterSchema,
+    validationSchema: RegSchema,
     onSubmit: () => {
       setError("");
       setLoading(true);
@@ -125,6 +125,4 @@ const Register = () => {
       {error}
     </PageContainer>
   );
-};
-
-export default Register;
+}

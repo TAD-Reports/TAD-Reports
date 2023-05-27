@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Missing = () => {
-  return (
-    <div>Missing</div>
-  )
+function Missing() {
+  return <div>Missing</div>;
 }
 
-export default Missing
+export default Missing;

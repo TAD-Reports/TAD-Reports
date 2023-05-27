@@ -1,9 +1,10 @@
 import React from "react";
 import { Button } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
+import PropTypes from "prop-types";
 import nurseryService from "../../services/nursery-service";
 
-const DownloadTemplateButton = ({ templateName }) => {
+export default function DownloadTemplateButton({ templateName }) {
   const handleDownload = async () => {
     try {
       const data = await nurseryService.downloadNurseryTemplate(templateName);
@@ -49,6 +50,13 @@ const DownloadTemplateButton = ({ templateName }) => {
       <DownloadIcon sx={{ ml: 1 }} />
     </Button>
   );
+}
+
+DownloadTemplateButton.defaultProps = {
+  templateName: "",
 };
 
-export default DownloadTemplateButton;
+DownloadTemplateButton.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  templateName: PropTypes.string,
+};

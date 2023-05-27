@@ -3,10 +3,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import Moment from "react-moment";
+import PropTypes from "prop-types";
+import { Tooltip } from "@mui/material";
 import NurseryUpdateModal from "../Modal/nursery/nursery-update-modal";
 import nurseryService from "../../services/nursery-service";
 
-const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
+export default function NurseryTable({ nurseryData, loadingState, onSuccess }) {
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(loadingState);
 
@@ -137,11 +139,13 @@ const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
       width: 200,
       // eslint-disable-next-line react/no-unstable-nested-components
       getActions: (params) => [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          onClick={() => setSelected(params.row)}
-          label="Edit"
-        />,
+        <Tooltip title="Edit">
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            onClick={() => setSelected(params.row)}
+            label="Edit"
+          />
+        </Tooltip>,
         <NurseryUpdateModal
           open={params.id === selected?.uuid}
           onClose={handleUpdateClose}
@@ -168,6 +172,17 @@ const NurseryTable = ({ nurseryData, loadingState, onSuccess }) => {
       />
     </div>
   );
+}
+
+NurseryTable.defaultProps = {
+  nurseryData: null,
+  loadingState: false,
+  onSuccess: () => {},
 };
 
-export default NurseryTable;
+NurseryTable.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  nurseryData: PropTypes.object,
+  loadingState: PropTypes.bool,
+  onSuccess: PropTypes.func,
+};

@@ -1,9 +1,8 @@
 import React from "react";
+import { Box, Typography } from "@mui/material";
 import Logo from "../assets/images/philfida.png";
 
-import { Box, Typography } from "@mui/material";
-
-const NavBar = () => {
+export default function NavBar() {
   return (
     <Box
       sx={{
@@ -14,7 +13,7 @@ const NavBar = () => {
         alignItems: "center",
         backgroundColor: "white",
         width: "100%",
-        zIndex: 1,
+        zIndex: 100,
         marginLeft: "300px",
       }}
     >
@@ -29,9 +28,6 @@ const NavBar = () => {
           </Typography>
         </Box>
       </Box>
-      <div class="absolute inset-x-0 bottom-0 h-1 shadow"></div>
     </Box>
   );
-};
-
-export default NavBar;
+}

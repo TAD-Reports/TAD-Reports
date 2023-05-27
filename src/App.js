@@ -26,8 +26,7 @@ import {
 import Login from "./pages/Auth";
 import Missing from "./pages/Missing";
 
-const App = () => {
-  // const { auth } = useStateContext();
+function App() {
   const auth = true;
   return (
     <Box>
@@ -40,7 +39,6 @@ const App = () => {
 
       <Box sx={{ zIndex: 1500 }}>
         <Routes>
-          <Route></Route>
           <Route path="/sign-in" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Dashboard />} />
@@ -65,76 +63,8 @@ const App = () => {
           <Route path="*" element={<Missing />} />
         </Routes>
       </Box>
-      {/* {auth ? (
-        <Box sx={{ display: "flex", position: "relative" }}>
-          <Box
-            sx={{
-              position: "fixed",
-              right: "16px",
-              bottom: "16px",
-              zIndex: "1000",
-            }}
-          >
-            <Tooltip title="Settings">
-              <Button
-                type="button"
-                sx={{
-                  backgroundColor: "gray",
-                  borderRadius: "50%",
-                  fontSize: "30px",
-                  color: "white",
-                  padding: "15px 0",
-                  "&:hover": {
-                    textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-                    color: "gray",
-                    backgroundColor: "lightgray",
-                  },
-                }}
-              >
-                <FiSettings />
-              </Button>
-            </Tooltip>
-          </Box>
-          <Box
-            sx={{
-              width: "300px",
-              position: "fixed",
-              backgroundColor: "white",
-              "@media screen and (prefers-color-scheme: dark)": {
-                backgroundColor: "secondary-dark-bg",
-              },
-              zIndex: 10,
-            }}
-          >
-            <Sidebar />
-          </Box>
-          <Box
-            sx={{
-              backgroundColor: "main-bg",
-              "@media screen and (prefers-color-scheme: dark)": {
-                backgroundColor: "dark.main-bg",
-              },
-              minHeight: "100vh",
-              width: "100%",
-              "@media screen and (min-width: 768px)": {
-                marginLeft: "300px",
-              },
-            }}
-          >
-            <Box
-              sx={{
-                position: "fixed",
-                backgroundColor: "#fff",
-                width: "100%",
-              }}
-            >
-              <Navbar />
-            </Box>
-          </Box>
-        </Box>
-      ) : null} */}
     </Box>
   );
-};
+}
 
 export default App;

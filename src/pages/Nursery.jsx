@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PageContainer from "../components/LayoutContainers/PageContainer";
 import {
   Box,
   Divider,
@@ -11,6 +10,8 @@ import {
 } from "@mui/material";
 import GrassIcon from "@mui/icons-material/Grass";
 import SearchIcon from "@mui/icons-material/Search";
+import dayjs from "dayjs";
+import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
 import nurseryService from "../services/nursery-service";
@@ -18,10 +19,9 @@ import NurseryTable from "../components/Tables/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
-import BarChart from "../components/Charts/NurseryBarChart.jsx";
-import dayjs from "dayjs";
+import BarChart from "../components/Charts/NurseryBarChart";
 
-const Nursery = () => {
+export default function Nursery() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [region, setRegion] = useState("");
@@ -47,8 +47,8 @@ const Nursery = () => {
         setTotalGraph(e.totalGraph);
         setNurseryData(e.table);
       })
-      .catch((error) => {
-        setError(error.message);
+      .catch((err) => {
+        setError(err.message);
       })
       .finally(() => {
         setLoading(false);
@@ -57,14 +57,13 @@ const Nursery = () => {
 
   React.useEffect(() => {
     handleSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [region, startDate, endDate]);
 
-  const validateDateRange = (startDate, endDate) => {
-    const start = dayjs(startDate, "YYYY/MM/DD");
-    const end = dayjs(endDate, "YYYY/MM/DD");
+  const validateDateRange = (start, end) => {
+    const dateStart = dayjs(start, "YYYY/MM/DD");
+    const dateEnd = dayjs(end, "YYYY/MM/DD");
 
-    if (start.isAfter(end)) {
+    if (dateStart.isAfter(dateEnd)) {
       alert("Start date cannot be after end date");
       setStartDate(null);
       setEndDate(null);
@@ -83,29 +82,29 @@ const Nursery = () => {
     validateDateRange(startDate, date);
   };
 
-  function handleFile(e) {
+  const handleFile = (e) => {
     const file = e.target.files[0];
 
     if (!file) {
-      return null;
-    } else {
-      setFileName(file.name);
-      setButtonError("");
-      setLoading(true);
-      nurseryService
-        .importNurseryData(1, file)
-        .then((e) => {
-          alert(e.data.message);
-          handleSearch();
-        })
-        .catch((error) => {
-          setButtonError(error.response.data.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      return;
     }
-  }
+
+    setFileName(file.name);
+    setButtonError("");
+    setLoading(true);
+    nurseryService
+      .importNurseryData(1, file)
+      .then((res) => {
+        alert(res.data.message);
+        handleSearch();
+      })
+      .catch((err) => {
+        setButtonError(err.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const clearFileName = () => {
     setFileName("");
@@ -114,7 +113,7 @@ const Nursery = () => {
   return (
     <PageContainer>
       <Grid container spacing={2}>
-        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 0 }}>
+        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
           <GrassIcon style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
             NURSERY REPORTS
@@ -127,7 +126,6 @@ const Nursery = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "right",
-            pr: 0,
           }}
         >
           <DownloadTemplateButton templateName="Nursery_Template" />
@@ -227,7 +225,11 @@ const Nursery = () => {
       <Divider sx={{ my: 4 }} />
 
       <Box>
-        <NurseryTable nurseryData={nurseryData} loadingState={loading} onSuccess={handleSearch} />
+        <NurseryTable
+          nurseryData={nurseryData}
+          loadingState={loading}
+          onSuccess={handleSearch}
+        />
       </Box>
 
       <Box
@@ -250,6 +252,4 @@ const Nursery = () => {
       {buttonError}
     </PageContainer>
   );
-};
-
-export default Nursery;
+}

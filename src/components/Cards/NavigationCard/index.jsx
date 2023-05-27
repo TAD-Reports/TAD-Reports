@@ -2,18 +2,18 @@ import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import GrassIcon from "@mui/icons-material/Grass";
 import { NavLink } from "react-router-dom";
-import { links } from "../../SidebarLinks";
 import PropTypes from "prop-types";
+import links from "../../SidebarLinks";
 
-const NavigationCard = ({ cardColor, pathName, title, icon: Icon }) => {
+function NavigationCard({ cardColor, pathName, title, icon: Icon }) {
   const path = (linkName) => {
     const reportLinks = links.filter((item) => item.title === "Reports")[0]
       .links;
-    const link = reportLinks.find((link) => link.path === linkName);
-    if (!link) {
+    const reportLink = reportLinks.find((link) => link.path === linkName);
+    if (!reportLink) {
       throw new Error(`Link not found: ${linkName}`);
     }
-    return link.path;
+    return reportLink.path;
   };
 
   function hexToRgba(hex, alpha) {
@@ -82,13 +82,14 @@ const NavigationCard = ({ cardColor, pathName, title, icon: Icon }) => {
       </Button>
     </NavLink>
   );
-};
+}
 
 // Setting default values for the props of GenerateReportsCard
 NavigationCard.defaultProps = {
   cardColor: "",
   pathName: "",
   title: "",
+  icon: {},
 };
 
 NavigationCard.propTypes = {

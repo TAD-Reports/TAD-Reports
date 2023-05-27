@@ -1,6 +1,5 @@
 export { default as Register } from "./Register";
 export { default as Dashboard } from "./Dashboard";
-
 export { default as Nursery } from "./Nursery";
 export { default as Distribution } from "./Distribution";
 export { default as PMSurvived } from "./PMSurvived";

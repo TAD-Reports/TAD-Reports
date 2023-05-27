@@ -1,6 +1,4 @@
 import React from "react";
-import PageContainer from "../components/LayoutContainers/PageContainer";
-import CottonBarGraph from "../components/Charts/CottonChart";
 import {
   Box,
   Button,
@@ -12,16 +10,18 @@ import {
   Typography,
 } from "@mui/material";
 import { GiCottonFlower } from "react-icons/gi";
-import TextFieldDatePicker from "../components/Textfields/date-picker";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import DownloadIcon from "@mui/icons-material/Download";
 import moment from "moment";
 import SearchIcon from "@mui/icons-material/Search";
+import TextFieldDatePicker from "../components/Textfields/date-picker";
+import SelectFilterBy from "../components/Textfields/select-filterBy";
+import PageContainer from "../components/LayoutContainers/PageContainer";
+import CottonBarGraph from "../components/Charts/CottonChart";
 
-const Cotton = () => {
+export default function Cotton() {
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
   const [startFilterBy, setFilterByStart] = React.useState("");
@@ -282,7 +282,7 @@ const Cotton = () => {
       headerName: "Actions",
       width: 200,
       // eslint-disable-next-line react/no-unstable-nested-components
-      getActions: (params) => [
+      getActions: () => [
         <GridActionsCellItem icon={<VisibilityIcon />} label="View" />,
       ],
     },
@@ -488,6 +488,4 @@ const Cotton = () => {
       </Box>
     </PageContainer>
   );
-};
-
-export default Cotton;
+}

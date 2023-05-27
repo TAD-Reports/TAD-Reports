@@ -2,8 +2,13 @@ import React, { useRef } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import CloseIcon from "@mui/icons-material/Close";
+import PropTypes from "prop-types";
 
-const ImportDataButton = ({ fileName, importFunction, clearFileName }) => {
+export default function ImportDataButton({
+  fileName,
+  importFunction,
+  clearFileName,
+}) {
   const fileInputRef = useRef(null);
 
   const handleClearInput = () => {
@@ -100,6 +105,17 @@ const ImportDataButton = ({ fileName, importFunction, clearFileName }) => {
       </Box>
     </Box>
   );
+}
+
+ImportDataButton.defaultProps = {
+  fileName: "",
+  importFunction: () => {},
+  clearFileName: () => {},
 };
 
-export default ImportDataButton;
+ImportDataButton.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  fileName: PropTypes.string,
+  importFunction: PropTypes.func,
+  clearFileName: PropTypes.func,
+};

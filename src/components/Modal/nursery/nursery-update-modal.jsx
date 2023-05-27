@@ -9,12 +9,13 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
+import moment from "moment";
+import TextFieldDatePicker from "components/Textfields/date-picker";
+import PropTypes from "prop-types";
 import NurserySchema from "../../../schemas/nursery-schema";
 import nurseryService from "../../../services/nursery-service";
-import TextFieldDatePicker from "../../../components/Textfields/date-picker";
-import moment from "moment";
 
-const NurseryUpdateModal = ({ open, onClose, selected }) => {
+export default function NurseryUpdateModal({ open, onClose, selected }) {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
   const handleClose = () => {
@@ -95,7 +96,7 @@ const NurseryUpdateModal = ({ open, onClose, selected }) => {
             <Box>
               <Typography>{nurseryId}</Typography>
             </Box>
-
+            {error}
             <Grid container spacing={0}>
               <Grid item xs={4}>
                 <TextFieldDatePicker
@@ -193,6 +194,17 @@ const NurseryUpdateModal = ({ open, onClose, selected }) => {
       </form>
     </Modal>
   );
-};
+}
 
-export default NurseryUpdateModal;
+NurseryUpdateModal.defaultProps = {
+  open: false,
+  onClose: () => {},
+  selected: null,
+};
+// Typechecking props of the MDAlert
+NurseryUpdateModal.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  // eslint-disable-next-line react/forbid-prop-types
+  selected: PropTypes.object,
+};

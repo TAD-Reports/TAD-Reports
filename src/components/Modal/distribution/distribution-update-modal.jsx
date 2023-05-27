@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, IconButton, Modal } from "@mui/material";
+import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 
-const DistributionUpdateModal = ({ open, onClose, selected }) => {
+export default function DistributionUpdateModal({ open, onClose }) {
   const handleClose = () => {
     onClose?.();
   };
@@ -49,6 +50,17 @@ const DistributionUpdateModal = ({ open, onClose, selected }) => {
       </Box>
     </Modal>
   );
-};
+}
 
-export default DistributionUpdateModal;
+DistributionUpdateModal.defaultProps = {
+  open: false,
+  onClose: () => {},
+  // selected: null,
+};
+// Typechecking props of the MDAlert
+DistributionUpdateModal.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  // eslint-disable-next-line react/forbid-prop-types
+  // selected: PropTypes.object,
+};

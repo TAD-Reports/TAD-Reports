@@ -13,10 +13,10 @@ function searchDistribution(region = "", start = "", end = "", search = "") {
     axios
       .get(`${BASE_URL}/distribution/search`, {
         params: {
-          region: region,
-          start: start,
-          end: end,
-          search: search,
+          region,
+          start,
+          end,
+          search,
         },
       })
       .then((res) => resolve(res.data))
@@ -34,9 +34,9 @@ function updateDistribution(id, distribution) {
   return axios.put(`${BASE_URL}/distribution/update/${id}`, distribution);
 }
 
-function importDistributionData(imported_by, file) {
+function importDistributionData(importedBy, file) {
   const formData = new FormData();
-  formData.append("imported_by", imported_by);
+  formData.append("imported_by", importedBy);
   formData.append("file", file);
   return axios.post(`${BASE_URL}/distribution`, formData, {
     headers: {
@@ -74,7 +74,9 @@ function downloadDistributionTemplate(fileName) {
       responseType: "arraybuffer",
     })
     .then((response) => {
-      const blob = new Blob([response.data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -88,7 +90,6 @@ function downloadDistributionTemplate(fileName) {
       console.error("Error occurred while downloading template:", error);
     });
 }
-
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
