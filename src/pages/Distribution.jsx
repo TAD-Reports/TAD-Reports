@@ -14,7 +14,7 @@ import { GiShakingHands } from "react-icons/gi";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
 import SearchIcon from "@mui/icons-material/Search";
-import DistributionTable from "./Tables/DistributionTable";
+import DistributionTable from "../components/Tables/DistributionTable";
 import distributionService from "../services/distribution-service";
 import dayjs from "dayjs";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
