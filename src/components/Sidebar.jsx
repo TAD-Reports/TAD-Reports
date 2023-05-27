@@ -67,7 +67,6 @@ export default function SideBar() {
             overflow: "auto",
           },
         },
-        paddingBottom: "10rem",
         backgroundColor: "#5a9c4e",
       }}
     >
