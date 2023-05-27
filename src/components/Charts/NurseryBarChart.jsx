@@ -16,9 +16,6 @@ export default class NurseryBarChart extends PureComponent {
   render() {
     const { monthData, totalData } = this.props;
 
-    console.log(monthData);
-    console.log(totalData);
-
     if (!monthData || !totalData) {
       // Handle the case when apiData or totalData is undefined or null
       return null; // or display an error message

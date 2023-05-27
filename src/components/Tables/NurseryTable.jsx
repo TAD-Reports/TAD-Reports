@@ -24,7 +24,7 @@ export default function NurseryTable({ nurseryData, loadingState, onSuccess }) {
       return; // User cancelled the removal
     }
 
-    console.log(nursery.uuid);
+    console.log(selected);
     setLoading(true);
     nurseryService
       .deleteNursery(nursery.uuid)
@@ -139,7 +139,7 @@ export default function NurseryTable({ nurseryData, loadingState, onSuccess }) {
       width: 200,
       // eslint-disable-next-line react/no-unstable-nested-components
       getActions: (params) => [
-        <Tooltip title="Edit">
+        <Tooltip title="Edit" placement="top">
           <GridActionsCellItem
             icon={<EditIcon />}
             onClick={() => setSelected(params.row)}
@@ -151,11 +151,13 @@ export default function NurseryTable({ nurseryData, loadingState, onSuccess }) {
           onClose={handleUpdateClose}
           selected={params.row}
         />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          onClick={() => handleRemove(params.row)}
-          label="Delete"
-        />,
+        <Tooltip title="Remove" placement="top">
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            onClick={() => handleRemove(params.row)}
+            label="Remove"
+          />
+        </Tooltip>,
       ],
     },
   ];

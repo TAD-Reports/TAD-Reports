@@ -180,14 +180,14 @@ export default function Nursery() {
             >
               <TextFieldDatePicker
                 label="Start Date"
-                value={startDate}
+                value={dayjs(startDate)}
                 onChange={handleStartDate}
                 format="MM/DD/YYYY"
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
                 label="Date"
-                value={endDate}
+                value={dayjs(endDate)}
                 onChange={handleEndDate}
                 format="MM/DD/YYYY"
               />
