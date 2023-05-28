@@ -187,6 +187,10 @@ export default function Nursery() {
 
       const filteredData = sheet.data;
 
+      // Add "Area in Hectares (ha)" column header
+      // eslint-disable-next-line prefer-destructuring
+      worksheet.getCell(`I5`).value = headers[7];
+
       filteredData.forEach((data) => {
         const rowData = [
           data.report_date,
@@ -204,6 +208,26 @@ export default function Nursery() {
         ];
         worksheet.addRow(rowData);
       });
+
+      // Calculate and display the total area
+      const totalAreaFormula = `SUM(I6:I${filteredData.length + 5})`;
+      worksheet.getCell(`I${filteredData.length + 7}`).value = {
+        formula: totalAreaFormula,
+      };
+      worksheet.getCell(`I${filteredData.length + 7}`).font = { bold: true };
+      worksheet.getCell(`I${filteredData.length + 7}`).alignment = {
+        horizontal: "center",
+      };
+      // Set the total area cell format
+      const totalAreaCell = worksheet.getCell(`I${filteredData.length + 7}`);
+      totalAreaCell.numFmt = "0.00";
+
+      // Add "Total" text in the cell next to "Area in Hectares (ha)"
+      worksheet.getCell(`H${filteredData.length + 7}`).value = "Total";
+      worksheet.getCell(`H${filteredData.length + 7}`).font = { bold: true };
+      worksheet.getCell(`H${filteredData.length + 7}`).alignment = {
+        horizontal: "right",
+      };
 
       const columnWidths = [
         { width: 15 },
