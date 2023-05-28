@@ -2,53 +2,68 @@ import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import Moment from "react-moment";
 import PropTypes from "prop-types";
-import DistributionUpdateModal from "../Modal/distribution/distribution-update-modal";
-import distributionService from "../../services/distribution-service";
+import { Tooltip } from "@mui/material";
+import NurseryUpdateModal from "../../Modal/nursery/nursery-update-modal";
+import nurseryService from "../../../services/nursery-service";
 
-export default function DistributionTable({ distributionData, loading }) {
+export default function NurseryTable({
+  nurseryData,
+  loadingState,
+  dataReload,
+}) {
   const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(loadingState);
+
   const handleUpdateClose = () => {
     setSelected(null);
   };
-  const handleRemove = (distribution) => {
-    console.log(distribution.uuid);
-    loading(true);
-    distributionService
-      .deleteDistribution(distribution.uuid)
+
+  const handleRemove = (nursery) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to remove this data?"
+    );
+    if (!confirmed) {
+      return; // User cancelled the removal
+    }
+
+    console.log(selected);
+    setLoading(true);
+    nurseryService
+      .deleteNursery(nursery.uuid)
       .then((e) => {
         alert(e.data.message);
+        dataReload();
       })
       .catch((error) => {
         console.log(error.response.data.message);
       })
       .finally(() => {
-        loading(false);
+        setLoading(false);
       });
   };
 
   const headerStyles = {
-    backgroundColor: "#f0f0f0", // Set the desired background color
-    color: "blue", // Set the desired text color
-    fontWeight: "bold", // Optionally adjust the font weight
+    backgroundColor: "#f0f0f0",
+    color: "blue",
+    fontWeight: "bold",
   };
 
   const columns = [
     {
-      field: "reportDate",
+      field: "report_date",
       headerName: "Report Date",
-      headerClassName: "custom-header",
+      headerClassName: "custom-header", // Apply the header styles to all headers
+      renderCell: ({ row }) =>
+        row?.month_report && (
+          <Moment format="YYYY/MM/DD">{row?.report_date}</Moment>
+        ),
       width: 200,
     },
     {
-      field: "typeOfPlantingMaterials",
-      headerName: "Type of Planting Materials",
-      headerClassName: "custom-header",
-      width: 200,
-    },
-    {
-      field: "nameOfCooperator",
-      headerName: "Name of Cooperator",
+      field: "funded_by",
+      headerName: "Funded By",
       headerClassName: "custom-header",
       width: 200,
     },
@@ -62,7 +77,6 @@ export default function DistributionTable({ distributionData, loading }) {
       field: "province",
       headerName: "Province",
       headerClassName: "custom-header",
-      type: "string",
       width: 200,
     },
     {
@@ -87,50 +101,36 @@ export default function DistributionTable({ distributionData, loading }) {
       width: 200,
     },
     {
-      field: "noOfPMAvailable",
-      headerName: "No of PM Available",
+      field: "complete_name_of_cooperator_organization",
+      headerName: "Name of Cooperative",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
     },
     {
-      field: "variety",
+      field: "date_established",
+      headerName: "Date Established",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+    },
+    {
+      field: "area_in_hectares_ha",
+      headerName: "Area(in hectars)",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+    },
+    {
+      field: "variety_used",
       headerName: "Variety",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
     },
     {
-      field: "noOfPMDistributed",
-      headerName: "No of PM Distributed",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "nameOfRecipient",
-      headerName: "Name of Recipient",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "addressOfBeneficiary",
-      headerName: "Address of Recipient",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "gender",
-      headerName: "Gender",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "category",
-      headerName: "Category",
+      field: "period_of_moa",
+      headerName: "Period of MOA",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
@@ -143,21 +143,30 @@ export default function DistributionTable({ distributionData, loading }) {
       width: 200,
       // eslint-disable-next-line react/no-unstable-nested-components
       getActions: (params) => [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          onClick={() => setSelected(params.row)}
-          label="Edit"
-        />,
-        <DistributionUpdateModal
+        <Tooltip title="Edit" placement="top">
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            onClick={() => setSelected(params.row)}
+            label="Edit"
+          />
+        </Tooltip>,
+        <NurseryUpdateModal
           open={params.id === selected?.uuid}
           onClose={handleUpdateClose}
           selected={params.row}
+          onSuccess={() => {
+            setSelected(null);
+            dataReload?.();
+            handleUpdateClose();
+          }}
         />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          onClick={() => handleRemove(params.row)}
-          label="Delete"
-        />,
+        <Tooltip title="Remove" placement="top">
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            onClick={() => handleRemove(params.row)}
+            label="Remove"
+          />
+        </Tooltip>,
       ],
     },
   ];
@@ -165,9 +174,9 @@ export default function DistributionTable({ distributionData, loading }) {
     <div style={{ height: 530, width: "100%", position: "relative" }}>
       <DataGrid
         getRowId={(row) => row.uuid}
-        rows={distributionData}
+        rows={nurseryData}
         columns={columns}
-        headerClassName={headerStyles}
+        headerClassName={headerStyles} // Apply the header styles
         pageSize={10}
         rowsPerPageOptions={[1]}
         loading={loading}
@@ -176,13 +185,15 @@ export default function DistributionTable({ distributionData, loading }) {
   );
 }
 
-DistributionTable.defaultProps = {
-  distributionData: null,
-  loading: false,
+NurseryTable.defaultProps = {
+  nurseryData: null,
+  loadingState: false,
+  dataReload: () => {},
 };
 
-DistributionTable.propTypes = {
+NurseryTable.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  distributionData: PropTypes.object,
-  loading: PropTypes.bool,
+  nurseryData: PropTypes.object,
+  loadingState: PropTypes.bool,
+  dataReload: PropTypes.func,
 };

@@ -15,7 +15,7 @@ import PageContainer from "../components/LayoutContainers/PageContainer";
 import DistributionOfPMBarChart from "../components/Charts/DistributionOfPMBarChart";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
-import DistributionTable from "../components/Tables/DistributionTable";
+import DistributionTable from "../components/Tables/modifyable/DistributionTable";
 import distributionService from "../services/distribution-service";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
 import ImportDataButton from "../components/Buttons/ImportDataButton";

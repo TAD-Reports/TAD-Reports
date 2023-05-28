@@ -16,7 +16,7 @@ const links = [
     links: [
       {
         name: "dashboard",
-        path: "",
+        path: "dashboard",
         icon: <DashboardIcon />,
       },
     ],

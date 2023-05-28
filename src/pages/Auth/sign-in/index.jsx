@@ -1,40 +1,40 @@
 import { useState } from "react";
 import "./sign-in.css";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import Logo from "../../assets/images/philfida.png";
-import { useStateContext } from "../../contexts/ContextProvider";
-import accountService from "../../services/account-service";
-import Schema, { initialLog } from "../../schemas/login-schema";
+import { Link, useNavigate } from "react-router-dom";
+import Logo from "../../../assets/images/philfida.png";
+import { useStateContext } from "../../../contexts/ContextProvider";
+import accountService from "../../../services/account-service";
+import Schema, { initialLog } from "../../../schemas/login-schema";
 
 function Login() {
   const { setAuth } = useStateContext();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState();
   const [errMessage, setError] = useState();
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: initialLog,
     validationSchema: Schema,
-    onSubmit: () => {
+    onSubmit: async () => {
       setLoading(true);
       setError("");
       accountService
         .authenticate(formik?.values)
         .then((res) => {
           if (res.valid) {
-            setAuth(true);
-            // try {
-            //   const jwtToken = jwtGenerator(formik?.values?.username);
-            //   console.log({ jwtToken });
-            // } catch (err) {
-            //   console.log(err.message);
-            // }
+            setAuth(res.data);
+            navigate("/dashboard");
           }
         })
         .catch((err) => {
           let message = "";
-          if (err?.response?.status === 400) {
+          if (err?.response?.status === 400 || err?.response?.status === 401) {
             message = "Invalid Username / Password";
           } else if (err?.response?.status === 500) {
             message = "Internal Server Error";
@@ -101,20 +101,61 @@ function Login() {
           <TextField
             id="password"
             placeholder="Password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             variant="standard"
             fullWidth
             disabled={loading}
             value={formik.values.password}
             onChange={formik.handleChange}
+            InputProps={{
+              endAdornment: (
+                <Box
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setShowPassword(!showPassword)}
+                  onKeyPress={() => setShowPassword(!showPassword)}
+                  sx={{ margin: 0, cursor: "pointer" }}
+                >
+                  {showPassword ? (
+                    <VisibilityIcon size={18} />
+                  ) : (
+                    <VisibilityOffIcon size={18} />
+                  )}
+                </Box>
+              ),
+            }}
             onBlur={formik.handleBLur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
             sx={{ width: "18vw" }}
           />
-          <Button id="login-btn" type="submit" variant="contained">
+
+          <Button
+            id="login-btn"
+            type="submit"
+            variant="contained"
+            sx={{
+              backgroundColor: "green",
+              color: "#fff",
+              fontSize: "15px",
+              padding: "8px 5px",
+              margintop: "15px",
+              width: "250px",
+              height: "40px",
+              "&:hover": {
+                backgroundColor: "#0ed145",
+                color: "black",
+                fontWeight: "bolder",
+              },
+            }}
+          >
             Log in
           </Button>
+          <Link to="/">
+            <Typography sx={{ color: "blue", fontSize: "14px", m: 0 }}>
+              Not a PhilFIDA member? Click Here
+            </Typography>
+          </Link>
         </form>
       </Box>
     </Box>

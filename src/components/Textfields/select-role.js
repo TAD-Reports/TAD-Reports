@@ -20,6 +20,7 @@ export default function SelectRole(props) {
           <MenuItem value="superadmin">Super Admin</MenuItem>
           <MenuItem value="reviewer">Reviewer</MenuItem>
           <MenuItem value="uploader">Uploader</MenuItem>
+          <MenuItem value="planner">Planner</MenuItem>
         </Select>
       </FormControl>
     </Box>

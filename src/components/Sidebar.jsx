@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Box, Button, Typography } from "@mui/material";
 import Avatar from "../data/avatarMale.jpg";
@@ -9,9 +9,14 @@ import links from "./SidebarLinks";
 import { useStateContext } from "../contexts/ContextProvider";
 
 export default function SideBar() {
-  const { setAuth } = useStateContext();
-
+  const { auth, setAuth } = useStateContext();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setAuth(null);
+    navigate("/");
+  };
 
   const activeLink = {
     display: "flex",
@@ -68,6 +73,7 @@ export default function SideBar() {
           },
         },
         backgroundColor: "#5a9c4e",
+        zIndex: 1000,
       }}
     >
       <Box sx={{ position: "absolute", width: "288px" }}>
@@ -81,7 +87,7 @@ export default function SideBar() {
             mt: 5,
           }}
         >
-          <Link to="/register">
+          <Link to={auth.role === "superadmin" ? "/register" : "/dashboard"}>
             <img
               src={Avatar}
               alt="logo"
@@ -152,7 +158,7 @@ export default function SideBar() {
             >
               Log out
             </Typography>
-            <Button sx={normalLink} onClick={() => setAuth(false)}>
+            <Button sx={normalLink} onClick={handleLogout}>
               <LogoutIcon />
               <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
                 Logout

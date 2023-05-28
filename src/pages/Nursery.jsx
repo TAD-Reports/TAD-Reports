@@ -14,22 +14,28 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import GrassIcon from "@mui/icons-material/Grass";
 import SearchIcon from "@mui/icons-material/Search";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import dayjs from "dayjs";
+import { useStateContext } from "contexts/ContextProvider";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
 import nurseryService from "../services/nursery-service";
-import NurseryTable from "../components/Tables/NurseryTable";
+import NurseryTableModifyable from "../components/Tables/modifyable/NurseryTable";
+import NurseryTableReadOnly from "../components/Tables/read-only/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
 import BarChart from "../components/Charts/NurseryBarChart";
 
 export default function Nursery() {
+  const { auth } = useStateContext();
+
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [region, setRegion] = useState("");
@@ -426,7 +432,21 @@ export default function Nursery() {
               justifyContent="end"
               alignitems="center"
             >
-              <Button onClick={handleSearch}>Refresh</Button>
+              <Tooltip title="Refresh" placement="top">
+                <Button
+                  onClick={handleSearch}
+                  sx={{
+                    borderRadius: "50%",
+                    color: "gray",
+                    "&:hover": {
+                      textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                      color: "black",
+                    },
+                  }}
+                >
+                  <RefreshIcon sx={{ fontSize: "25px" }} />
+                </Button>
+              </Tooltip>
             </Grid>
           </Grid>
           <Box sx={{ mb: 1 }}>
@@ -435,31 +455,69 @@ export default function Nursery() {
         </Grid>
       </Grid>
       <Divider sx={{ my: 4 }} />
-
       <Box>
-        <NurseryTable
-          nurseryData={nurseryData}
-          loadingState={loading}
-          dataReload={handleSearch}
-        />
+        {auth.role === "admin" ||
+        auth.role === "superadmin" ||
+        auth.role === "reviewer" ? (
+          <NurseryTableModifyable
+            nurseryData={nurseryData}
+            loadingState={loading}
+            dataReload={handleSearch}
+          />
+        ) : auth.role === "planner" || auth.role === "uploader" ? (
+          <NurseryTableReadOnly
+            nurseryData={nurseryData}
+            loadingState={loading}
+          />
+        ) : null}
       </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "end",
-          px: 2,
-          my: 4,
-        }}
-      >
-        <ImportDataButton
-          fileName={fileName}
-          importFunction={handleFile}
-          clearFileName={clearFileName}
-        />
-        <DownloadDataButton downloadData={handleDownload} />
-      </Box>
+      {auth.role === "admin" || auth.role === "superadmin" ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "end",
+            px: 2,
+            my: 4,
+          }}
+        >
+          <ImportDataButton
+            fileName={fileName}
+            importFunction={handleFile}
+            clearFileName={clearFileName}
+          />
+          <DownloadDataButton downloadData={handleDownload} />
+        </Box>
+      ) : auth.role === "planner" ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "end",
+            px: 2,
+            my: 4,
+          }}
+        >
+          <DownloadDataButton downloadData={handleDownload} />
+        </Box>
+      ) : auth.role === "uploader" ? (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "end",
+            px: 2,
+            my: 4,
+          }}
+        >
+          <ImportDataButton
+            fileName={fileName}
+            importFunction={handleFile}
+            clearFileName={clearFileName}
+          />
+        </Box>
+      ) : null}
+
       {error}
       {buttonError}
     </PageContainer>

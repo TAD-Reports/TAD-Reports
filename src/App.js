@@ -1,14 +1,19 @@
+/* eslint-disable no-nested-ternary */
 import React from "react";
 import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 // import { FiSettings } from "react-icons/fi";
 // import Tooltip from "@mui/material/Tooltip";
 import "./App.css";
-
-import { Navbar, Sidebar } from "./components";
-
+import RequireAuth from "contexts/RequireAuth";
+import Layout from "contexts/Layout";
 import {
+  Login,
   Register,
+  Unauthorized,
+  Missing,
+  LandingPage,
+  AppForm,
   Cocoon,
   Cotton,
   Dashboard,
@@ -21,45 +26,57 @@ import {
   PMSurvived,
   Training,
 } from "./pages";
-
-// import { useStateContext } from "./contexts/ContextProvider";
-import Login from "./pages/Auth";
-import Missing from "./pages/Missing";
+import { useStateContext } from "./contexts/ContextProvider";
 
 function App() {
-  const auth = true;
+  const { auth } = useStateContext();
+
+  console.log(auth);
+
+  const Roles = {
+    admin: "admin",
+    superadmin: "superadmin",
+    reviewer: "reviewer",
+    uploader: "uploader",
+    planner: "planner",
+    hr: "hr",
+  };
+
   return (
     <Box>
-      {auth ? (
-        <Box sx={{ display: "flex", position: "relative" }}>
-          <Sidebar />
-          <Navbar />
-        </Box>
-      ) : null}
-
       <Box sx={{ zIndex: 1500 }}>
         <Routes>
+          <Route path="/" element={<LandingPage />} />
           <Route path="/sign-in" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/app-form" element={<AppForm />} />
 
-          <Route path="/nursery" element={<Nursery />} />
-          <Route path="/distribution" element={<Distribution />} />
-          <Route path="/pmsurvived" element={<PMSurvived />} />
-          <Route path="/expansionandrehab" element={<ExpansionAndRehab />} />
-          <Route path="/cotton" element={<Cotton />} />
-          <Route path="/cocoon" element={<Cocoon />} />
-          <Route path="/training" element={<Training />} />
-          <Route path="/iec" element={<IEC />} />
-          <Route
-            path="/expansioncoconut"
-            element={<ExpansionUnderCoconutProj />}
-          />
-          <Route
-            path="/diseasemanagement"
-            element={<DiseaseManagementProj />}
-          />
+          <Route element={<RequireAuth allowedRoles={[Roles]} />}>
+            <Route path="/" element={<Layout />}>
+              <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/nursery" element={<Nursery />} />
+              <Route path="/distribution" element={<Distribution />} />
+              <Route path="/pmsurvived" element={<PMSurvived />} />
+              <Route
+                path="/expansionandrehab"
+                element={<ExpansionAndRehab />}
+              />
+              <Route path="/cotton" element={<Cotton />} />
+              <Route path="/cocoon" element={<Cocoon />} />
+              <Route path="/training" element={<Training />} />
+              <Route path="/iec" element={<IEC />} />
+              <Route
+                path="/expansioncoconut"
+                element={<ExpansionUnderCoconutProj />}
+              />
+              <Route
+                path="/diseasemanagement"
+                element={<DiseaseManagementProj />}
+              />
+            </Route>
+          </Route>
 
+          <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<Missing />} />
         </Routes>
       </Box>

@@ -41,21 +41,6 @@
     height: 40px;
 }
 
-#login-btn {
-    background-color: green;
-    color: #fff;
-    font-size: 15px;
-    padding: 8px 5px;
-    margin-top: 15px;
-    width: 250px;
-    height: 40px;
-}
-
-#login-btn:hover {
-    background-color: rgb(10, 128, 73);
-    font-weight: bolder;
-}
-
 @media only screen and (max-width: 950px) {
     .stylish-design {
         width: 70vw;

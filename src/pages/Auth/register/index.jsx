@@ -3,10 +3,10 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import PageContainer from "../components/LayoutContainers/PageContainer";
-import accountService from "../services/account-service";
-import SelectRole from "../components/Textfields/select-role";
-import RegSchema, { initialAccount } from "../schemas/register-schema";
+import PageContainer from "../../../components/LayoutContainers/PageContainer";
+import accountService from "../../../services/account-service";
+import SelectRole from "../../../components/Textfields/select-role";
+import RegSchema, { initialAccount } from "../../../schemas/register-schema";
 
 export default function Register() {
   const [loading, setLoading] = React.useState(false);

@@ -1,4 +1,9 @@
-export { default as Register } from "./Register";
+export { default as LandingPage } from "./LandingPage";
+export { default as Login } from "./Auth/sign-in";
+export { default as Register } from "./Auth/register";
+export { default as Missing } from "./Missing";
+export { default as Unauthorized } from "./Auth/unauthorized";
+export { default as AppForm } from "./ApplicationForm";
 export { default as Dashboard } from "./Dashboard";
 export { default as Nursery } from "./Nursery";
 export { default as Distribution } from "./Distribution";

@@ -1,8 +1,8 @@
-import { useStateContext } from "../../contexts/ContextProvider";
+import { useStateContext } from "../../../contexts/ContextProvider";
 
 const Logout = () => {
   const { setAuth } = useStateContext();
-  setAuth(false);
+  setAuth(null);
 };
 
 export default Logout;
