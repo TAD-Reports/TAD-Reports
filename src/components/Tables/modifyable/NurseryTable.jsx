@@ -48,7 +48,6 @@ export default function NurseryTable({
     backgroundColor: "#f0f0f0",
     color: "blue",
     fontWeight: "bold",
-    textAlign: "center",
   };
 
   const columns = [
