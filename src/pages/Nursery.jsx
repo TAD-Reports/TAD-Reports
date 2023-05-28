@@ -281,7 +281,7 @@ export default function Nursery() {
             cell.fill = {
               type: "pattern",
               pattern: "solid",
-              fgColor: { argb: "ffa4ffa4" }, // Set the desired color code here
+              fgColor: { argb: "ffb1a0c7" }, // Set the desired color code here
             };
           }
         }
