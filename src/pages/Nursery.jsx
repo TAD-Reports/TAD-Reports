@@ -149,6 +149,7 @@ export default function Nursery() {
       "Report Date",
       "Region",
       "Province",
+      "District",
       "Municipality",
       "Barangay",
       "Complete Name of Cooperator/ Organization",
@@ -191,6 +192,7 @@ export default function Nursery() {
           data.report_date,
           data.region,
           data.province,
+          data.district,
           data.municipality,
           data.barangay,
           data.complete_name_of_cooperator_organization,
@@ -204,37 +206,33 @@ export default function Nursery() {
       });
 
       const columnWidths = [
+        { width: 15 },
         { width: 20 },
         { width: 20 },
         { width: 20 },
         { width: 20 },
         { width: 20 },
         { width: 40 },
+        { width: 15 },
         { width: 20 },
-        { width: 20 },
-        { width: 20 },
-        { width: 20 },
-        { width: 40 },
+        { width: 15 },
+        { width: 15 },
+        { width: 30 },
       ];
 
       worksheet.columns = columnWidths;
-
-      // Make rows 1 to 5 bold
-      for (let i = 1; i <= 5; i++) {
-        worksheet.getRow(i).font = { bold: true };
-      }
 
       // Set border for the table
       const startRow = 5;
       const startCol = 1; // Column A
       const endRow = startRow + filteredData.length;
-      const endCol = 11; // Column K
+      const endCol = 12; // Column K
 
       for (let row = 1; row <= endRow; row++) {
         for (let col = startCol; col <= endCol; col++) {
           const cell = worksheet.getCell(row, col);
           if (row >= 5) {
-            cell.alignment = { horizontal: "center" };
+            cell.alignment = { horizontal: "center", vertical: "middle" };
             cell.border = {
               top: { style: "thin" },
               right: { style: "thin" },
@@ -244,13 +242,18 @@ export default function Nursery() {
           }
           if (row <= 4) {
             // Set white background color for cells A1 to K4
+            cell.font = { bold: true };
             cell.fill = {
               type: "pattern",
               pattern: "solid",
               fgColor: { argb: "FFFFFFFF" }, // Set the desired color code here (white)
             };
+            if (row === 4) {
+              cell.font = { italic: true, bold: true };
+            }
           } else if (row === startRow) {
             // Apply fill color to headers
+            cell.font = { bold: true };
             cell.fill = {
               type: "pattern",
               pattern: "solid",
