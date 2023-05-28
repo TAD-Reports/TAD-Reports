@@ -445,7 +445,7 @@ export default function Nursery() {
           </Box>
         </Grid>
       </Grid>
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: 2 }} />
       <Box>
         {auth.role === "admin" ||
         auth.role === "superadmin" ||

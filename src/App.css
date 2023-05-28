@@ -62,4 +62,5 @@ a:link,a:visited {
   background-color: #76A66E;
   color: white;
   font-weight: bold;
+  text-align: center !important;
 }
