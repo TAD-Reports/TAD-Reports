@@ -189,7 +189,7 @@ export default function Nursery() {
 
       // Add "Area in Hectares (ha)" column header
       // eslint-disable-next-line prefer-destructuring
-      worksheet.getCell(`I5`).value = headers[7];
+      worksheet.getCell(`I5`).value = headers[8];
 
       filteredData.forEach((data) => {
         const rowData = [
