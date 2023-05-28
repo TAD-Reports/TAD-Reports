@@ -295,7 +295,7 @@ export default function Nursery() {
       }
     });
 
-    const filename = `Nursery_report${nurseryData[0].report_date}.xlsx`;
+    const filename = `Nursery_Report_${nurseryData[0].report_date}.xlsx`;
 
     workbook.xlsx.writeBuffer().then((buffer) => {
       const blob = new Blob([buffer], {

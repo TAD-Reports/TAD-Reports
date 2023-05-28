@@ -69,6 +69,10 @@ function downloadNurseryData(report, filename, fileType) {
 }
 
 function downloadNurseryTemplate(fileName) {
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString().split("T")[0]; // Format the date as YYYY-MM-DD
+  const updatedFileName = `${fileName}_${formattedDate}`;
+
   return axios
     .get(`${BASE_URL}/download/${fileName}`, {
       responseType: "arraybuffer",
@@ -80,7 +84,7 @@ function downloadNurseryTemplate(fileName) {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", fileName);
+      link.setAttribute("download", updatedFileName);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link); // Clean up by removing the link element
