@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import ExcelJS from "exceljs";
 import {
   Box,
+  Button,
   Divider,
   Grid,
   IconButton,
@@ -412,11 +413,22 @@ export default function Nursery() {
             </Box>
           </Box>
 
-          <Box>
-            <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
-              Nurseries Maintained (Area in Hectares)
-            </Typography>
-          </Box>
+          <Grid container>
+            <Grid item xs={6} display="flex" alignitems="center">
+              <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
+                Nurseries Maintained (Area in Hectares)
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              display="flex"
+              justifyContent="end"
+              alignitems="center"
+            >
+              <Button onClick={handleSearch}>Refresh</Button>
+            </Grid>
+          </Grid>
           <Box sx={{ mb: 1 }}>
             <BarChart monthData={graphData} totalData={totalGraphData} />
           </Box>
@@ -428,7 +440,7 @@ export default function Nursery() {
         <NurseryTable
           nurseryData={nurseryData}
           loadingState={loading}
-          onSuccess={handleSearch}
+          dataReload={handleSearch}
         />
       </Box>
 

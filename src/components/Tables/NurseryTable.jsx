@@ -8,7 +8,11 @@ import { Tooltip } from "@mui/material";
 import NurseryUpdateModal from "../Modal/nursery/nursery-update-modal";
 import nurseryService from "../../services/nursery-service";
 
-export default function NurseryTable({ nurseryData, loadingState, onSuccess }) {
+export default function NurseryTable({
+  nurseryData,
+  loadingState,
+  dataReload,
+}) {
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(loadingState);
 
@@ -30,7 +34,7 @@ export default function NurseryTable({ nurseryData, loadingState, onSuccess }) {
       .deleteNursery(nursery.uuid)
       .then((e) => {
         alert(e.data.message);
-        onSuccess();
+        dataReload();
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -150,6 +154,11 @@ export default function NurseryTable({ nurseryData, loadingState, onSuccess }) {
           open={params.id === selected?.uuid}
           onClose={handleUpdateClose}
           selected={params.row}
+          onSuccess={() => {
+            setSelected(null);
+            dataReload?.();
+            handleUpdateClose();
+          }}
         />,
         <Tooltip title="Remove" placement="top">
           <GridActionsCellItem
@@ -179,12 +188,12 @@ export default function NurseryTable({ nurseryData, loadingState, onSuccess }) {
 NurseryTable.defaultProps = {
   nurseryData: null,
   loadingState: false,
-  onSuccess: () => {},
+  dataReload: () => {},
 };
 
 NurseryTable.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   nurseryData: PropTypes.object,
   loadingState: PropTypes.bool,
-  onSuccess: PropTypes.func,
+  dataReload: PropTypes.func,
 };
