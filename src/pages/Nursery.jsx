@@ -420,34 +420,25 @@ export default function Nursery() {
           </Box>
 
           <Grid container>
-            <Grid item xs={6} display="flex" alignitems="center">
-              <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
-                Nurseries Maintained (Area in Hectares)
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              display="flex"
-              justifyContent="end"
-              alignitems="center"
-            >
-              <Tooltip title="Refresh" placement="top">
-                <Button
-                  onClick={handleSearch}
-                  sx={{
-                    borderRadius: "50%",
-                    color: "gray",
-                    "&:hover": {
-                      textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-                      color: "black",
-                    },
-                  }}
-                >
-                  <RefreshIcon sx={{ fontSize: "25px" }} />
-                </Button>
-              </Tooltip>
-            </Grid>
+            <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
+              Nurseries Maintained (Area in Hectares)
+            </Typography>
+
+            <Tooltip title="Refresh" placement="top">
+              <Button
+                onClick={handleSearch}
+                sx={{
+                  borderRadius: "50%",
+                  color: "gray",
+                  "&:hover": {
+                    textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                    color: "black",
+                  },
+                }}
+              >
+                <RefreshIcon sx={{ fontSize: "25px" }} />
+              </Button>
+            </Tooltip>
           </Grid>
           <Box sx={{ mb: 1 }}>
             <BarChart monthData={graphData} totalData={totalGraphData} />
