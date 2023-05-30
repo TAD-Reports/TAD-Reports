@@ -15,9 +15,11 @@ export default function NurseryTable({
 }) {
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(loadingState);
+  const [remarks, setRemarks] = useState(""); // State to hold the remarks value
 
   const handleUpdateClose = () => {
     setSelected(null);
+    setRemarks("");
   };
 
   const handleRemove = (nursery) => {
@@ -35,6 +37,7 @@ export default function NurseryTable({
       .then((e) => {
         alert(e.data.message);
         dataReload();
+        setRemarks("");
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -50,34 +53,61 @@ export default function NurseryTable({
     fontWeight: "bold",
   };
 
+  const handleRowClick = (params) => {
+    const rowRemarks = params.row.remarks || "";
+    setRemarks(rowRemarks);
+  };
+
+  const renderCell = (params) => {
+    if (params.field === "report_date") {
+      return (
+        <Tooltip title={params.value} placement="top">
+          <span>
+            {params.value && (
+              <Moment format="YYYY/MM/DD">{params.value}</Moment>
+            )}
+          </span>
+        </Tooltip>
+      );
+    }
+    if (params.value) {
+      return (
+        <Tooltip title={params.value} placement="top">
+          <span>{params.value}</span>
+        </Tooltip>
+      );
+    }
+    return null;
+  };
+
   const columns = [
     {
       field: "report_date",
       headerName: "Report Date",
       headerClassName: "custom-header",
-      renderCell: ({ row }) =>
-        row?.month_report && (
-          <Moment format="YYYY/MM/DD">{row?.report_date}</Moment>
-        ),
       width: 120,
+      renderCell,
     },
     {
       field: "funded_by",
       headerName: "Funded By",
       headerClassName: "custom-header",
       width: 100,
+      renderCell,
     },
     {
       field: "region",
       headerName: "Region",
       headerClassName: "custom-header",
       width: 150,
+      renderCell,
     },
     {
       field: "province",
       headerName: "Province",
       headerClassName: "custom-header",
       width: 170,
+      renderCell,
     },
     {
       field: "district",
@@ -85,6 +115,7 @@ export default function NurseryTable({
       headerClassName: "custom-header",
       type: "string",
       width: 150,
+      renderCell,
     },
     {
       field: "municipality",
@@ -92,6 +123,7 @@ export default function NurseryTable({
       headerClassName: "custom-header",
       type: "string",
       width: 170,
+      renderCell,
     },
     {
       field: "barangay",
@@ -99,6 +131,7 @@ export default function NurseryTable({
       headerClassName: "custom-header",
       type: "string",
       width: 170,
+      renderCell,
     },
     {
       field: "complete_name_of_cooperator_organization",
@@ -106,6 +139,7 @@ export default function NurseryTable({
       headerClassName: "custom-header",
       type: "string",
       width: 200,
+      renderCell,
     },
     {
       field: "date_established",
@@ -113,6 +147,7 @@ export default function NurseryTable({
       headerClassName: "custom-header",
       type: "string",
       width: 140,
+      renderCell,
     },
     {
       field: "area_in_hectares_ha",
@@ -120,6 +155,7 @@ export default function NurseryTable({
       headerClassName: "custom-header",
       type: "string",
       width: 130,
+      renderCell,
     },
     {
       field: "variety_used",
@@ -127,13 +163,23 @@ export default function NurseryTable({
       headerClassName: "custom-header",
       type: "string",
       width: 120,
+      renderCell,
     },
     {
       field: "period_of_moa",
-      headerName: "Period of MOA",
+      headerName: " MOA",
       headerClassName: "custom-header",
       type: "string",
-      width: 120,
+      width: 90,
+      renderCell,
+    },
+    {
+      field: "remarks",
+      headerName: "Remarks",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 150,
+      renderCell,
     },
     {
       field: "actions",
@@ -170,17 +216,24 @@ export default function NurseryTable({
       ],
     },
   ];
+
   return (
     <div style={{ height: 530, width: "100%", position: "relative" }}>
       <DataGrid
         getRowId={(row) => row.uuid}
         rows={nurseryData}
         columns={columns}
-        headerClassName={headerStyles} // Apply the header styles
+        headerClassName={headerStyles}
         pageSize={10}
         rowsPerPageOptions={[1]}
         loading={loading}
+        onRowClick={handleRowClick}
       />
+      {remarks.length > 0 ? (
+        <div style={{ textAlign: "center", padding: "10px" }}>
+          Remarks: <span>{remarks}</span>
+        </div>
+      ) : null}
     </div>
   );
 }
