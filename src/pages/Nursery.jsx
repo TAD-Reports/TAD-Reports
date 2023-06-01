@@ -4,7 +4,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable dot-notation */
 import React, { useState } from "react";
-// import * as XLSX from "xlsx";
+import * as XLSX from "xlsx";
 import ExcelJS from "exceljs";
 import {
   Box,
@@ -35,7 +35,6 @@ import BarChart from "../components/Charts/NurseryBarChart";
 
 export default function Nursery() {
   const { auth } = useStateContext();
-
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [region, setRegion] = useState("");
@@ -221,7 +220,9 @@ export default function Nursery() {
       worksheet.getCell(`I${filteredData.length + 7}`).value = {
         formula: totalAreaFormula,
       };
-      worksheet.getCell(`I${filteredData.length + 7}`).font = { bold: true };
+      worksheet.getCell(`I${filteredData.length + 7}`).font = {
+        bold: true,
+      };
       worksheet.getCell(`I${filteredData.length + 7}`).alignment = {
         horizontal: "center",
       };
@@ -231,7 +232,9 @@ export default function Nursery() {
 
       // Add "Total" text in the cell next to "Area in Hectares (ha)"
       worksheet.getCell(`H${filteredData.length + 7}`).value = "Total";
-      worksheet.getCell(`H${filteredData.length + 7}`).font = { bold: true };
+      worksheet.getCell(`H${filteredData.length + 7}`).font = {
+        bold: true,
+      };
       worksheet.getCell(`H${filteredData.length + 7}`).alignment = {
         horizontal: "right",
       };
@@ -263,7 +266,10 @@ export default function Nursery() {
         for (let col = startCol; col <= endCol; col++) {
           const cell = worksheet.getCell(row, col);
           if (row >= 5) {
-            cell.alignment = { horizontal: "center", vertical: "middle" };
+            cell.alignment = {
+              horizontal: "center",
+              vertical: "middle",
+            };
             cell.border = {
               top: { style: "thin" },
               right: { style: "thin" },
