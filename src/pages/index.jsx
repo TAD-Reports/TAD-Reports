@@ -1,4 +1,4 @@
-export { default as LandingPage } from "./LandingPage";
+export { default as LandingPage } from "./landing-page";
 export { default as Login } from "./Auth/sign-in";
 export { default as Register } from "./Auth/register";
 export { default as Missing } from "./Missing";

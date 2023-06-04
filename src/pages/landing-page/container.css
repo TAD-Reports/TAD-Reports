@@ -1,0 +1,14 @@
+.Background {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(
+            rgba(4, 9, 30, 0.7),
+            rgba(4, 9, 30, 0.7) 90%
+        ),
+        url(../../assets/images/Background-Landingpage.jpg);
+    background-size: cover;
+    /* pointer-events: none; */
+}
