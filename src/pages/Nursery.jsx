@@ -4,7 +4,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable dot-notation */
 import React, { useState } from "react";
-import * as XLSX from "xlsx";
 import ExcelJS from "exceljs";
 import {
   Box,
@@ -26,8 +25,7 @@ import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
 import nurseryService from "../services/nursery-service";
-import NurseryTableModifyable from "../components/Tables/modifyable/NurseryTable";
-import NurseryTableReadOnly from "../components/Tables/read-only/NurseryTable";
+import NurseryTable from "../components/Tables/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
@@ -106,7 +104,7 @@ export default function Nursery() {
     setButtonError("");
     setLoading(true);
     nurseryService
-      .importNurseryData(1, file)
+      .importNurseryData(auth.uuid, file)
       .then((res) => {
         alert(res.data.message);
         handleSearch();
@@ -453,39 +451,30 @@ export default function Nursery() {
       </Grid>
       <Divider sx={{ my: 2 }} />
       <Box>
-        {auth.role === "admin" ||
-        auth.role === "superadmin" ||
-        auth.role === "reviewer" ? (
-          <NurseryTableModifyable
-            nurseryData={nurseryData}
-            loadingState={loading}
-            dataReload={handleSearch}
-          />
-        ) : auth.role === "planner" || auth.role === "uploader" ? (
-          <NurseryTableReadOnly
-            nurseryData={nurseryData}
-            loadingState={loading}
-          />
-        ) : null}
+        <NurseryTable
+          nurseryData={nurseryData}
+          loadingState={loading}
+          dataReload={handleSearch}
+        />
       </Box>
-
-      {auth.role === "admin" || auth.role === "superadmin" ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "end",
-            px: 2,
-            my: 4,
-          }}
-        >
-          <ImportDataButton
-            fileName={fileName}
-            importFunction={handleFile}
-            clearFileName={clearFileName}
-          />
-          <DownloadDataButton downloadData={handleDownload} />
-        </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "end",
+          px: 2,
+          my: 4,
+        }}
+      >
+        <ImportDataButton
+          fileName={fileName}
+          importFunction={handleFile}
+          clearFileName={clearFileName}
+        />
+        <DownloadDataButton downloadData={handleDownload} />
+      </Box>
+      {/* {auth.role === "admin" || auth.role === "superadmin" ? (
+        
       ) : auth.role === "planner" ? (
         <Box
           sx={{
@@ -513,7 +502,7 @@ export default function Nursery() {
             clearFileName={clearFileName}
           />
         </Box>
-      ) : null}
+      ) : null} */}
 
       {error}
       {buttonError}

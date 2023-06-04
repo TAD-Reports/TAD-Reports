@@ -5,14 +5,16 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import Moment from "react-moment";
 import PropTypes from "prop-types";
 import { Tooltip } from "@mui/material";
-import NurseryUpdateModal from "../../Modal/nursery/nursery-update-modal";
-import nurseryService from "../../../services/nursery-service";
+import { useStateContext } from "contexts/ContextProvider";
+import NurseryUpdateModal from "../Modal/nursery/nursery-update-modal";
+import nurseryService from "../../services/nursery-service";
 
 export default function NurseryTable({
   nurseryData,
   loadingState,
   dataReload,
 }) {
+  const { auth } = useStateContext();
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(loadingState);
   const [remarks, setRemarks] = useState(""); // State to hold the remarks value
@@ -187,33 +189,47 @@ export default function NurseryTable({
       headerName: "Actions",
       headerClassName: "custom-header",
       width: 90,
-      // eslint-disable-next-line react/no-unstable-nested-components
-      getActions: (params) => [
-        <Tooltip title="Edit" placement="top">
-          <GridActionsCellItem
-            icon={<EditIcon />}
-            onClick={() => setSelected(params.row)}
-            label="Edit"
-          />
-        </Tooltip>,
-        <NurseryUpdateModal
-          open={params.id === selected?.uuid}
-          onClose={handleUpdateClose}
-          selected={params.row}
-          onSuccess={() => {
-            setSelected(null);
-            dataReload?.();
-            handleUpdateClose();
-          }}
-        />,
-        <Tooltip title="Remove" placement="top">
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            onClick={() => handleRemove(params.row)}
-            label="Remove"
-          />
-        </Tooltip>,
-      ],
+      renderCell: (params) => {
+        if (
+          auth.role === "admin" ||
+          auth.role === "superadmin" ||
+          auth.role === "reviewer"
+        ) {
+          return (
+            <>
+              <Tooltip title="Edit" placement="top">
+                <GridActionsCellItem
+                  icon={<EditIcon />}
+                  onClick={() => setSelected(params.row)}
+                  label="Edit"
+                />
+              </Tooltip>
+              <NurseryUpdateModal
+                open={params.id === selected?.uuid}
+                onClose={handleUpdateClose}
+                selected={params.row}
+                onSuccess={() => {
+                  setSelected(null);
+                  dataReload?.();
+                  handleUpdateClose();
+                }}
+              />
+              <Tooltip title="Remove" placement="top">
+                <GridActionsCellItem
+                  icon={<DeleteIcon />}
+                  onClick={() => handleRemove(params.row)}
+                  label="Remove"
+                />
+              </Tooltip>
+            </>
+          );
+        }
+
+        if (auth.role === "planner" || auth.role === "uploader") {
+          return null;
+        }
+        return null;
+      },
     },
   ];
 

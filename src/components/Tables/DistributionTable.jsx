@@ -3,8 +3,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
-import DistributionUpdateModal from "../../Modal/distribution/distribution-update-modal";
-import distributionService from "../../../services/distribution-service";
+import DistributionUpdateModal from "../Modal/distribution/distribution-update-modal";
+import distributionService from "../../services/distribution-service";
 
 export default function DistributionTable({ distributionData, loading }) {
   const [selected, setSelected] = useState(null);
@@ -12,7 +12,6 @@ export default function DistributionTable({ distributionData, loading }) {
     setSelected(null);
   };
   const handleRemove = (distribution) => {
-    console.log(distribution.uuid);
     loading(true);
     distributionService
       .deleteDistribution(distribution.uuid)
@@ -35,19 +34,19 @@ export default function DistributionTable({ distributionData, loading }) {
 
   const columns = [
     {
-      field: "reportDate",
+      field: "report_date",
       headerName: "Report Date",
       headerClassName: "custom-header",
       width: 200,
     },
     {
-      field: "typeOfPlantingMaterials",
+      field: "type_of_planting_materials",
       headerName: "Type of Planting Materials",
       headerClassName: "custom-header",
       width: 200,
     },
     {
-      field: "nameOfCooperator",
+      field: "name_of_cooperative_individual",
       headerName: "Name of Cooperator",
       headerClassName: "custom-header",
       width: 200,
@@ -87,7 +86,7 @@ export default function DistributionTable({ distributionData, loading }) {
       width: 200,
     },
     {
-      field: "noOfPMAvailable",
+      field: "no_of_pm_available_during_establishment",
       headerName: "No of PM Available",
       headerClassName: "custom-header",
       type: "string",
@@ -101,21 +100,21 @@ export default function DistributionTable({ distributionData, loading }) {
       width: 200,
     },
     {
-      field: "noOfPMDistributed",
+      field: "no_of_pm_distributed",
       headerName: "No of PM Distributed",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
     },
     {
-      field: "nameOfRecipient",
+      field: "name_of_recipient_bene",
       headerName: "Name of Recipient",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
     },
     {
-      field: "addressOfBeneficiary",
+      field: "address_of_beneficiary",
       headerName: "Address of Recipient",
       headerClassName: "custom-header",
       type: "string",
@@ -131,6 +130,13 @@ export default function DistributionTable({ distributionData, loading }) {
     {
       field: "category",
       headerName: "Category",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+    },
+    {
+      field: "remarks",
+      headerName: "Remarks",
       headerClassName: "custom-header",
       type: "string",
       width: 200,

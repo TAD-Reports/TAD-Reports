@@ -31,8 +31,6 @@ export default function NurseryUpdateModal({
 
   const { uuid: nurseryId, ...nursery } = selected || {};
 
-  console.log(nursery);
-
   const formik = useFormik({
     initialValues: nursery,
 
@@ -210,6 +208,26 @@ export default function NurseryUpdateModal({
                   </Grid>
                   <Grid item xs={4} mb={4}>
                     <TextField
+                      name="district"
+                      label="District"
+                      disabled={loading}
+                      value={formik.values.district}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                        formik.touched.district &&
+                        Boolean(formik.errors.district)
+                      }
+                      helperText={
+                        formik.touched.district && formik.errors.district
+                      }
+                      variant="outlined"
+                      size="small"
+                      sx={{ width: "20vw" }}
+                    />
+                  </Grid>
+                  <Grid item xs={4} mb={4}>
+                    <TextField
                       name="barangay"
                       label="Barangay"
                       disabled={loading}
@@ -340,53 +358,76 @@ export default function NurseryUpdateModal({
                   </Grid>
                 </Grid>
               </Box>
+
               {error}
               {open && (
-                <Box
-                  className="modal-action"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignItems: "center",
-                    height: 100,
-                    mt: 20,
-                  }}
-                >
-                  <Button
-                    type="submit"
+                <>
+                  <Box sx={{ mx: 4, mt: 2, mb: 8 }}>
+                    <TextField
+                      name="remarks"
+                      label="Remarks"
+                      disabled={loading}
+                      value={formik.values.remarks}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                        formik.touched.remarks && Boolean(formik.errors.remarks)
+                      }
+                      helperText={
+                        formik.touched.remarks && formik.errors.remarks
+                      }
+                      variant="outlined"
+                      multiline
+                      rows={4}
+                      maxRows={4}
+                      fullWidth
+                    />
+                  </Box>
+                  <Box
+                    className="modal-action"
                     sx={{
-                      mr: 5,
-                      height: 40,
-                      width: 100,
-                      backgroundColor: "#76a66e",
-                      color: "#fff",
-                      "&:hover": {
-                        textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-                        color: "black",
-                        backgroundColor: "#60ec60",
-                      },
+                      display: "flex",
+                      justifyContent: "end",
+                      alignItems: "center",
+                      height: 100,
                     }}
                   >
-                    Save
-                  </Button>
-                  <Button
-                    sx={{
-                      mr: 5,
-                      height: 40,
-                      width: 100,
-                      backgroundColor: "#76a66e",
-                      color: "#fff",
-                      "&:hover": {
-                        textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-                        color: "black",
-                        backgroundColor: "#60ec60",
-                      },
-                    }}
-                    onClick={handleClose}
-                  >
-                    Cancel
-                  </Button>
-                </Box>
+                    <Button
+                      type="submit"
+                      sx={{
+                        mr: 5,
+                        height: 40,
+                        width: 100,
+                        backgroundColor: "#76a66e",
+                        color: "#fff",
+                        "&:hover": {
+                          textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                          color: "black",
+                          backgroundColor: "#60ec60",
+                        },
+                      }}
+                    >
+                      Save
+                    </Button>
+                    <Button
+                      sx={{
+                        mr: 5,
+                        height: 40,
+                        width: 100,
+                        backgroundColor: "#76a66e",
+                        color: "#fff",
+                        "&:hover": {
+                          textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                          color: "black",
+                          backgroundColor: "#60ec60",
+                        },
+                      }}
+                      onClick={handleClose}
+                    >
+                      Cancel
+                    </Button>
+                  </Box>
+                </>
               )}
             </Box>
           </Card>

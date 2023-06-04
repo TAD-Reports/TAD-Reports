@@ -9,7 +9,7 @@ export default function DownloadTemplateButton({ templateName }) {
     try {
       const data = await nurseryService.downloadNurseryTemplate(templateName);
       const blob = await data.blob();
-      const filename = "Nursery_Template.xlsx";
+      const filename = `${templateName}.xlsx`;
 
       // Create a temporary URL for the Blob
       const url = window.URL.createObjectURL(blob);

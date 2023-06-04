@@ -11,7 +11,7 @@ function getById(id) {
 function searchDistribution(region = "", start = "", end = "", search = "") {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${BASE_URL}/distribution/search`, {
+      .get(`${BASE_URL}/distribution/data`, {
         params: {
           region,
           start,

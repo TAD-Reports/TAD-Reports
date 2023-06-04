@@ -9,40 +9,105 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
-const data = [
-  {
-    name: "Region 1",
-    QuantityofSeeds: 4000,
-    SeedHarvested: 4000,
-    NoOfBeneficiaries: 4000,
-    AreaPlanted: 4000,
-  },
-  {
-    name: "Region 2",
-    QuantityofSeeds: 5000,
-    SeedHarvested: 5000,
-    NoOfBeneficiaries: 5000,
-    AreaPlanted: 5000,
-  },
-  {
-    name: "Region 3",
-    QuantityofSeeds: 3000,
-    SeedHarvested: 3000,
-    NoOfBeneficiaries: 3000,
-    AreaPlanted: 3000,
-  },
-  {
-    name: "Region 4",
-    QuantityofSeeds: 1000,
-    SeedHarvested: 2000,
-    NoOfBeneficiaries: 3000,
-    AreaPlanted: 4000,
-  },
-];
+import PropTypes from "prop-types";
+import randomColor from "randomcolor";
 
 export default class DistributionBarGraph extends PureComponent {
   render() {
+    const { monthData, totalData } = this.props;
+
+    if (!monthData || !totalData) {
+      // Handle the case when apiData or totalData is undefined or null
+      return null; // or display an error message
+    }
+
+    let data = [];
+    let keys = [];
+    let barkeys = [];
+
+    if (monthData.length < 3) {
+      const firstApiData = monthData[0] || {};
+      const secondApiData = monthData[1] || {};
+      const firstApiDataMonths = firstApiData.months || {};
+      const secondApiDataMonths = secondApiData.months || {};
+      const formattedTotalData = totalData.slice(0, 2).map((item) => ({
+        name: `${item.name} Total`,
+        Total: item.total || 0,
+      }));
+      console.log(firstApiData.name);
+      data = [
+        {
+          name: firstApiData.name,
+          ...firstApiDataMonths,
+        },
+        {
+          name: secondApiData.name,
+          ...secondApiDataMonths,
+        },
+        ...formattedTotalData,
+      ];
+      keys = Object.keys(firstApiDataMonths);
+      const colors = randomColor({
+        count: keys.length,
+        format: "hslArray",
+      });
+
+      barkeys = keys.map((key, index) => (
+        <Bar
+          key={key}
+          dataKey={key}
+          stackId="a"
+          fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+        />
+      ));
+    } else {
+      const firstApiData = monthData[0] || {};
+      const firstApiDataMonths = firstApiData.months || {};
+      const secondApiData = monthData[1] || {};
+      const secondApiDataMonths = secondApiData.months || {};
+      const thirdApiData = monthData[2] || {};
+      const thirdApiDataMonths = thirdApiData.months || {};
+      const formattedTotalData = totalData.map((item) => ({
+        name: `${item.name} Total`,
+        Total: item.total,
+      }));
+      data = [
+        {
+          name: firstApiData.name,
+          ...firstApiDataMonths,
+        },
+        {
+          name: secondApiData.name,
+          ...secondApiDataMonths,
+        },
+        {
+          name: thirdApiData.name,
+          ...thirdApiDataMonths,
+        },
+        ...formattedTotalData,
+      ];
+      keys = [
+        ...new Set([
+          ...Object.keys(firstApiDataMonths),
+          ...Object.keys(secondApiDataMonths),
+        ]),
+      ];
+
+      const colors = randomColor({
+        count: keys.length,
+        format: "hslArray",
+      });
+
+      barkeys = keys.map((key, index) => (
+        <Bar
+          key={key}
+          dataKey={key}
+          stackId="a"
+          fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+        />
+      ));
+    }
+
     return (
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
@@ -61,13 +126,24 @@ export default class DistributionBarGraph extends PureComponent {
           <YAxis />
           <Tooltip />
           <Legend />
-          {/* <Bar dataKey="pv" fill="#82ca9d" background={{ fill: "#eee" }} /> */}
-          <Bar dataKey="QuantityofSeeds" fill="#F7931E" />
-          <Bar dataKey="SeedHarvested" fill="#FF3434" />
-          <Bar dataKey="NoOfBeneficiaries" fill="#D9D9D9" />
-          <Bar dataKey="AreaPlanted" fill="#3284FF" />
+          {barkeys}
+          {monthData.length > 0 ? (
+            <Bar dataKey="Total" stackId="a" fill="#9195cb" />
+          ) : null}
         </BarChart>
       </ResponsiveContainer>
     );
   }
 }
+
+DistributionBarGraph.defaultProps = {
+  monthData: [],
+  totalData: [],
+};
+
+DistributionBarGraph.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  monthData: PropTypes.array,
+  // eslint-disable-next-line react/forbid-prop-types
+  totalData: PropTypes.array,
+};
