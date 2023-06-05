@@ -6,17 +6,30 @@ import { motion } from "framer-motion";
 
 function menuItems() {
   return (
-    <motion.div
-      initial={{ x: 1000, opacity: 0 }}
-      animate={{ x: [300, 10], opacity: 1 }}
-      transition={{ duration: 1, delay: 1 }}
-    >
-      <Box sx={{ display: "inline-flex", marginLeft: "1780px" }}>
-        {/* <img
-            src={Logo}
-            alt="Logo"
-            style={{ height: "80px", width: "80px", marginRight: "100px" }}
-          /> */}
+    <Box sx={{ display: "flex", justifyContent: "end", mr: 25 }}>
+      <motion.div
+        initial={{ x: 1000, opacity: 0 }}
+        animate={{ x: [300, 0], opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+      >
+        <Button
+          variant="text"
+          sx={{
+            color: "white",
+            top: "50px",
+            width: "250px",
+            fontSize: "15px",
+            fontFamily: "poppins",
+            mr: 4,
+            "&:hover": {
+              textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+              color: "black",
+              backgroundColor: "#60ec60",
+            },
+          }}
+        >
+          HOW TO APPLY
+        </Button>
         <NavLink to="/app-form">
           <Button
             variant="text"
@@ -24,7 +37,7 @@ function menuItems() {
               color: "white",
               top: "50px",
               width: "250px",
-              fontSize: "20px",
+              fontSize: "15px",
               fontFamily: "poppins",
               backgroundColor: "rgba(128, 128, 128, 0.5)",
               "&:hover": {
@@ -37,25 +50,8 @@ function menuItems() {
             APPLY NOW!
           </Button>
         </NavLink>
-        <Button
-          variant="text"
-          sx={{
-            color: "white",
-            top: "50px",
-            width: "250px",
-            fontSize: "20px",
-            fontFamily: "poppins",
-            "&:hover": {
-              textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-              color: "black",
-              backgroundColor: "#60ec60",
-            },
-          }}
-        >
-          HOW TO APPLY
-        </Button>
-      </Box>
-    </motion.div>
+      </motion.div>
+    </Box>
   );
 }
 

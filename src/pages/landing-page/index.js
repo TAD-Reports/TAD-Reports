@@ -2,80 +2,73 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { motion } from "framer-motion";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import "./container.css";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import MenuItems from "../../components/Menu-Items";
 import BodyContent from "../../assets/images/da-for-landingpage.jpg";
-import BackgroundImage from "../../assets/images/Background-Landingpage.jpg";
-
 
 export default function LandingPage() {
   return (
-    <Box>
-      <Box
-        className="Background"
-        style={{
-          backgroundImage: `linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7) 90%), url(${BackgroundImage})`,
-          backgroundSize: "cover",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          height: "100vh",
-          width: "100vw",
-        }}
-      />
-      <Grid
-        container
-        style={{ borderWidth: "2px", width: "800px" }}
-        justifyContent="flex-start"
-        alignItems="flex-start"
-      >
+    <Box className="Background">
+      <Box>
         <MenuItems />
 
-        <motion.h1
-          initial={{ x: -1000, opacity: 0 }}
-          animate={{ x: [-10, 350], opacity: 1 }}
-          transition={{ duration: 1, delay: 0.1 }}
-          style={{
-            marginTop: "150px",
-            marginRight: "50px",
-            color: "white",
-            fontSize: "70px",
-          }}
-        >
-          Welcome to PhilFIDA
-        </motion.h1>
+        <Box sx={{ ml: 70 }}>
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ x: [-1000, -250], opacity: 1 }}
+            transition={{ duration: 1, delay: 0.1 }}
+            style={{
+              marginTop: "150px",
+              marginRight: "50px",
+              color: "white",
+              fontSize: "40px",
+            }}
+          >
+            Welcome to PhilFIDA
+          </motion.h1>
+        </Box>
 
-        <motion.h2
-          initial={{ x: -1000, opacity: 0 }}
-          animate={{ x: [-10, 350], opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          style={{
-            marginTop: "20px",
-            marginRight: "50px",
-            color: "white",
-            fontWeight: "normal",
-          }}
-        >
-          At PhilFIDA, we are passionate about fibercrops, supporting<br />
-          farmers, and promoting the use of fiber products. Our task<br />
-          agency is dedicated to fostering growth and sustainability<br />
-          in the fiber industry. Whether you're a farmer looking to<br />
-          enhance your crop yield, a manufacturer seeking quality<br />
-          fiber materials, or an enthusiast interested in learning<br />
-          about the wonders of fiber, we're here to help. Join us in<br />
-          this fiber revolution!
-          <br />
-        </motion.h2>
-      </Grid>
+        <Box sx={{ ml: 40 }}>
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ x: [-1000, 0], opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            style={{
+              marginTop: "20px",
+              color: "white",
+              fontWeight: "normal",
+              fontSize: "20px",
+            }}
+          >
+            At PhilFIDA, we are passionate about fibercrops, supporting
+            <br />
+            farmers, and promoting the use of fiber products. Our task
+            <br />
+            agency is dedicated to fostering growth and sustainability
+            <br />
+            in the fiber industry. Whether you're a farmer looking to
+            <br />
+            enhance your crop yield, a manufacturer seeking quality
+            <br />
+            fiber materials, or an enthusiast interested in learning
+            <br />
+            about the wonders of fiber, we're here to help. Join us in
+            <br />
+            this fiber revolution!
+            <br />
+          </motion.h2>
+        </Box>
+      </Box>
 
       <Box
+        className="salem"
         sx={{
-          display: "flex-end",
-          justifyContent: "flex-end",
+          display: "flex",
+          justifyContent: "end",
           position: "absolute",
-          alignContent: "flex-end",
+          alignContent: "end",
         }}
       >
         <motion.div
@@ -87,11 +80,11 @@ export default function LandingPage() {
             src={BodyContent}
             alt="BodyContent"
             style={{
-              marginTop: "-385px",
-              marginLeft: "1236px",
-              marginBottom: "10",
-              width: "1000px",
-              height: "500px",
+              marginLeft: "57.5vw",
+              position: "absolute",
+              marginTop: "-35vh",
+              width: "600px",
+              height: "300px",
               objectFit: "cover",
             }}
           />
@@ -112,7 +105,7 @@ export default function LandingPage() {
           animate={{ x: [-10, 300], opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          <NavLink to="/sign-in">
+          {/* <NavLink to="/sign-in"> */}
           <Button
             type="input"
             variant="contained"
@@ -121,7 +114,7 @@ export default function LandingPage() {
               fontSize: "20px",
               width: "200px",
               height: "50px",
-              marginLeft: "50px",
+              marginLeft: "25px",
               backgroundColor: "#76a66e",
               "&:hover": {
                 textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
@@ -132,7 +125,7 @@ export default function LandingPage() {
           >
             LOG IN!
           </Button>
-          </NavLink>
+          {/* </NavLink> */}
           <div
             style={{
               marginTop: "20px",
