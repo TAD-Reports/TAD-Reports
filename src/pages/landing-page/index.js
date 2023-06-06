@@ -2,167 +2,71 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { motion } from "framer-motion";
-import { Box, Button } from "@mui/material";
+import {
+  Box,
+  Grid
+} from "@mui/material";
 import "./container.css";
-// import { NavLink } from "react-router-dom";
-import MenuItems from "../../components/Menu-Items";
-import BodyContent from "../../assets/images/da-for-landingpage.jpg";
+import Background from "../../assets/images/da-for-landingpage.jpg"
+import MenuItems from "../../components/Menu-Items"
 
 export default function LandingPage() {
   return (
-    <Box className="Background">
-      <Box>
-        <MenuItems />
-
-        <Box sx={{ ml: 70 }}>
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ x: [-1000, -250], opacity: 1 }}
-            transition={{ duration: 1, delay: 0.1 }}
-            style={{
-              marginTop: "150px",
-              marginRight: "50px",
-              color: "white",
-              fontSize: "40px",
-            }}
-          >
-            Welcome to PhilFIDA
-          </motion.h1>
-        </Box>
-
-        <Box sx={{ ml: 40 }}>
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ x: [-1000, 0], opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            style={{
-              marginTop: "20px",
-              color: "white",
-              fontWeight: "normal",
-              fontSize: "20px",
-            }}
-          >
-            At PhilFIDA, we are passionate about fibercrops, supporting
-            <br />
-            farmers, and promoting the use of fiber products. Our task
-            <br />
-            agency is dedicated to fostering growth and sustainability
-            <br />
-            in the fiber industry. Whether you're a farmer looking to
-            <br />
-            enhance your crop yield, a manufacturer seeking quality
-            <br />
-            fiber materials, or an enthusiast interested in learning
-            <br />
-            about the wonders of fiber, we're here to help. Join us in
-            <br />
-            this fiber revolution!
-            <br />
-          </motion.h2>
-        </Box>
-      </Box>
-
-      <Box
-        className="salem"
+    <Grid className="landing-page-container" >
+      <MenuItems />
+      <Box 
         sx={{
-          display: "flex",
-          justifyContent: "end",
-          position: "absolute",
-          alignContent: "end",
-        }}
+        color: "white",
+        fontFamily: "Poppins",
+        marginTop: "120px"
+      }}
       >
+        <motion.h1
+          sx={{ fontSize: "20px", display: "inline-block", width: "200px" }}
+          initial={{ x: -1000, opacity: 0 }}
+          animate={{ x: [10, 250], opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}>
+          WELCOME TO PHILFIDA
+        </motion.h1>
+
         <motion.div
-          initial={{ x: 1000, opacity: 0 }}
-          animate={{ x: [300, 10], opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-        >
-          <img
-            src={BodyContent}
-            alt="BodyContent"
+          sx={{
+            display: "inline-block",
+            fontSize: "1px",
+            fontWeight: "normal",
+            // ml: "300" 
+          }}
+          >
+          <motion.p
+            initial={{ x: -1000, opacity: 0 }}
+            animate={{ x: [10, 250], opacity: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}>
+            PhilFIDA (Philippine Fiber Industry Development Authority) is an agency under the Department of<br />
+            Agriculture in the Philippines,dedicated to the advancement of the fiber industry. With a focus on<br />
+            fibercrops, fiber products, and related agendas, PhilFIDA works towards the development, promotion,<br />
+            and sustainability of the sector. Through research, production support, market development,and policy<br />
+            formulation, PhilFIDA collaborates with stakeholders to enhance fibercrop varieties, provide<br />
+            technical assistance to farmers,expand market access for fiber products, and establish regulations<br />
+            that support the growth of the industry. As an integral part of theDepartment of Agriculture, PhilFIDA<br />
+            plays a vital role in driving the growth and competitiveness of the Philippine fiber industry.<br />
+          </motion.p>
+          <motion.img
+            initial={{ x: 1000, opacity: 0 }}
+            animate={{ x: [250, 10], opacity: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}
+            src={Background}
+            alt="Background"
             style={{
-              marginLeft: "57.5vw",
-              position: "absolute",
-              marginTop: "-35vh",
-              width: "600px",
-              height: "300px",
-              objectFit: "cover",
+              float: "right",
+              width: "550px",
+              height: "275px",
+              marginLeft: "20px",
+              marginRight: "250px",
+              marginTop: "-270px" 
             }}
           />
         </motion.div>
       </Box>
-
-      <Box
-        sx={{
-          marginTop: "50px",
-          position: "absolute",
-          display: "flex",
-          height: "50px",
-          alignItems: "left",
-        }}
-      >
-        <motion.div
-          initial={{ x: -1000, opacity: 0 }}
-          animate={{ x: [-10, 300], opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-        >
-          {/* <NavLink to="/sign-in"> */}
-          <Button
-            type="input"
-            variant="contained"
-            sx={{
-              fontFamily: "Poppins",
-              fontSize: "20px",
-              width: "200px",
-              height: "50px",
-              marginLeft: "25px",
-              backgroundColor: "#76a66e",
-              "&:hover": {
-                textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-                color: "black",
-                backgroundColor: "#60ec60",
-              },
-            }}
-          >
-            LOG IN!
-          </Button>
-          {/* </NavLink> */}
-          <div
-            style={{
-              marginTop: "20px",
-              fontSize: "15px",
-              color: "white",
-              marginLeft: "35px",
-            }}
-          >
-            <h4>(For authorized personnel only)</h4>
-          </div>
-        </motion.div>
-        <motion.div
-          initial={{ x: -1000, opacity: 0 }}
-          animate={{ x: [-10, 300], opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-        >
-          <Button
-            type="input"
-            variant="contained"
-            sx={{
-              fontFamily: "Poppins",
-              fontSize: "20px",
-              width: "200px",
-              height: "50px",
-              marginLeft: "50px",
-              backgroundColor: "#76a66e",
-              "&:hover": {
-                textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-                color: "black",
-                backgroundColor: "#60ec60",
-              },
-            }}
-          >
-            Go Back
-          </Button>
-        </motion.div>
-      </Box>
-    </Box>
+    </Grid>
   );
 }
