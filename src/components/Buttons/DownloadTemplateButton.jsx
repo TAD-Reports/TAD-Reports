@@ -2,12 +2,12 @@ import React from "react";
 import { Button } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 import PropTypes from "prop-types";
-import nurseryService from "../../services/nursery-service";
+import downloadService from "services/download-service";
 
 export default function DownloadTemplateButton({ templateName }) {
   const handleDownload = async () => {
     try {
-      const data = await nurseryService.downloadNurseryTemplate(templateName);
+      const data = await downloadService.downloadTemplate(templateName);
       const blob = await data.blob();
       const filename = `${templateName}.xlsx`;
 
