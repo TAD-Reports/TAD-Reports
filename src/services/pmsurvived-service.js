@@ -5,13 +5,13 @@ import axios from "axios";
 const BASE_URL = "http://localhost:9000";
 
 function getById(id) {
-  return axios.get(`${BASE_URL}/distribution/get/${id}`);
+  return axios.get(`${BASE_URL}/pmsurvived/get/${id}`);
 }
 
-function searchDistribution(region = "", start = "", end = "", search = "") {
+function searchAPI(region = "", start = "", end = "", search = "") {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${BASE_URL}/distribution/data`, {
+      .get(`${BASE_URL}/pmsurvived/data`, {
         params: {
           region,
           start,
@@ -26,49 +26,30 @@ function searchDistribution(region = "", start = "", end = "", search = "") {
   });
 }
 
-function deleteDistribution(id) {
-  return axios.get(`${BASE_URL}/distribution/delete/${id}`);
+function deleteAPI(id) {
+  return axios.delete(`${BASE_URL}/pmsurvived/delete/${id}`);
 }
 
-function updateDistribution(id, distribution) {
-  return axios.get(`${BASE_URL}/distribution/update/${id}`, distribution);
+function updateAPI(id, body) {
+  return axios.put(`${BASE_URL}/pmsurvived/update/${id}`, body);
 }
 
-function importDistributionData(importedBy, file) {
+function importDataAPI(importedBy, file) {
   const formData = new FormData();
   formData.append("imported_by", importedBy);
   formData.append("file", file);
-  return axios.post(`${BASE_URL}/distribution`, formData, {
+  return axios.post(`${BASE_URL}/pmsurvived`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 }
 
-function downloadDistributionData(report, filename, fileType) {
-  return new Promise((resolve, reject) => {
-    axios({
-      method: "post",
-      url: `${BASE_URL}/report/generate`,
-      responseType: "blob",
-      data: report,
-    })
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", `${filename}.${fileType}`);
-        document.body.appendChild(link);
-        link.click();
-        resolve();
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
+function downloadTemplateAPI(fileName) {
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString().split("T")[0]; // Format the date as YYYY-MM-DD
+  const updatedFileName = `${fileName}_${formattedDate}`;
 
-function downloadDistributionTemplate(fileName) {
   return axios
     .get(`${BASE_URL}/download/${fileName}`, {
       responseType: "arraybuffer",
@@ -80,7 +61,7 @@ function downloadDistributionTemplate(fileName) {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", fileName);
+      link.setAttribute("download", updatedFileName);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link); // Clean up by removing the link element
@@ -94,10 +75,9 @@ function downloadDistributionTemplate(fileName) {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getById,
-  searchDistribution,
-  deleteDistribution,
-  updateDistribution,
-  importDistributionData,
-  downloadDistributionData,
-  downloadDistributionTemplate,
+  searchAPI,
+  deleteAPI,
+  updateAPI,
+  importDataAPI,
+  downloadTemplateAPI,
 };
