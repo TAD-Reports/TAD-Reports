@@ -6,14 +6,10 @@ import Moment from "react-moment";
 import PropTypes from "prop-types";
 import { Tooltip } from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
-import NurseryUpdateModal from "../Modal/nursery/nursery-update-modal";
-import nurseryService from "../../services/nursery-service";
+import UpdateModal from "../../Modal/distribution/distribution-update-modal";
+import Service from "../../../services/pmsurvived-service";
 
-export default function NurseryTable({
-  nurseryData,
-  loadingState,
-  dataReload,
-}) {
+export default function PmsurvivedTable({ data, loadingState, dataReload }) {
   const { auth } = useStateContext();
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(loadingState);
@@ -24,7 +20,7 @@ export default function NurseryTable({
     setRemarks("");
   };
 
-  const handleRemove = (nursery) => {
+  const handleRemove = (row) => {
     const confirmed = window.confirm(
       "Are you sure you want to remove this data?"
     );
@@ -34,8 +30,7 @@ export default function NurseryTable({
 
     console.log(selected);
     setLoading(true);
-    nurseryService
-      .deleteNursery(nursery.uuid)
+    Service.deleteAPI(row.uuid)
       .then((e) => {
         alert(e.data.message);
         dataReload();
@@ -87,28 +82,36 @@ export default function NurseryTable({
       field: "report_date",
       headerName: "Report Date",
       headerClassName: "custom-header",
-      width: 120,
+      width: 200,
       renderCell,
     },
     {
-      field: "funded_by",
-      headerName: "Funded By",
+      field: "type_of_planting_materials",
+      headerName: "Type of Planting Materials",
       headerClassName: "custom-header",
-      width: 100,
+      width: 200,
+      renderCell,
+    },
+    {
+      field: "name_of_cooperative_individual",
+      headerName: "Name of Cooperator",
+      headerClassName: "custom-header",
+      width: 200,
       renderCell,
     },
     {
       field: "region",
       headerName: "Region",
       headerClassName: "custom-header",
-      width: 150,
+      width: 200,
       renderCell,
     },
     {
       field: "province",
       headerName: "Province",
       headerClassName: "custom-header",
-      width: 170,
+      type: "string",
+      width: 200,
       renderCell,
     },
     {
@@ -116,7 +119,7 @@ export default function NurseryTable({
       headerName: "District",
       headerClassName: "custom-header",
       type: "string",
-      width: 150,
+      width: 200,
       renderCell,
     },
     {
@@ -124,7 +127,7 @@ export default function NurseryTable({
       headerName: "Municipality",
       headerClassName: "custom-header",
       type: "string",
-      width: 170,
+      width: 200,
       renderCell,
     },
     {
@@ -132,47 +135,63 @@ export default function NurseryTable({
       headerName: "Barangay",
       headerClassName: "custom-header",
       type: "string",
-      width: 170,
+      width: 200,
       renderCell,
     },
     {
-      field: "complete_name_of_cooperator_organization",
-      headerName: "Name of Cooperative",
+      field: "no_of_pm_available_during_establishment",
+      headerName: "No of PM Available",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
       renderCell,
     },
     {
-      field: "date_established",
-      headerName: "Date Established",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 140,
-      renderCell,
-    },
-    {
-      field: "area_in_hectares_ha",
-      headerName: "Area(in hectars)",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 130,
-      renderCell,
-    },
-    {
-      field: "variety_used",
+      field: "variety",
       headerName: "Variety",
       headerClassName: "custom-header",
       type: "string",
-      width: 120,
+      width: 200,
       renderCell,
     },
     {
-      field: "period_of_moa",
-      headerName: " MOA",
+      field: "no_of_pm_distributed",
+      headerName: "No of PM Distributed",
       headerClassName: "custom-header",
       type: "string",
-      width: 90,
+      width: 200,
+      renderCell,
+    },
+    {
+      field: "name_of_recipient_bene",
+      headerName: "Name of Recipient",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+      renderCell,
+    },
+    {
+      field: "address_of_beneficiary",
+      headerName: "Address of Recipient",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+      renderCell,
+    },
+    {
+      field: "gender",
+      headerName: "Gender",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
+      renderCell,
+    },
+    {
+      field: "category",
+      headerName: "Category",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 200,
       renderCell,
     },
     {
@@ -180,7 +199,7 @@ export default function NurseryTable({
       headerName: "Remarks",
       headerClassName: "custom-header",
       type: "string",
-      width: 150,
+      width: 200,
       renderCell,
     },
     {
@@ -204,7 +223,7 @@ export default function NurseryTable({
                   label="Edit"
                 />
               </Tooltip>
-              <NurseryUpdateModal
+              <UpdateModal
                 open={params.id === selected?.uuid}
                 onClose={handleUpdateClose}
                 selected={params.row}
@@ -237,7 +256,7 @@ export default function NurseryTable({
     <div style={{ height: 530, width: "100%", position: "relative" }}>
       <DataGrid
         getRowId={(row) => row.uuid}
-        rows={nurseryData}
+        rows={data}
         columns={columns}
         headerClassName={headerStyles}
         pageSize={10}
@@ -254,15 +273,15 @@ export default function NurseryTable({
   );
 }
 
-NurseryTable.defaultProps = {
-  nurseryData: null,
+PmsurvivedTable.defaultProps = {
+  data: null,
   loadingState: false,
   dataReload: () => {},
 };
 
-NurseryTable.propTypes = {
+PmsurvivedTable.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  nurseryData: PropTypes.object,
+  data: PropTypes.object,
   loadingState: PropTypes.bool,
   dataReload: PropTypes.func,
 };

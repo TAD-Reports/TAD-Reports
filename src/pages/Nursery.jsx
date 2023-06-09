@@ -20,7 +20,7 @@ import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
 import nurseryService from "../services/nursery-service";
-import NurseryTable from "../components/Tables/NurseryTable";
+import NurseryTable from "../components/Tables/Columns/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
@@ -60,6 +60,8 @@ export default function Nursery() {
         setLoading(false);
       });
   };
+
+  console.log(nurseryData);
 
   React.useEffect(() => {
     handleSearch();

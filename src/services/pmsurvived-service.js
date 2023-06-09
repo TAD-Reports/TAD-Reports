@@ -8,10 +8,10 @@ function getById(id) {
   return axios.get(`${BASE_URL}/pmsurvived/get/${id}`);
 }
 
-function searchAPI(region = "", start = "", end = "", search = "") {
+function searchAPI(region = "", start = "", end = "", search = "", moduleName) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${BASE_URL}/pmsurvived/data`, {
+      .get(`${BASE_URL}/${moduleName}/data`, {
         params: {
           region,
           start,
@@ -19,26 +19,29 @@ function searchAPI(region = "", start = "", end = "", search = "") {
           search,
         },
       })
-      .then((res) => resolve(res.data))
+      .then((res) => {
+        resolve(res.data);
+        console.log(res.data);
+      })
       .catch((err) => {
         reject(err);
       });
   });
 }
 
-function deleteAPI(id) {
-  return axios.delete(`${BASE_URL}/pmsurvived/delete/${id}`);
+function deleteAPI(id, moduleName) {
+  return axios.delete(`${BASE_URL}/${moduleName}/delete/${id}`);
 }
 
-function updateAPI(id, body) {
-  return axios.put(`${BASE_URL}/pmsurvived/update/${id}`, body);
+function updateAPI(id, body, moduleName) {
+  return axios.put(`${BASE_URL}/${moduleName}/update/${id}`, body);
 }
 
-function importDataAPI(importedBy, file) {
+function importDataAPI(importedBy, file, moduleName) {
   const formData = new FormData();
   formData.append("imported_by", importedBy);
   formData.append("file", file);
-  return axios.post(`${BASE_URL}/pmsurvived`, formData, {
+  return axios.post(`${BASE_URL}/${moduleName}`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

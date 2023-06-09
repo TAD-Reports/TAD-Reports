@@ -25,7 +25,7 @@ import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectFilterBy from "../components/Textfields/select-filterBy";
 import Service from "../services/pmsurvived-service";
-import Table from "../components/Tables/PmsurvivedTable";
+import Table from "../components/Tables/Columns/PmsurvivedTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
@@ -47,16 +47,16 @@ export default function PMSurvived() {
   const [buttonError, setButtonError] = useState("");
 
   const [fileName, setFileName] = useState("");
+  const moduleName = "pmsurvived";
 
   const handleSearch = () => {
     setLoading(true);
     setError("");
-    Service.searchAPI(region, startDate, endDate, search)
+    Service.searchAPI(region, startDate, endDate, search, moduleName)
       .then((e) => {
         setGraphData(e.monthGraph);
         setTotalGraph(e.totalGraph);
         setTableDataData(e.table);
-        console.log(e);
       })
       .catch((err) => {
         setError(err.message);
@@ -101,7 +101,7 @@ export default function PMSurvived() {
     setFileName(file.name);
     setButtonError("");
     setLoading(true);
-    Service.importDataAPI(auth.uuid, file)
+    Service.importDataAPI(auth.uuid, file, moduleName)
       .then((res) => {
         alert(res.data.message);
         handleSearch();
@@ -452,6 +452,7 @@ export default function PMSurvived() {
           data={tableData}
           loadingState={loading}
           dataReload={handleSearch}
+          moduleName={moduleName}
         />
       </Box>
       <Box

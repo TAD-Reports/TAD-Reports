@@ -6,10 +6,14 @@ import Moment from "react-moment";
 import PropTypes from "prop-types";
 import { Tooltip } from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
-import UpdateModal from "../Modal/pmsurvived/pmsurvived-update-modal";
-import Service from "../../services/pmsurvived-service";
+import NurseryUpdateModal from "../../Modal/nursery/nursery-update-modal";
+import nurseryService from "../../../services/nursery-service";
 
-export default function PmsurvivedTable({ data, loadingState, dataReload }) {
+export default function NurseryTable({
+  nurseryData,
+  loadingState,
+  dataReload,
+}) {
   const { auth } = useStateContext();
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(loadingState);
@@ -20,7 +24,7 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
     setRemarks("");
   };
 
-  const handleRemove = (row) => {
+  const handleRemove = (nursery) => {
     const confirmed = window.confirm(
       "Are you sure you want to remove this data?"
     );
@@ -30,7 +34,8 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
 
     console.log(selected);
     setLoading(true);
-    Service.deleteAPI(row.uuid)
+    nurseryService
+      .deleteNursery(nursery.uuid)
       .then((e) => {
         alert(e.data.message);
         dataReload();
@@ -82,36 +87,28 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
       field: "report_date",
       headerName: "Report Date",
       headerClassName: "custom-header",
-      width: 200,
+      width: 120,
       renderCell,
     },
     {
-      field: "type_of_planting_materials",
-      headerName: "Type of Planting Materials",
+      field: "funded_by",
+      headerName: "Funded By",
       headerClassName: "custom-header",
-      width: 200,
-      renderCell,
-    },
-    {
-      field: "name_of_cooperative_individual",
-      headerName: "Name of Cooperator",
-      headerClassName: "custom-header",
-      width: 200,
+      width: 100,
       renderCell,
     },
     {
       field: "region",
       headerName: "Region",
       headerClassName: "custom-header",
-      width: 200,
+      width: 150,
       renderCell,
     },
     {
       field: "province",
       headerName: "Province",
       headerClassName: "custom-header",
-      type: "string",
-      width: 200,
+      width: 170,
       renderCell,
     },
     {
@@ -119,7 +116,7 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
       headerName: "District",
       headerClassName: "custom-header",
       type: "string",
-      width: 200,
+      width: 150,
       renderCell,
     },
     {
@@ -127,7 +124,7 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
       headerName: "Municipality",
       headerClassName: "custom-header",
       type: "string",
-      width: 200,
+      width: 170,
       renderCell,
     },
     {
@@ -135,63 +132,47 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
       headerName: "Barangay",
       headerClassName: "custom-header",
       type: "string",
-      width: 200,
+      width: 170,
       renderCell,
     },
     {
-      field: "no_of_pm_available_during_establishment",
-      headerName: "No of PM Available",
+      field: "complete_name_of_cooperator_organization",
+      headerName: "Name of Cooperative",
       headerClassName: "custom-header",
       type: "string",
       width: 200,
       renderCell,
     },
     {
-      field: "variety",
+      field: "date_established",
+      headerName: "Date Established",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 140,
+      renderCell,
+    },
+    {
+      field: "area_in_hectares_ha",
+      headerName: "Area(in hectars)",
+      headerClassName: "custom-header",
+      type: "string",
+      width: 130,
+      renderCell,
+    },
+    {
+      field: "variety_used",
       headerName: "Variety",
       headerClassName: "custom-header",
       type: "string",
-      width: 200,
+      width: 120,
       renderCell,
     },
     {
-      field: "no_of_pm_distributed",
-      headerName: "No of PM Distributed",
+      field: "period_of_moa",
+      headerName: " MOA",
       headerClassName: "custom-header",
       type: "string",
-      width: 200,
-      renderCell,
-    },
-    {
-      field: "name_of_recipient_bene",
-      headerName: "Name of Recipient",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-      renderCell,
-    },
-    {
-      field: "address_of_beneficiary",
-      headerName: "Address of Recipient",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-      renderCell,
-    },
-    {
-      field: "gender",
-      headerName: "Gender",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
-      renderCell,
-    },
-    {
-      field: "category",
-      headerName: "Category",
-      headerClassName: "custom-header",
-      type: "string",
-      width: 200,
+      width: 90,
       renderCell,
     },
     {
@@ -199,7 +180,7 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
       headerName: "Remarks",
       headerClassName: "custom-header",
       type: "string",
-      width: 200,
+      width: 150,
       renderCell,
     },
     {
@@ -223,7 +204,7 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
                   label="Edit"
                 />
               </Tooltip>
-              <UpdateModal
+              <NurseryUpdateModal
                 open={params.id === selected?.uuid}
                 onClose={handleUpdateClose}
                 selected={params.row}
@@ -256,7 +237,7 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
     <div style={{ height: 530, width: "100%", position: "relative" }}>
       <DataGrid
         getRowId={(row) => row.uuid}
-        rows={data}
+        rows={nurseryData}
         columns={columns}
         headerClassName={headerStyles}
         pageSize={10}
@@ -273,15 +254,15 @@ export default function PmsurvivedTable({ data, loadingState, dataReload }) {
   );
 }
 
-PmsurvivedTable.defaultProps = {
-  data: null,
+NurseryTable.defaultProps = {
+  nurseryData: null,
   loadingState: false,
   dataReload: () => {},
 };
 
-PmsurvivedTable.propTypes = {
+NurseryTable.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  data: PropTypes.object,
+  nurseryData: PropTypes.object,
   loadingState: PropTypes.bool,
   dataReload: PropTypes.func,
 };
