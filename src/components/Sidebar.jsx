@@ -106,12 +106,17 @@ export default function SideBar() {
               mt: 1,
             }}
           >
-            ROMERO, MATTHEW LEWIS E.
+            {auth.lastname}, {auth.lastname}
           </Typography>
           <Typography
-            sx={{ fontWeight: "bold", fontSize: "12px", color: "#fff" }}
+            sx={{
+              textTransform: "capitalize",
+              fontWeight: "bold",
+              fontSize: "12px",
+              color: "#fff",
+            }}
           >
-            HUMAN RESOURCE
+            {auth.role === "superadmin" ? "SUPER ADMIN" : auth.role}
           </Typography>
         </Box>
         <Box sx={{ my: 5 }}>

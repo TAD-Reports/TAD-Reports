@@ -25,12 +25,53 @@ export default class DistributionBarGraph extends PureComponent {
     let keys = [];
     let barkeys = [];
 
-    if (monthData.length < 3) {
+    if (monthData.length === 3) {
+      const firstApiData = monthData[0] || {};
+      const secondApiData = monthData[1] || {};
+      const thirdApiData = monthData[2] || {};
+      const firstApiDataMonths = firstApiData.months || {};
+      const secondApiDataMonths = secondApiData.months || {};
+      const thirdApiDataMonths = thirdApiData.months || {};
+      const formattedTotalData = totalData.map((item) => ({
+        name: `${item.name} Total`,
+        Total: item.total || 0,
+      }));
+      console.log(firstApiData.name);
+      data = [
+        {
+          name: firstApiData.name,
+          ...firstApiDataMonths,
+        },
+        {
+          name: secondApiData.name,
+          ...secondApiDataMonths,
+        },
+        {
+          name: thirdApiData.name,
+          ...thirdApiDataMonths,
+        },
+        ...formattedTotalData,
+      ];
+      keys = Object.keys(firstApiDataMonths);
+      const colors = randomColor({
+        count: keys.length,
+        format: "hslArray",
+      });
+
+      barkeys = keys.map((key, index) => (
+        <Bar
+          key={key}
+          dataKey={key}
+          stackId="a"
+          fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+        />
+      ));
+    } else if (monthData.length === 2) {
       const firstApiData = monthData[0] || {};
       const secondApiData = monthData[1] || {};
       const firstApiDataMonths = firstApiData.months || {};
       const secondApiDataMonths = secondApiData.months || {};
-      const formattedTotalData = totalData.slice(0, 2).map((item) => ({
+      const formattedTotalData = totalData.map((item) => ({
         name: `${item.name} Total`,
         Total: item.total || 0,
       }));
@@ -60,13 +101,9 @@ export default class DistributionBarGraph extends PureComponent {
           fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
         />
       ));
-    } else {
+    } else if (monthData.length === 1) {
       const firstApiData = monthData[0] || {};
       const firstApiDataMonths = firstApiData.months || {};
-      const secondApiData = monthData[1] || {};
-      const secondApiDataMonths = secondApiData.months || {};
-      const thirdApiData = monthData[2] || {};
-      const thirdApiDataMonths = thirdApiData.months || {};
       const formattedTotalData = totalData.map((item) => ({
         name: `${item.name} Total`,
         Total: item.total,
@@ -76,22 +113,38 @@ export default class DistributionBarGraph extends PureComponent {
           name: firstApiData.name,
           ...firstApiDataMonths,
         },
+        ...formattedTotalData,
+      ];
+      keys = [...new Set([...Object.keys(firstApiDataMonths)])];
+
+      const colors = randomColor({
+        count: keys.length,
+        format: "hslArray",
+      });
+
+      barkeys = keys.map((key, index) => (
+        <Bar
+          key={key}
+          dataKey={key}
+          stackId="a"
+          fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+        />
+      ));
+    } else {
+      const firstApiData = monthData[0] || {};
+      const firstApiDataMonths = firstApiData.months || {};
+      const formattedTotalData = totalData.map((item) => ({
+        name: `${item.name}`,
+        Total: item.total,
+      }));
+      data = [
         {
-          name: secondApiData.name,
-          ...secondApiDataMonths,
-        },
-        {
-          name: thirdApiData.name,
-          ...thirdApiDataMonths,
+          name: firstApiData.name,
+          ...firstApiDataMonths,
         },
         ...formattedTotalData,
       ];
-      keys = [
-        ...new Set([
-          ...Object.keys(firstApiDataMonths),
-          ...Object.keys(secondApiDataMonths),
-        ]),
-      ];
+      keys = [...new Set([...Object.keys(firstApiDataMonths)])];
 
       const colors = randomColor({
         count: keys.length,

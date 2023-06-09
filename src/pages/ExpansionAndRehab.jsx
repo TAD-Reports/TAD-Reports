@@ -17,7 +17,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import ExpansionAndRehabilitationBarChart from "../components/Charts/ExpansionAndRehabilitationChart";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
+import SelectFilterBy from "../components/Textfields/select-region";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 
 export default function ExpansionAndRehab() {

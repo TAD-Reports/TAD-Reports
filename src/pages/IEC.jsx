@@ -16,7 +16,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
+import SelectFilterBy from "../components/Textfields/select-region";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import DistributionOfIECMaterialsBarChart from "../components/Charts/DistributionOfIECMaterialsCharts";
 

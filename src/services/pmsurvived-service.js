@@ -19,10 +19,7 @@ function searchAPI(region = "", start = "", end = "", search = "", moduleName) {
           search,
         },
       })
-      .then((res) => {
-        resolve(res.data);
-        console.log(res.data);
-      })
+      .then((res) => resolve(res.data))
       .catch((err) => {
         reject(err);
       });

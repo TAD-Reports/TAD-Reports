@@ -18,7 +18,7 @@ import moment from "moment";
 import SearchIcon from "@mui/icons-material/Search";
 import CocoonBarGraph from "../components/Charts/CocoonChart";
 import PageContainer from "../components/LayoutContainers/PageContainer";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
+import SelectFilterBy from "../components/Textfields/select-region";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 
 export default function Cocoon() {

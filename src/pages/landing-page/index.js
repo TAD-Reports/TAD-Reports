@@ -50,7 +50,7 @@ export default function LandingPage() {
             towards the development, promotion,
             <br />
             and sustainability of the sector. Through research, production
-            support, market development,and policy
+            support, market development, and policy
             <br />
             formulation, PhilFIDA collaborates with stakeholders to enhance
             fibercrop varieties, provide
@@ -59,7 +59,7 @@ export default function LandingPage() {
             products, and establish regulations
             <br />
             that support the growth of the industry. As an integral part of
-            theDepartment of Agriculture, PhilFIDA
+            the Department of Agriculture, PhilFIDA
             <br />
             plays a vital role in driving the growth and competitiveness of the
             Philippine fiber industry.

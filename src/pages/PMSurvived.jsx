@@ -23,7 +23,7 @@ import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
+import SelectRegion from "../components/Textfields/select-region";
 import Service from "../services/pmsurvived-service";
 import Table from "../components/Tables/Columns/PmsurvivedTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
@@ -320,7 +320,7 @@ export default function PMSurvived() {
 
   return (
     <PageContainer>
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
           <GppGoodIcon style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
@@ -370,7 +370,7 @@ export default function PMSurvived() {
               >
                 Filter by:
               </Typography>
-              <SelectFilterBy
+              <SelectRegion
                 id="outlined-basic"
                 name="filterBy"
                 value={region}
@@ -394,7 +394,7 @@ export default function PMSurvived() {
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
-                label="Date"
+                label="End Date"
                 value={dayjs(endDate)}
                 onChange={handleEndDate}
                 format="MM/DD/YYYY"

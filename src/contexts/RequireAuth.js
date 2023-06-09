@@ -7,7 +7,7 @@ export default function RequireAuth({ allowedRoles }) {
   const location = useLocation();
 
   const hasAllowedRole =
-    allowedRoles && allowedRoles.some((roleObject) => roleObject[auth.role]);
+    allowedRoles && allowedRoles.some((roleObject) => roleObject[auth?.role]);
 
   // eslint-disable-next-line no-nested-ternary, react/prop-types
   return hasAllowedRole ? (

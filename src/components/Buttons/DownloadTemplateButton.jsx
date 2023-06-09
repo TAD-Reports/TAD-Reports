@@ -38,11 +38,12 @@ export default function DownloadTemplateButton({ templateName }) {
       sx={{
         height: 50,
         width: 220,
-        backgroundColor: "grey",
+        backgroundColor: "#e88585",
+        color: "white",
         "&:hover": {
           textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
           color: "black",
-          backgroundColor: "#76a66e",
+          backgroundColor: "#60ec60",
         },
       }}
     >

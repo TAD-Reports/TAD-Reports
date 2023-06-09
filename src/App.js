@@ -2,8 +2,6 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-// import { FiSettings } from "react-icons/fi";
-// import Tooltip from "@mui/material/Tooltip";
 import "./App.css";
 import RequireAuth from "contexts/RequireAuth";
 import Layout from "contexts/Layout";
@@ -26,13 +24,9 @@ import {
   PMSurvived,
   Training,
 } from "./pages";
-import { useStateContext } from "./contexts/ContextProvider";
+// import { useStateContext } from "./contexts/ContextProvider";
 
 function App() {
-  const { auth } = useStateContext();
-
-  console.log(auth);
-
   const Roles = {
     admin: "admin",
     superadmin: "superadmin",

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
   Divider,
@@ -16,7 +17,7 @@ import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution"
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import DistributionChart from "../components/Charts/DistributionChart";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
+import SelectRegion from "../components/Textfields/select-region";
 import DistributionTable from "../components/Tables/Columns/DistributionTable";
 import distributionService from "../services/distribution-service";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
@@ -118,7 +119,7 @@ export default function Distribution() {
 
   return (
     <PageContainer>
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
           <GiShakingHands style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
@@ -168,7 +169,7 @@ export default function Distribution() {
               >
                 Filter by:
               </Typography>
-              <SelectFilterBy
+              <SelectRegion
                 id="outlined-basic"
                 name="filterBy"
                 value={region}
@@ -192,7 +193,7 @@ export default function Distribution() {
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
-                label="Date"
+                label="End Date"
                 value={endDate}
                 onChange={handleEndDate}
                 format="MM/DD/YYYY"
@@ -237,8 +238,9 @@ export default function Distribution() {
 
       <Box>
         <DistributionTable
-          distributionData={distributionData}
-          loading={loading}
+          data={distributionData}
+          loadingState={loading}
+          dataReload={handleSearch}
         />
       </Box>
       <Box

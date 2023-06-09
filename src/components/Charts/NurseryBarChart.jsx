@@ -25,7 +25,7 @@ export default class NurseryBarChart extends PureComponent {
     let keys = [];
     let barkeys = [];
 
-    if (monthData.length < 2) {
+    if (monthData.length === 1) {
       const firstApiData = monthData[0] || {};
       const firstApiDataMonths = firstApiData.months || {};
       const formattedTotalData = totalData.slice(0, 2).map((item) => ({

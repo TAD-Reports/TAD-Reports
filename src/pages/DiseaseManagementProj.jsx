@@ -19,7 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import DiseaseBarGraph from "../components/Charts/DiseaseChart";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
+import SelectFilterBy from "../components/Textfields/select-region";
 
 export default function DiseaseManagementProj() {
   const [startDate, setStartDate] = React.useState("");

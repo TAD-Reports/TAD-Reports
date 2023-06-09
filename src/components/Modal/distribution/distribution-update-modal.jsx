@@ -31,8 +31,6 @@ export default function DistributionUpdateModal({
 
   const { uuid: distribId, ...distribution } = selected || {};
 
-  console.log(distribution);
-
   const formik = useFormik({
     initialValues: distribution,
 

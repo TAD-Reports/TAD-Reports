@@ -18,7 +18,7 @@ import { useStateContext } from "contexts/ContextProvider";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Nursery";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
-import SelectFilterBy from "../components/Textfields/select-filterBy";
+import SelectRegion from "../components/Textfields/select-region";
 import nurseryService from "../services/nursery-service";
 import NurseryTable from "../components/Tables/Columns/NurseryTable";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
@@ -124,7 +124,7 @@ export default function Nursery() {
 
   return (
     <PageContainer>
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
           <GrassIcon style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
@@ -174,7 +174,7 @@ export default function Nursery() {
               >
                 Filter by:
               </Typography>
-              <SelectFilterBy
+              <SelectRegion
                 id="outlined-basic"
                 name="filterBy"
                 value={region}
@@ -198,7 +198,7 @@ export default function Nursery() {
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
-                label="Date"
+                label="End Date"
                 value={dayjs(endDate)}
                 onChange={handleEndDate}
                 format="MM/DD/YYYY"
