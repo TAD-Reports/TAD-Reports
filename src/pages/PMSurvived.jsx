@@ -48,7 +48,7 @@ export default function PMSurvived() {
   const [buttonError, setButtonError] = useState("");
 
   const [fileName, setFileName] = useState("");
-  const [action, setAction] = useState(false);
+  const [action, setAction] = useState(true);
   const moduleName = "pmsurvived";
 
   const handleSearch = () => {
@@ -463,7 +463,11 @@ export default function PMSurvived() {
             color: action === true ? "purple" : "inherit",
           }}
         >
-          <Switch color="secondary" onChange={handleSwitchChange} />
+          <Switch
+            defaultChecked
+            color="secondary"
+            onChange={handleSwitchChange}
+          />
           {action === true ? "Hide Actions" : "Show Actions"}
         </Box>
         <Table

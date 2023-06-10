@@ -40,7 +40,7 @@ export default function TableFunction({
     type: "actions",
     headerName: "Actions",
     headerClassName: "custom-header",
-    width: 120,
+    width: 140,
     renderCell: (params) => (
       <TableActions {...{ params, rowId, setRowId, moduleName }} />
     ),
