@@ -1,49 +1,28 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
 import React, { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import Moment from "react-moment";
 import PropTypes from "prop-types";
 import { Tooltip } from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
-import Service from "../../services/pmsurvived-service";
 import TableActions from "./TableActions";
 
 export default function TableFunction({
   data,
   loadingState,
   columns,
+  // eslint-disable-next-line no-unused-vars
   dataReload,
+  action,
   moduleName,
 }) {
+  // eslint-disable-next-line no-unused-vars
   const { auth } = useStateContext();
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(loadingState);
   const [remarks, setRemarks] = useState("");
   const [rowId, setRowId] = useState(null);
-
-  const handleRemove = (row) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to remove this row?"
-    );
-    if (!confirmed) {
-      return; // User cancelled the removal
-    }
-
-    setLoading(true);
-    Service.deleteAPI(row.uuid, moduleName)
-      .then((e) => {
-        alert(e.data.message);
-        dataReload();
-        setRemarks("");
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
 
   const headerStyles = {
     backgroundColor: "#f0f0f0",
@@ -54,6 +33,17 @@ export default function TableFunction({
   const handleRowClick = (params) => {
     const rowRemarks = params.row.remarks || "";
     setRemarks(rowRemarks);
+  };
+
+  const actionsColumn = {
+    field: "actions",
+    type: "actions",
+    headerName: "Actions",
+    headerClassName: "custom-header",
+    width: 120,
+    renderCell: (params) => (
+      <TableActions {...{ params, rowId, setRowId, moduleName }} />
+    ),
   };
 
   const renderCell = (params) => {
@@ -79,49 +69,16 @@ export default function TableFunction({
   };
 
   const tableContents = [
-    {
-      field: "update",
-      type: "update",
-      headerName: "Update",
-      headerClassName: "custom-header",
-      width: 90,
-      renderCell: (params) => (
-        <TableActions {...{ params, rowId, setRowId, moduleName }} />
-      ),
-    },
+    ...(action === true &&
+    (auth.role === "admin" ||
+      auth.role === "superadmin" ||
+      auth.role === "reviewer")
+      ? [actionsColumn]
+      : []),
     ...columns.map((column) => ({
       ...column,
       renderCell,
     })),
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "Actions",
-      headerClassName: "custom-header",
-      width: 90,
-      renderCell: (params) => {
-        if (
-          auth.role === "admin" ||
-          auth.role === "superadmin" ||
-          auth.role === "reviewer"
-        ) {
-          return (
-            <Tooltip title="Remove" placement="top">
-              <GridActionsCellItem
-                icon={<DeleteIcon />}
-                onClick={() => handleRemove(params.row)}
-                label="Remove"
-              />
-            </Tooltip>
-          );
-        }
-
-        if (auth.role === "planner" || auth.role === "uploader") {
-          return null;
-        }
-        return null;
-      },
-    },
   ];
 
   return (
@@ -151,5 +108,6 @@ TableFunction.propTypes = {
   loadingState: PropTypes.bool,
   columns: PropTypes.arrayOf(PropTypes.object),
   dataReload: PropTypes.func,
+  action: PropTypes.bool,
   moduleName: PropTypes.string,
 };

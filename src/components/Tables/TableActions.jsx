@@ -1,4 +1,5 @@
-import { Box, CircularProgress, Fab } from "@mui/material";
+import { Grid, CircularProgress, Fab, Tooltip } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { Check, Save } from "@mui/icons-material";
@@ -39,51 +40,101 @@ const tableActions = ({ params, rowId, setRowId, moduleName }) => {
     }
   }, [rowId, success]);
 
+  const handleRemove = (row) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to remove this row?"
+    );
+    if (!confirmed) {
+      return; // User cancelled the removal
+    }
+
+    setLoading(true);
+    Service.deleteAPI(row.uuid, moduleName)
+      .then((e) => {
+        alert(e.data.message);
+        // dataReload();
+        // setRemarks("");
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
-    <Box
-      sx={{
-        m: 1,
-        position: "relative",
-      }}
-    >
-      {success || rowId === params.row.id ? (
-        <Fab
-          color="primary"
-          sx={{
-            width: 40,
-            height: 40,
-            bgcolor: green[500],
-            "&:hover": { bgcolor: green[700] },
-          }}
-        >
-          <Check />
-        </Fab>
-      ) : (
-        <Fab
-          color="primary"
-          sx={{
-            width: 40,
-            height: 40,
-          }}
-          disabled={params.id !== rowId || loading}
-          onClick={formik.handleSubmit}
-        >
-          <Save />
-        </Fab>
-      )}
-      {loading && (
-        <CircularProgress
-          size={52}
-          sx={{
-            color: green[500],
-            position: "absolute",
-            top: -6,
-            left: -6,
-            zIndex: 1,
-          }}
-        />
-      )}
-    </Box>
+    <Grid container spacing={0}>
+      <Grid item xs={5} sx={{ m: 0.5, position: "relative" }}>
+        <Tooltip title="Remove" placement="left">
+          <Fab
+            color="secondary"
+            sx={{
+              width: 40,
+              height: 40,
+              bgcolor: "#D58F8F",
+            }}
+            onClick={() => handleRemove(params.row)}
+          >
+            <DeleteIcon />
+          </Fab>
+        </Tooltip>
+
+        {loading && (
+          <CircularProgress
+            size={52}
+            sx={{
+              color: green[500],
+              position: "absolute",
+              top: -6,
+              left: -6,
+              zIndex: 1,
+            }}
+          />
+        )}
+      </Grid>
+      <Grid item xs={5} sx={{ m: 0.5, position: "relative" }}>
+        {success || rowId === params.row.id ? (
+          <Fab
+            color="primary"
+            sx={{
+              width: 40,
+              height: 40,
+              bgcolor: green[500],
+              "&:hover": { bgcolor: green[700] },
+            }}
+          >
+            <Check />
+          </Fab>
+        ) : (
+          <Tooltip title="Update" placement="left">
+            <Fab
+              color="primary"
+              sx={{
+                width: 40,
+                height: 40,
+              }}
+              disabled={params.id !== rowId || loading}
+              onClick={formik.handleSubmit}
+            >
+              <Save />
+            </Fab>
+          </Tooltip>
+        )}
+        {loading && (
+          <CircularProgress
+            size={52}
+            sx={{
+              color: green[500],
+              position: "absolute",
+              top: -6,
+              left: -6,
+              zIndex: 1,
+            }}
+          />
+        )}
+      </Grid>
+    </Grid>
   );
 };
 

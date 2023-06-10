@@ -6,6 +6,7 @@ export default function PmsurvivedTable({
   data,
   loadingState,
   dataReload,
+  action,
   moduleName,
 }) {
   const columns = [
@@ -141,6 +142,7 @@ export default function PmsurvivedTable({
       loadingState={loadingState}
       columns={columns}
       dataReload={dataReload}
+      action={action}
       moduleName={moduleName}
     />
   );

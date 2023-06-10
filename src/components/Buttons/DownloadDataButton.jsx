@@ -19,7 +19,7 @@ export default function DownloadDataButton({ downloadData }) {
         },
       }}
     >
-      Download Data
+      Export Data
       <DownloadIcon sx={{ ml: 1 }} />
     </Button>
   );

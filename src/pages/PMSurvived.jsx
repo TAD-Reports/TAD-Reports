@@ -16,6 +16,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import Switch from "@mui/material/Switch";
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import SearchIcon from "@mui/icons-material/Search";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -47,6 +48,7 @@ export default function PMSurvived() {
   const [buttonError, setButtonError] = useState("");
 
   const [fileName, setFileName] = useState("");
+  const [action, setAction] = useState(false);
   const moduleName = "pmsurvived";
 
   const handleSearch = () => {
@@ -318,6 +320,12 @@ export default function PMSurvived() {
     });
   };
 
+  const handleSwitchChange = (event) => {
+    const isChecked = event.target.checked;
+    const newAction = !!isChecked;
+    setAction(newAction);
+  };
+
   return (
     <PageContainer>
       <Grid container spacing={0}>
@@ -446,12 +454,23 @@ export default function PMSurvived() {
           </Box>
         </Grid>
       </Grid>
-      <Divider sx={{ my: 2 }} />
+      <Divider />
       <Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            color: action === true ? "purple" : "inherit",
+          }}
+        >
+          <Switch color="secondary" onChange={handleSwitchChange} />
+          {action === true ? "Hide Actions" : "Show Actions"}
+        </Box>
         <Table
           data={tableData}
           loadingState={loading}
           dataReload={handleSearch}
+          action={action}
           moduleName={moduleName}
         />
       </Box>
