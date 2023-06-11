@@ -17,16 +17,16 @@ export default function SelectRegion(props) {
           {...props}
         >
           <MenuItem value="">All</MenuItem>
-          <MenuItem value="Regional Office 1">Region 1</MenuItem>
-          <MenuItem value="Regional Office 3">Region 3</MenuItem>
-          <MenuItem value="Regional Office 4">Region 4</MenuItem>
-          <MenuItem value="Regional Office 5">Region 5</MenuItem>
-          <MenuItem value="Regional Office 6">Region 6</MenuItem>
-          <MenuItem value="Regional Office 7">Region 7</MenuItem>
-          <MenuItem value="Regional Office 8">Region 8</MenuItem>
-          <MenuItem value="Regional Office 9">Region 9</MenuItem>
-          <MenuItem value="Regional Office 10">Region 10</MenuItem>
-          <MenuItem value="Regional Office 13">Region 13</MenuItem>
+          <MenuItem value="Region 1">Region 1</MenuItem>
+          <MenuItem value="Region 3">Region 3</MenuItem>
+          <MenuItem value="Region 4">Region 4</MenuItem>
+          <MenuItem value="Region 5">Region 5</MenuItem>
+          <MenuItem value="Region 6">Region 6</MenuItem>
+          <MenuItem value="Region 7">Region 7</MenuItem>
+          <MenuItem value="Region 8">Region 8</MenuItem>
+          <MenuItem value="Region 9">Region 9</MenuItem>
+          <MenuItem value="Region 10">Region 10</MenuItem>
+          <MenuItem value="Region 13">Region 13</MenuItem>
         </Select>
       </FormControl>
     </Box>

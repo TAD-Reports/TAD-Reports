@@ -1,10 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Moment from "react-moment";
 import PropTypes from "prop-types";
-import { Tooltip } from "@mui/material";
+import { Grid, Switch, Tooltip } from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
 import TableActions from "./TableActions";
 
@@ -13,7 +14,6 @@ export default function TableFunction({
   loadingState,
   // eslint-disable-next-line no-unused-vars
   dataReload,
-  action,
   moduleName,
 }) {
   // eslint-disable-next-line no-unused-vars
@@ -23,6 +23,7 @@ export default function TableFunction({
   const [remarks, setRemarks] = useState("");
   const [rowId, setRowId] = useState(null);
   const [columnData, setColumnData] = useState([]);
+  const [action, setAction] = useState(true);
 
   const headerStyles = {
     backgroundColor: "#f0f0f0",
@@ -30,9 +31,16 @@ export default function TableFunction({
     fontWeight: "bold",
   };
 
+  const handleSwitchChange = (event) => {
+    const isChecked = event.target.checked;
+    const newAction = !!isChecked;
+    setAction(newAction);
+  };
+
   const handleRowClick = (params) => {
     const rowRemarks = params.row.remarks || "";
     setRemarks(rowRemarks);
+    console.log(remarks);
   };
 
   const actionsColumn = {
@@ -69,8 +77,16 @@ export default function TableFunction({
   };
 
   useEffect(() => {
+    if (
+      !(
+        auth.role === "admin" ||
+        auth.role === "superadmin" ||
+        auth.role === "reviewer"
+      )
+    ) {
+      setAction(false);
+    }
     const excludedKeys = ["uuid", "created_at", "updated_at", "imported_by"];
-
     if (data && !data.columnNames && data.length > 0) {
       const columns = Object.keys(data[0])
         .filter((key) => !excludedKeys.includes(key))
@@ -98,7 +114,6 @@ export default function TableFunction({
               formattedLabel.charAt(0).toUpperCase() + formattedLabel.slice(1)
             );
           };
-
           const formattedWidth = () => {
             const maxWidth = data.reduce(
               // String(record[key]) is the values
@@ -109,15 +124,18 @@ export default function TableFunction({
               // eslint-disable-next-line no-nested-ternary
               maxWidth < 10
                 ? maxWidth * 13
-                : maxWidth > 30 && key !== "remarks"
-                ? maxWidth * 5
+                : maxWidth >= 28 && key !== "remarks"
+                ? maxWidth * 6
                 : maxWidth * 9;
-            return finalWidth;
+            const limitedFinalWidth = Math.min(finalWidth, 170);
+            return limitedFinalWidth;
           };
-
           const formattedType = () => {
             const value = data[0][key];
             if (typeof value === "string") {
+              if (value.includes("Region")) {
+                return "singleSelect";
+              }
               return "string";
               // eslint-disable-next-line no-else-return
             } else if (typeof value === "number") {
@@ -128,8 +146,21 @@ export default function TableFunction({
               return "Date";
             }
           };
-
-          console.log(formattedType());
+          const options =
+            key === "Region" || data[0][key]
+              ? [
+                  "Region 1",
+                  "Region 3",
+                  "Region 4",
+                  "Region 5",
+                  "Region 6",
+                  "Region 7",
+                  "Region 8",
+                  "Region 9",
+                  "Region 10",
+                  "Region 13",
+                ]
+              : undefined;
 
           return {
             field: key,
@@ -138,9 +169,9 @@ export default function TableFunction({
             editable: true,
             type: formattedType(),
             width: formattedWidth(),
+            valueOptions: options,
           };
         });
-
       setColumnData(columns);
     } else if (data.columnNames) {
       const columnNames = data.columnNames
@@ -162,7 +193,7 @@ export default function TableFunction({
         });
       setColumnData(columnNames);
     }
-  }, [data]);
+  }, [data, auth.role]);
 
   const tableContents = [
     ...(action === true ? [actionsColumn] : []),
@@ -174,6 +205,49 @@ export default function TableFunction({
 
   return (
     <div style={{ height: 530, width: "100%", position: "relative" }}>
+      <Grid container spacing={0}>
+        {auth.role === "admin" ||
+        auth.role === "superadmin" ||
+        auth.role === "reviewer" ? (
+          <Grid
+            item
+            xs={2}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: action === true ? "purple" : "inherit",
+            }}
+          >
+            <Switch
+              defaultChecked
+              color="secondary"
+              onChange={handleSwitchChange}
+            />
+            {action === true ? "Hide Actions" : "Show Actions"}
+          </Grid>
+        ) : (
+          <Grid item xs={2} />
+        )}
+        {remarks.length > 0 ? (
+          <Grid
+            item
+            xs={10}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingRight: 37,
+              marginBottom: 0.5,
+            }}
+          >
+            <div className="remarks-box" style={{ zIndex: -1 }}>
+              <span />
+              <span />
+              {remarks}
+            </div>
+          </Grid>
+        ) : null}
+      </Grid>
       <DataGrid
         getRowId={(row) => row.uuid}
         rows={data}
@@ -185,11 +259,6 @@ export default function TableFunction({
         onRowClick={handleRowClick}
         onCellEditStart={(params) => setRowId(params.row.uuid)}
       />
-      {remarks.length > 0 ? (
-        <div style={{ textAlign: "center", padding: "10px" }}>
-          Remarks: <span>{remarks}</span>
-        </div>
-      ) : null}
     </div>
   );
 }
@@ -198,6 +267,5 @@ TableFunction.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   loadingState: PropTypes.bool,
   dataReload: PropTypes.func,
-  action: PropTypes.bool,
   moduleName: PropTypes.string,
 };

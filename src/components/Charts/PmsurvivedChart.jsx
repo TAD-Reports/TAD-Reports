@@ -132,13 +132,13 @@ export default class PmsurvivedBarGraph extends PureComponent {
     }
 
     return (
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={300}>
         <BarChart
           width={500}
-          height={300}
+          height={100}
           data={data}
           margin={{
-            top: 5,
+            top: 20,
             right: 30,
             left: 20,
             bottom: 5,

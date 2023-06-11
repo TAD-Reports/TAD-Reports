@@ -48,7 +48,6 @@ export default function PMSurvived() {
   const [buttonError, setButtonError] = useState("");
 
   const [fileName, setFileName] = useState("");
-  const [action, setAction] = useState(true);
   const moduleName = "pmsurvived";
 
   const handleSearch = () => {
@@ -70,16 +69,7 @@ export default function PMSurvived() {
 
   React.useEffect(() => {
     handleSearch();
-    if (
-      !(
-        auth.role === "admin" ||
-        auth.role === "superadmin" ||
-        auth.role === "reviewer"
-      )
-    ) {
-      setAction(false);
-    }
-  }, [region, startDate, endDate, auth.role]);
+  }, [region, startDate, endDate]);
 
   const validateDateRange = (start, end) => {
     const dateStart = dayjs(start, "YYYY/MM/DD");
@@ -329,12 +319,6 @@ export default function PMSurvived() {
     });
   };
 
-  const handleSwitchChange = (event) => {
-    const isChecked = event.target.checked;
-    const newAction = !!isChecked;
-    setAction(newAction);
-  };
-
   return (
     <PageContainer>
       <Grid container spacing={0}>
@@ -463,31 +447,12 @@ export default function PMSurvived() {
           </Box>
         </Grid>
       </Grid>
-      <Divider />
+      <Divider sx={{ my: 0.5 }} />
       <Box>
-        {auth.role === "admin" ||
-        auth.role === "superadmin" ||
-        auth.role === "reviewer" ? (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              color: action === true ? "purple" : "inherit",
-            }}
-          >
-            <Switch
-              defaultChecked
-              color="secondary"
-              onChange={handleSwitchChange}
-            />
-            {action === true ? "Hide Actions" : "Show Actions"}
-          </Box>
-        ) : null}
         <Table
           data={tableData}
           loadingState={loading}
           dataReload={handleSearch}
-          action={action}
           moduleName={moduleName}
         />
       </Box>
@@ -497,7 +462,7 @@ export default function PMSurvived() {
           justifyContent: "space-between",
           alignItems: "end",
           px: 2,
-          my: 4,
+          my: 8,
         }}
       >
         <ImportDataButton
