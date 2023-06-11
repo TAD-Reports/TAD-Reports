@@ -76,11 +76,6 @@ const links = [
         path: "diseasemanagement",
         icon: <CoronavirusIcon />,
       },
-      {
-        name: "Job Positions",
-        path: "jobpositions",
-        icon: <AssignmentIndIcon />,
-      },
     ],
   },
 ];
