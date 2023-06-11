@@ -26,7 +26,7 @@ import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectRegion from "../components/Textfields/select-region";
 import Service from "../services/pmsurvived-service";
-import Table from "../components/Tables/Columns/PmsurvivedTable";
+import Table from "../components/Tables/TableFunction";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";

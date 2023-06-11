@@ -47,7 +47,7 @@ export default function TableFunction({
   };
 
   const renderCell = (params) => {
-    if (params.field === "report_date") {
+    if (params.field === "report_date" || params.field === "date_received") {
       return (
         <Tooltip title={params.value} placement="top">
           <span>
@@ -75,18 +75,72 @@ export default function TableFunction({
       const columns = Object.keys(data[0])
         .filter((key) => !excludedKeys.includes(key))
         .map((key) => {
-          const formattedKey = key.replace(/_/g, " ");
-          const formattedLabel =
-            formattedKey.charAt(0).toUpperCase() + formattedKey.slice(1);
+          const formattedHeader = () => {
+            const formattedKey = key.replace(/_/g, " ");
+            let formattedLabel = formattedKey;
+            if (
+              key !== "type_of_planting_materials" &&
+              key !== "name_of_cooperative_individual"
+            ) {
+              formattedLabel = formattedKey
+                .replace(/pm/g, "PM")
+                .replace(/ of /g, ". ")
+                .replace(/available/g, "")
+                .replace(/([A-Z])[a-z]+(?! PM)/g, (match) =>
+                  match.charAt(0).toUpperCase()
+                );
+            } else {
+              formattedLabel = formattedKey
+                .replace(/planting materials/g, "PM")
+                .replace(/cooperative individual/g, "Cooperative/Individual");
+            }
+            return (
+              formattedLabel.charAt(0).toUpperCase() + formattedLabel.slice(1)
+            );
+          };
+
+          const formattedWidth = () => {
+            const maxWidth = data.reduce(
+              // String(record[key]) is the values
+              (width, record) => Math.max(width, String(record[key]).length),
+              formattedHeader().length
+            );
+            const finalWidth =
+              // eslint-disable-next-line no-nested-ternary
+              maxWidth < 10
+                ? maxWidth * 13
+                : maxWidth > 30 && key !== "remarks"
+                ? maxWidth * 5
+                : maxWidth * 9;
+            return finalWidth;
+          };
+
+          const formattedType = () => {
+            const value = data[0][key];
+            if (typeof value === "string") {
+              return "string";
+              // eslint-disable-next-line no-else-return
+            } else if (typeof value === "number") {
+              return "number";
+            } else if (typeof value === "boolean") {
+              return "boolean";
+            } else {
+              return "Date";
+            }
+          };
+
+          console.log(formattedType());
+
           return {
             field: key,
-            headerName: formattedLabel,
+            headerName: formattedHeader(),
             headerClassName: "custom-header",
             editable: true,
-            type: "Date",
-            width: 120,
+            type: formattedType(),
+            width: formattedWidth(),
           };
         });
+
       setColumnData(columns);
     } else if (data.columnNames) {
       const columnNames = data.columnNames
@@ -95,13 +149,15 @@ export default function TableFunction({
           const formattedKey = key.replace(/_/g, " ");
           const formattedLabel =
             formattedKey.charAt(0).toUpperCase() + formattedKey.slice(1);
+          const width = String(key).length;
+          const fotmattedWidth = width < 10 ? width * 13 : width * 9;
           return {
             field: key,
             headerName: formattedLabel,
             headerClassName: "custom-header",
             editable: true,
-            type: "Date",
-            width: 120,
+            type: "string",
+            width: fotmattedWidth,
           };
         });
       setColumnData(columnNames);
