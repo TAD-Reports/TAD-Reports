@@ -9,7 +9,6 @@ import SchoolIcon from "@mui/icons-material/School";
 import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 import RiceBowlIcon from "@mui/icons-material/RiceBowl";
 import CoronavirusIcon from "@mui/icons-material/Coronavirus";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 
 const links = [
   {
