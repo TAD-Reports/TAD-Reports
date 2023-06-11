@@ -9,6 +9,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import FolderCopyIcon from "@mui/icons-material/FolderCopy";
 import RiceBowlIcon from "@mui/icons-material/RiceBowl";
 import CoronavirusIcon from "@mui/icons-material/Coronavirus";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 
 const links = [
   {
@@ -74,6 +75,11 @@ const links = [
         name: "abaca disease management project reports",
         path: "diseasemanagement",
         icon: <CoronavirusIcon />,
+      },
+      {
+        name: "Job Positions",
+        path: "jobpositions",
+        icon: <AssignmentIndIcon />,
       },
     ],
   },
