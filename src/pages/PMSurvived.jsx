@@ -70,7 +70,16 @@ export default function PMSurvived() {
 
   React.useEffect(() => {
     handleSearch();
-  }, [region, startDate, endDate]);
+    if (
+      !(
+        auth.role === "admin" ||
+        auth.role === "superadmin" ||
+        auth.role === "reviewer"
+      )
+    ) {
+      setAction(false);
+    }
+  }, [region, startDate, endDate, auth.role]);
 
   const validateDateRange = (start, end) => {
     const dateStart = dayjs(start, "YYYY/MM/DD");
@@ -456,20 +465,24 @@ export default function PMSurvived() {
       </Grid>
       <Divider />
       <Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            color: action === true ? "purple" : "inherit",
-          }}
-        >
-          <Switch
-            defaultChecked
-            color="secondary"
-            onChange={handleSwitchChange}
-          />
-          {action === true ? "Hide Actions" : "Show Actions"}
-        </Box>
+        {auth.role === "admin" ||
+        auth.role === "superadmin" ||
+        auth.role === "reviewer" ? (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: action === true ? "purple" : "inherit",
+            }}
+          >
+            <Switch
+              defaultChecked
+              color="secondary"
+              onChange={handleSwitchChange}
+            />
+            {action === true ? "Hide Actions" : "Show Actions"}
+          </Box>
+        ) : null}
         <Table
           data={tableData}
           loadingState={loading}

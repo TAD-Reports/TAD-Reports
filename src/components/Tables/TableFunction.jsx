@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Moment from "react-moment";
 import PropTypes from "prop-types";
@@ -11,7 +11,6 @@ import TableActions from "./TableActions";
 export default function TableFunction({
   data,
   loadingState,
-  columns,
   // eslint-disable-next-line no-unused-vars
   dataReload,
   action,
@@ -23,6 +22,7 @@ export default function TableFunction({
   const [loading, setLoading] = useState(loadingState);
   const [remarks, setRemarks] = useState("");
   const [rowId, setRowId] = useState(null);
+  const [columnData, setColumnData] = useState([]);
 
   const headerStyles = {
     backgroundColor: "#f0f0f0",
@@ -68,14 +68,49 @@ export default function TableFunction({
     return null;
   };
 
+  useEffect(() => {
+    const excludedKeys = ["uuid", "created_at", "updated_at", "imported_by"];
+
+    if (data && !data.columnNames && data.length > 0) {
+      const columns = Object.keys(data[0])
+        .filter((key) => !excludedKeys.includes(key))
+        .map((key) => {
+          const formattedKey = key.replace(/_/g, " ");
+          const formattedLabel =
+            formattedKey.charAt(0).toUpperCase() + formattedKey.slice(1);
+          return {
+            field: key,
+            headerName: formattedLabel,
+            headerClassName: "custom-header",
+            editable: true,
+            type: "Date",
+            width: 120,
+          };
+        });
+      setColumnData(columns);
+    } else if (data.columnNames) {
+      const columnNames = data.columnNames
+        .filter((key) => !excludedKeys.includes(key))
+        .map((key) => {
+          const formattedKey = key.replace(/_/g, " ");
+          const formattedLabel =
+            formattedKey.charAt(0).toUpperCase() + formattedKey.slice(1);
+          return {
+            field: key,
+            headerName: formattedLabel,
+            headerClassName: "custom-header",
+            editable: true,
+            type: "Date",
+            width: 120,
+          };
+        });
+      setColumnData(columnNames);
+    }
+  }, [data]);
+
   const tableContents = [
-    ...(action === true &&
-    (auth.role === "admin" ||
-      auth.role === "superadmin" ||
-      auth.role === "reviewer")
-      ? [actionsColumn]
-      : []),
-    ...columns.map((column) => ({
+    ...(action === true ? [actionsColumn] : []),
+    ...columnData.map((column) => ({
       ...column,
       renderCell,
     })),
@@ -106,7 +141,6 @@ export default function TableFunction({
 TableFunction.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   loadingState: PropTypes.bool,
-  columns: PropTypes.arrayOf(PropTypes.object),
   dataReload: PropTypes.func,
   action: PropTypes.bool,
   moduleName: PropTypes.string,
