@@ -96,7 +96,10 @@ export default function TableFunction({
             let formattedLabel = formattedKey;
             if (
               key !== "type_of_planting_materials" &&
-              key !== "name_of_cooperative_individual"
+              key !== "name_of_cooperative_individual" &&
+              key !== "address_of_beneficiary" &&
+              key !== "name_of_recipient_bene" &&
+              key !== "period_of_moa"
             ) {
               formattedLabel = formattedKey
                 .replace(/pm/g, "PM")
@@ -107,6 +110,9 @@ export default function TableFunction({
                 );
             } else {
               formattedLabel = formattedKey
+                .replace(/period of moa/g, "MOA period")
+                .replace(/name of recipient bene/g, "recipient name")
+                .replace(/address of beneficiary/g, "beneficiary address")
                 .replace(/planting materials/g, "PM")
                 .replace(/cooperative individual/g, "Cooperative/Individual");
             }
@@ -126,7 +132,7 @@ export default function TableFunction({
                 ? maxWidth * 13
                 : maxWidth >= 28 && key !== "remarks"
                 ? maxWidth * 6
-                : maxWidth * 9;
+                : maxWidth * 10;
             const limitedFinalWidth = Math.min(finalWidth, 170);
             return limitedFinalWidth;
           };

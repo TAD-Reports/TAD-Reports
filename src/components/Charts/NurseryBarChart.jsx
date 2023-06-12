@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { PureComponent } from "react";
 import {
   BarChart,
@@ -17,86 +18,51 @@ export default class NurseryBarChart extends PureComponent {
     const { monthData, totalData } = this.props;
 
     if (!monthData || !totalData) {
-      // Handle the case when apiData or totalData is undefined or null
       return null; // or display an error message
     }
 
-    let data = [];
-    let keys = [];
-    let barkeys = [];
+    const data = [];
+    const keysSet = new Set();
+    const barkeys = [];
 
-    if (monthData.length === 1) {
-      const firstApiData = monthData[0] || {};
-      const firstApiDataMonths = firstApiData.months || {};
-      const formattedTotalData = totalData.slice(0, 2).map((item) => ({
-        name: `${item.name} Total`,
-        Total: item.total || 0,
-      }));
-      data = [
-        {
-          name: firstApiData.name,
-          ...firstApiDataMonths,
-        },
-        ...formattedTotalData,
-      ];
-      keys = Object.keys(firstApiDataMonths);
-      const colors = randomColor({
-        count: keys.length,
-        format: "hslArray",
+    const formattedTotalData = totalData.map((item) => ({
+      name: `${item.name} Total`,
+      Total: item.total,
+    }));
+
+    monthData.forEach((apiData) => {
+      const apiDataMonths = apiData.months;
+      data.push({
+        name: apiData.name,
+        ...apiDataMonths,
       });
+      Object.keys(apiDataMonths).forEach((key) => {
+        keysSet.add(key);
+      });
+    });
 
-      barkeys = keys.map((key, index) => (
+    const keys = Array.from(keysSet);
+
+    const colors = randomColor({
+      count: keys.length,
+      format: "hslArray",
+    });
+
+    barkeys.push(
+      ...keys.map((key, index) => (
         <Bar
           key={key}
           dataKey={key}
           stackId="a"
           fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
         />
-      ));
-    } else {
-      const firstApiData = monthData[0] || {};
-      const firstApiDataMonths = firstApiData.months || {};
-      const secondApiData = monthData[1] || {};
-      const secondApiDataMonths = secondApiData.months || {};
-      const formattedTotalData = totalData.slice(0, 2).map((item) => ({
-        name: `${item.name} Total`,
-        Total: item.total || 0,
-      }));
-      data = [
-        {
-          name: firstApiData.name,
-          ...firstApiDataMonths,
-        },
-        {
-          name: secondApiData.name,
-          ...secondApiDataMonths,
-        },
-        ...formattedTotalData,
-      ];
-      keys = [
-        ...new Set([
-          ...Object.keys(firstApiDataMonths),
-          ...Object.keys(secondApiDataMonths),
-        ]),
-      ];
+      ))
+    );
 
-      const colors = randomColor({
-        count: keys.length,
-        format: "hslArray",
-      });
-
-      barkeys = keys.map((key, index) => (
-        <Bar
-          key={key}
-          dataKey={key}
-          stackId="a"
-          fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-        />
-      ));
-    }
+    data.push(...formattedTotalData);
 
     return (
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={350}>
         <BarChart
           width={500}
           height={100}
@@ -129,8 +95,6 @@ NurseryBarChart.defaultProps = {
 };
 
 NurseryBarChart.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   monthData: PropTypes.array,
-  // eslint-disable-next-line react/forbid-prop-types
   totalData: PropTypes.array,
 };

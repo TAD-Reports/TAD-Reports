@@ -15,14 +15,14 @@ import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution";
 import PageContainer from "../components/LayoutContainers/PageContainer";
-import DistributionChart from "../components/Charts/DistributionChart";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectRegion from "../components/Textfields/select-region";
-import DistributionTable from "../components/Tables/Columns/DistributionTable";
-import distributionService from "../services/distribution-service";
+import Table from "../components/Tables/TableFunction";
+import Service from "../services/service";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
+import MixBarGraph from "../components/Charts/MixBarChart";
 
 export default function Distribution() {
   const { auth } = useStateContext();
@@ -32,24 +32,22 @@ export default function Distribution() {
   const [search, setSearch] = useState("");
 
   const [graphData, setGraphData] = useState([]);
-  const [totalGraphData, setTotalGraph] = useState([]);
-  const [distributionData, setDistributionData] = useState([]);
+  const [tableData, setTableDataData] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [buttonError, setButtonError] = useState("");
 
   const [fileName, setFileName] = useState("");
+  const moduleName = "distribution";
 
   const handleSearch = () => {
     setLoading(true);
     setError("");
-    distributionService
-      .searchDistribution(region, startDate, endDate, search)
+    Service.searchAPI(region, startDate, endDate, search, moduleName)
       .then((e) => {
-        setGraphData(e.monthGraph);
-        setTotalGraph(e.totalGraph);
-        setDistributionData(e.table);
+        setGraphData(e.graph);
+        setTableDataData(e.table);
       })
       .catch((err) => {
         setError(err.message);
@@ -95,8 +93,7 @@ export default function Distribution() {
     setFileName(file.name);
     setButtonError("");
     setLoading(true);
-    distributionService
-      .importDistributionData(auth.uuid, file)
+    Service.importDataAPI(auth.uuid, file, moduleName)
       .then((res) => {
         alert(res.data.message);
         handleSearch();
@@ -114,7 +111,7 @@ export default function Distribution() {
   };
 
   const handleDownload = () => {
-    DownloadFunction.downloadData(distributionData);
+    DownloadFunction.downloadData(tableData);
   };
 
   return (
@@ -226,10 +223,7 @@ export default function Distribution() {
             </Typography>
           </Box>
           <Box sx={{ mb: 1 }}>
-            <DistributionChart
-              monthData={graphData}
-              totalData={totalGraphData}
-            />
+            <MixBarGraph graphData={graphData} />
           </Box>
         </Grid>
       </Grid>
@@ -237,10 +231,11 @@ export default function Distribution() {
       <Divider sx={{ m: 4 }} />
 
       <Box>
-        <DistributionTable
-          data={distributionData}
+        <Table
+          data={tableData}
           loadingState={loading}
           dataReload={handleSearch}
+          moduleName={moduleName}
         />
       </Box>
       <Box
@@ -249,7 +244,7 @@ export default function Distribution() {
           justifyContent: "space-between",
           alignItems: "end",
           px: 2,
-          my: 4,
+          my: 8,
         }}
       >
         <ImportDataButton

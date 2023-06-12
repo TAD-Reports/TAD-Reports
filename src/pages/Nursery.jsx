@@ -19,12 +19,12 @@ import DownloadFunction from "components/Buttons/DownloadFunctions/Nursery";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectRegion from "../components/Textfields/select-region";
-import nurseryService from "../services/nursery-service";
-import NurseryTable from "../components/Tables/Columns/NurseryTable";
+import Service from "../services/service";
+import Table from "../components/Tables/TableFunction";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
-import BarChart from "../components/Charts/NurseryBarChart";
+import MixBarGraph from "../components/Charts/MixBarChart";
 
 export default function Nursery() {
   const { auth } = useStateContext();
@@ -34,24 +34,22 @@ export default function Nursery() {
   const [search, setSearch] = useState("");
 
   const [graphData, setGraphData] = useState([]);
-  const [totalGraphData, setTotalGraph] = useState([]);
-  const [nurseryData, setNurseryData] = useState([]);
+  const [tableData, setTableDataData] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [buttonError, setButtonError] = useState("");
 
   const [fileName, setFileName] = useState("");
+  const moduleName = "nursery";
 
   const handleSearch = () => {
     setLoading(true);
     setError("");
-    nurseryService
-      .searchNursery(region, startDate, endDate, search)
+    Service.searchAPI(region, startDate, endDate, search, moduleName)
       .then((e) => {
-        setGraphData(e.monthGraph);
-        setTotalGraph(e.totalGraph);
-        setNurseryData(e.table);
+        setGraphData(e.graph);
+        setTableDataData(e.table);
       })
       .catch((err) => {
         setError(err.message);
@@ -60,8 +58,6 @@ export default function Nursery() {
         setLoading(false);
       });
   };
-
-  console.log(nurseryData);
 
   React.useEffect(() => {
     handleSearch();
@@ -92,16 +88,13 @@ export default function Nursery() {
 
   const handleFile = (e) => {
     const file = e.target.files[0];
-
     if (!file) {
       return;
     }
-
     setFileName(file.name);
     setButtonError("");
     setLoading(true);
-    nurseryService
-      .importNurseryData(auth.uuid, file)
+    Service.importDataAPI(auth.uuid, file, moduleName)
       .then((res) => {
         alert(res.data.message);
         handleSearch();
@@ -119,7 +112,7 @@ export default function Nursery() {
   };
 
   const handleDownload = () => {
-    DownloadFunction.downloadData(nurseryData);
+    DownloadFunction.downloadData(tableData);
   };
 
   return (
@@ -246,16 +239,17 @@ export default function Nursery() {
             </Tooltip>
           </Box>
           <Box sx={{ mb: 1 }}>
-            <BarChart monthData={graphData} totalData={totalGraphData} />
+            <MixBarGraph graphData={graphData} />
           </Box>
         </Grid>
       </Grid>
       <Divider sx={{ my: 2 }} />
       <Box>
-        <NurseryTable
-          nurseryData={nurseryData}
+        <Table
+          data={tableData}
           loadingState={loading}
           dataReload={handleSearch}
+          moduleName={moduleName}
         />
       </Box>
       <Box
@@ -264,7 +258,7 @@ export default function Nursery() {
           justifyContent: "space-between",
           alignItems: "end",
           px: 2,
-          my: 4,
+          my: 8,
         }}
       >
         <ImportDataButton

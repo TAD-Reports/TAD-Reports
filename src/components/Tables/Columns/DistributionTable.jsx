@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { Tooltip } from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
 import UpdateModal from "../../Modal/distribution/distribution-update-modal";
-import Service from "../../../services/pmsurvived-service";
+import Service from "../../../services/service";
 
 export default function PmsurvivedTable({ data, loadingState, dataReload }) {
   const { auth } = useStateContext();

@@ -6,7 +6,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { red, blue, green } from "@mui/material/colors";
-import Service from "../../services/pmsurvived-service";
+import Service from "../../services/service";
 import RemarksModal from "../Modal/remarks-modal";
 
 const tableActions = ({ params, rowId, setRowId, moduleName }) => {

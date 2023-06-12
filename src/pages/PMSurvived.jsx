@@ -16,7 +16,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import Switch from "@mui/material/Switch";
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import SearchIcon from "@mui/icons-material/Search";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -25,12 +24,12 @@ import { useStateContext } from "contexts/ContextProvider";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectRegion from "../components/Textfields/select-region";
-import Service from "../services/pmsurvived-service";
+import Service from "../services/service";
 import Table from "../components/Tables/TableFunction";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
-import BarChart from "../components/Charts/PmsurvivedChart";
+import MixBarGraph from "../components/Charts/MixBarChart";
 
 export default function PMSurvived() {
   const { auth } = useStateContext();
@@ -40,7 +39,6 @@ export default function PMSurvived() {
   const [search, setSearch] = useState("");
 
   const [graphData, setGraphData] = useState([]);
-  const [totalGraphData, setTotalGraph] = useState([]);
   const [tableData, setTableDataData] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -55,8 +53,7 @@ export default function PMSurvived() {
     setError("");
     Service.searchAPI(region, startDate, endDate, search, moduleName)
       .then((e) => {
-        setGraphData(e.monthGraph);
-        setTotalGraph(e.totalGraph);
+        setGraphData(e.graph);
         setTableDataData(e.table);
       })
       .catch((err) => {
@@ -124,7 +121,6 @@ export default function PMSurvived() {
       alert("No data available to export.");
       return;
     }
-
     const a1 = tableData.filter(
       (data) => data.nurseries === "Maintained" && data.funded_by === "PhilFIDA"
     );
@@ -443,7 +439,7 @@ export default function PMSurvived() {
             </Tooltip>
           </Grid>
           <Box sx={{ mb: 1 }}>
-            <BarChart monthData={graphData} totalData={totalGraphData} />
+            <MixBarGraph graphData={graphData} />
           </Box>
         </Grid>
       </Grid>
@@ -472,37 +468,6 @@ export default function PMSurvived() {
         />
         <DownloadDataButton downloadData={handleDownload} />
       </Box>
-      {/* {auth.role === "admin" || auth.role === "superadmin" ? (
-        
-      ) : auth.role === "planner" ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "end",
-            alignItems: "end",
-            px: 2,
-            my: 4,
-          }}
-        >
-          <DownloadDataButton downloadData={handleDownload} />
-        </Box>
-      ) : auth.role === "uploader" ? (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "end",
-            px: 2,
-            my: 4,
-          }}
-        >
-          <ImportDataButton
-            fileName={fileName}
-            importFunction={handleFile}
-            clearFileName={clearFileName}
-          />
-        </Box>
-      ) : null} */}
-
       {error}
       {buttonError}
     </PageContainer>
