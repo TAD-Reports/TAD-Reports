@@ -1,11 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Moment from "react-moment";
 import PropTypes from "prop-types";
-import { Grid, Switch, Tooltip } from "@mui/material";
+import { Grid, Switch, Tooltip, Typography } from "@mui/material";
+import Radio from "@mui/material/Radio";
+import { purple } from "@mui/material/colors";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
 import { useStateContext } from "contexts/ContextProvider";
 import TableActions from "./TableActions";
 
@@ -15,8 +19,8 @@ export default function TableFunction({
   // eslint-disable-next-line no-unused-vars
   dataReload,
   moduleName,
+  radioValue,
 }) {
-  // eslint-disable-next-line no-unused-vars
   const { auth } = useStateContext();
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(loadingState);
@@ -24,6 +28,19 @@ export default function TableFunction({
   const [rowId, setRowId] = useState(null);
   const [columnData, setColumnData] = useState([]);
   const [action, setAction] = useState(true);
+  const [selectedValue, setSelectedValue] = useState("b");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const controlProps = (item) => ({
+    checked: selectedValue === item,
+    onChange: handleChange,
+    value: item,
+    name: "color-radio-button-demo",
+    inputProps: { "aria-label": item },
+  });
 
   const headerStyles = {
     backgroundColor: "#f0f0f0",
@@ -40,7 +57,6 @@ export default function TableFunction({
   const handleRowClick = (params) => {
     const rowRemarks = params.row.remarks || "";
     setRemarks(rowRemarks);
-    console.log(remarks);
   };
 
   const actionsColumn = {
@@ -78,6 +94,14 @@ export default function TableFunction({
 
   useEffect(() => {
     if (
+      selectedValue === "a" ||
+      selectedValue === "b" ||
+      selectedValue === "c"
+    ) {
+      // eslint-disable-next-line no-param-reassign
+      radioValue(selectedValue);
+    }
+    if (
       !(
         auth.role === "admin" ||
         auth.role === "superadmin" ||
@@ -102,6 +126,7 @@ export default function TableFunction({
               key !== "period_of_moa"
             ) {
               formattedLabel = formattedKey
+                .replace(/ ha/g, "")
                 .replace(/pm/g, "PM")
                 .replace(/ of /g, ". ")
                 .replace(/available/g, "")
@@ -199,7 +224,7 @@ export default function TableFunction({
         });
       setColumnData(columnNames);
     }
-  }, [data, auth.role]);
+  }, [data, auth.role, selectedValue]);
 
   const tableContents = [
     ...(action === true ? [actionsColumn] : []),
@@ -229,7 +254,13 @@ export default function TableFunction({
               color="secondary"
               onChange={handleSwitchChange}
             />
-            {action === true ? "Hide Actions" : "Show Actions"}
+            {action === true ? (
+              <Typography sx={{ color: purple[800], fontSize: "0.9rem" }}>
+                Hide Actions
+              </Typography>
+            ) : (
+              <Typography sx={{ fontSize: "0.9rem" }}>Show Actions</Typography>
+            )}
           </Grid>
         ) : (
           <Grid item xs={2} />
@@ -237,22 +268,113 @@ export default function TableFunction({
         {remarks.length > 0 ? (
           <Grid
             item
-            xs={10}
+            xs={8}
             sx={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              paddingRight: 37,
-              marginBottom: 0.5,
             }}
           >
-            <div className="remarks-box" style={{ zIndex: -1 }}>
+            <div className="remarks-box" style={{ zIndex: 2 }}>
               <span />
               <span />
               {remarks}
             </div>
           </Grid>
-        ) : null}
+        ) : (
+          <Grid item xs={8} />
+        )}
+        <Grid
+          item
+          xs={2}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "right",
+            paddingRight: 0.7,
+          }}
+        >
+          <FormControl>
+            <RadioGroup
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+            >
+              <FormControlLabel
+                value="Now"
+                control={
+                  <Radio
+                    {...controlProps("a")}
+                    sx={{
+                      color: "default",
+                      "&.Mui-checked": {
+                        color: purple[600],
+                      },
+                    }}
+                  />
+                }
+                label={
+                  <Typography
+                    sx={{
+                      color: selectedValue === "a" ? purple[800] : "inherit",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Latest
+                  </Typography>
+                }
+              />
+              <FormControlLabel
+                value="Previous"
+                control={
+                  <Radio
+                    {...controlProps("b")}
+                    sx={{
+                      color: "default",
+                      "&.Mui-checked": {
+                        color: purple[600],
+                      },
+                    }}
+                  />
+                }
+                label={
+                  <Typography
+                    sx={{
+                      color: selectedValue === "b" ? purple[800] : "inherit",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Compare
+                  </Typography>
+                }
+              />
+              <FormControlLabel
+                value="All"
+                control={
+                  <Radio
+                    {...controlProps("c")}
+                    sx={{
+                      color: "default",
+                      "&.Mui-checked": {
+                        color: purple[600],
+                      },
+                    }}
+                  />
+                }
+                label={
+                  <Typography
+                    sx={{
+                      color: selectedValue === "c" ? purple[800] : "inherit",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    All
+                  </Typography>
+                }
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
       </Grid>
       <DataGrid
         getRowId={(row) => row.uuid}
@@ -269,9 +391,18 @@ export default function TableFunction({
   );
 }
 
+TableFunction.defaultProps = {
+  data: [],
+  loadingState: false,
+  dataReload: () => {},
+  moduleName: "",
+  radioValue: "",
+};
+
 TableFunction.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   loadingState: PropTypes.bool,
   dataReload: PropTypes.func,
   moduleName: PropTypes.string,
+  radioValue: PropTypes.string,
 };

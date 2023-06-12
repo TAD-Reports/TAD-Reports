@@ -46,17 +46,17 @@ export default class MixBarGraph extends PureComponent {
     });
 
     // Remove the "total" key from the keys array
-    const totalIndex = keys.indexOf("total");
+    const totalIndex = keys.indexOf("Total");
     if (totalIndex !== -1) {
       keys.splice(totalIndex, 1);
     }
 
     // Push the "total" key to the end of the keys array
-    keys.push("total");
+    keys.push("Total");
 
     barkeys.push(
       ...keys.map((key, index) => {
-        if (key !== "total") {
+        if (key !== "Total") {
           return (
             <Bar
               key={key}
@@ -65,7 +65,7 @@ export default class MixBarGraph extends PureComponent {
               fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
             />
           );
-        } else if (key === "total" && keys.length > 2) {
+        } else if (key === "Total" && keys.length > 2) {
           return (
             <Bar
               key={key}

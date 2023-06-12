@@ -88,9 +88,14 @@ export default function Distribution() {
 
   const handleFile = (e) => {
     const file = e.target.files[0];
-
     if (!file) {
       return;
+    }
+    const confirmed = window.confirm(
+      `Are you sure you want to import ${file.name}?`
+    );
+    if (!confirmed) {
+      return; // User cancelled the removal
     }
 
     setFileName(file.name);
@@ -221,7 +226,7 @@ export default function Distribution() {
 
           <Grid container>
             <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
-              Distribution of Planting Materials (No. Of Distributed PM)
+              Distribution of Planting Materials (No. of Distributed PM)
             </Typography>
 
             <Tooltip title="Refresh" placement="top">

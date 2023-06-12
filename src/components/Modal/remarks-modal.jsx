@@ -53,8 +53,8 @@ function RemarksModal({ open, handleClose, saveRemarks }) {
               className="custom-btn btn-12"
               onClick={handleSave}
             >
-              <span>I love you!</span>
-              <span>Save!</span>
+              <span>Save</span>
+              <span>Submit</span>
             </button>
           </Box>
         </Box>

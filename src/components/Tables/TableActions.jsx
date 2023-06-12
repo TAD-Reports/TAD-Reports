@@ -132,19 +132,17 @@ const tableActions = ({ params, rowId, setRowId, moduleName }) => {
             <Check />
           </Fab>
         ) : (
-          <Tooltip title="Update" placement="top">
-            <Fab
-              color="primary"
-              sx={{
-                width: 35,
-                height: 35,
-              }}
-              disabled={rowId !== params.id || loading}
-              onClick={formik.handleSubmit}
-            >
-              <Save />
-            </Fab>
-          </Tooltip>
+          <Fab
+            color="primary"
+            sx={{
+              width: 35,
+              height: 35,
+            }}
+            disabled={rowId !== params.id || loading}
+            onClick={formik.handleSubmit}
+          >
+            <Save />
+          </Fab>
         )}
         {loading && (
           <CircularProgress

@@ -91,6 +91,12 @@ export default function Nursery() {
     if (!file) {
       return;
     }
+    const confirmed = window.confirm(
+      `Are you sure you want to import ${file.name}?`
+    );
+    if (!confirmed) {
+      return; // User cancelled the removal
+    }
     setFileName(file.name);
     setButtonError("");
     setLoading(true);
