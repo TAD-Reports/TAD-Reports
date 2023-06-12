@@ -7,10 +7,13 @@ import {
   Typography,
   TextField,
   InputAdornment,
+  Tooltip,
+  Button,
   IconButton,
 } from "@mui/material";
 import { GiShakingHands } from "react-icons/gi";
 import SearchIcon from "@mui/icons-material/Search";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution";
@@ -216,19 +219,34 @@ export default function Distribution() {
             </Box>
           </Box>
 
-          <Box>
+          <Grid container>
             <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
-              Distribution of Planting Materials (Total No. Of Planting
-              Materials Distributed)
+              Distribution of Planting Materials (No. Of Distributed PM)
             </Typography>
-          </Box>
+
+            <Tooltip title="Refresh" placement="top">
+              <Button
+                onClick={handleSearch}
+                sx={{
+                  borderRadius: "50%",
+                  color: "gray",
+                  "&:hover": {
+                    textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                    color: "black",
+                  },
+                }}
+              >
+                <RefreshIcon sx={{ fontSize: "25px" }} />
+              </Button>
+            </Tooltip>
+          </Grid>
           <Box sx={{ mb: 1 }}>
             <MixBarGraph graphData={graphData} />
           </Box>
         </Grid>
       </Grid>
 
-      <Divider sx={{ m: 4 }} />
+      <Divider sx={{ m: 0.5 }} />
 
       <Box>
         <Table

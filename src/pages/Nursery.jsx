@@ -243,7 +243,7 @@ export default function Nursery() {
           </Box>
         </Grid>
       </Grid>
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ my: 0.5 }} />
       <Box>
         <Table
           data={tableData}
