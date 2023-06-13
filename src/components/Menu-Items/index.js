@@ -1,17 +1,24 @@
+import React, { useState } from "react";
 import { Button, Box } from "@mui/material";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import AppFormModal from "../Modal/appform-modal";
 
 function MenuItems() {
+  const [openAppForm, setOpenAppForm] = useState(false);
+
+  const handleOpenAppForm = () => {
+    setOpenAppForm(true);
+  };
+
+  const handleCloseAppForm = () => {
+    setOpenAppForm(false);
+  };
+
   const navigate = useNavigate();
 
   const handleClickLogin = () => {
     navigate("/sign-in");
-  };
-
-  const handleClickAppForm = () => {
-    navigate("/app-form");
   };
 
   return (
@@ -79,7 +86,7 @@ function MenuItems() {
               backgroundColor: "#60ec60",
             },
           }}
-          onClick={handleClickAppForm}
+          onClick={handleOpenAppForm}
         >
           APPLY NOW!
         </Button>
@@ -104,6 +111,7 @@ function MenuItems() {
           LOG IN!
         </Button>
       </motion.div>
+      <AppFormModal open={openAppForm} handleClose={handleCloseAppForm} />
     </Box>
   );
 }

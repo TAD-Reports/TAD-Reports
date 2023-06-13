@@ -3,9 +3,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Box } from "@mui/material";
-import "./container.css";
 import Background from "../../assets/images/da-for-landingpage.jpg";
 import MenuItems from "../../components/Menu-Items";
+import "./container.css";
 
 export default function LandingPage() {
   return (
@@ -58,8 +58,8 @@ export default function LandingPage() {
             technical assistance to farmers,expand market access for fiber
             products, and establish regulations
             <br />
-            that support the growth of the industry. As an integral part of
-            the Department of Agriculture, PhilFIDA
+            that support the growth of the industry. As an integral part of the
+            Department of Agriculture, PhilFIDA
             <br />
             plays a vital role in driving the growth and competitiveness of the
             Philippine fiber industry.
