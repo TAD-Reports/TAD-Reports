@@ -11,6 +11,8 @@ import {
   Unauthorized,
   Missing,
   LandingPage,
+  ApplicantsData,
+  JobPositions,
   AppForm,
   Cocoon,
   Cotton,
@@ -67,6 +69,8 @@ function App() {
                 path="/diseasemanagement"
                 element={<DiseaseManagementProj />}
               />
+              <Route path="/applicants" element={<ApplicantsData />} />
+              <Route path="/jobpositions" element={<JobPositions />} />
             </Route>
           </Route>
 

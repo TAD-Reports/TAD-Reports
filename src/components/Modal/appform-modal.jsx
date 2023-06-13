@@ -12,7 +12,7 @@ import {
 import UploadIcon from "@mui/icons-material/Upload";
 import DownloadIcon from "@mui/icons-material/Download";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import PreviewIcon from "@mui/icons-material/Preview";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import SaveIcon from "@mui/icons-material/Save";
 import { useFormik } from "formik";
 import appformService from "services/appform-service";
@@ -158,6 +158,8 @@ function AppForm({ open, handleClose }) {
           </Grid>
         </Grid>
 
+        <Divider sx={{ my: 4 }} />
+
         <Grid container spacing={0}>
           <Grid item xs={6}>
             <Button variant="contained" sx={{ backgroundColor: "#616161" }}>
@@ -194,7 +196,7 @@ function AppForm({ open, handleClose }) {
                 disabled={loading}
                 value={formik.values.lastName}
                 onChange={formik.handleChange}
-                sx={{ pr: 7 }}
+                sx={{ pr: 7, mb: 4 }}
                 fullWidth
               />
             </Grid>
@@ -239,10 +241,12 @@ function AppForm({ open, handleClose }) {
             </Grid>
           </Grid>
 
-          <Divider sx={{ my: 4 }} />
-
-          <Grid container spacing={2}>
-            <Grid item xs={3}>
+          <Grid container spacing={2} mb={4}>
+            <Grid
+              item
+              xs={6}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <TextField
                 name="positionApplied"
                 label="Position Applied"
@@ -251,11 +255,9 @@ function AppForm({ open, handleClose }) {
                 value={formik.values.positionApplied}
                 onChange={formik.handleChange}
                 disabled={loading}
-                sx={{ pr: 7 }}
+                sx={{ width: "48.5%" }}
                 fullWidth
               />
-            </Grid>
-            <Grid item xs={3}>
               <TextField
                 name="salaryGrade"
                 label="Salary Grade"
@@ -264,7 +266,7 @@ function AppForm({ open, handleClose }) {
                 value={formik.values.salaryGrade}
                 onChange={formik.handleChange}
                 disabled={loading}
-                sx={{ pr: 7 }}
+                sx={{ width: "48.5%" }}
                 fullWidth
               />
             </Grid>
@@ -274,26 +276,30 @@ function AppForm({ open, handleClose }) {
                 disabled={loading}
                 value={formik.values.typeOfEligibility}
                 onChange={formik.handleChange}
-                onBlur={formik.handleBLur}
-                error={
-                  formik.touched.typeOfEligibility &&
-                  Boolean(formik.errors.typeOfEligibility)
-                }
-                helperText={
-                  formik.touched.typeOfEligibility &&
-                  formik.errors.typeOfEligibility
-                }
-                sx={{ pr: 7 }}
-                fullWidth
+                sx={{ pr: 7, width: "100%" }}
               />
+            </Grid>
+            <Grid item xs={3}>
+              {formik.values.typeOfEligibility ? (
+                <Box>
+                  <Button
+                    variant="contained"
+                    htmlFor="eligibilityFile"
+                    sx={{ backgroundColor: "#616161" }}
+                  >
+                    <AttachFileIcon sx={{ mr: 2 }} />
+                    Attach Eligibility
+                  </Button>
+                  <input
+                    id="eligibilityFile"
+                    type="file"
+                    style={{ display: "none" }}
+                  />
+                </Box>
+              ) : null}
             </Grid>
           </Grid>
         </Box>
-        {/* <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-          <Typography component="h5" variant="h5" sx={{ fontWeight: "bold" }}>
-            
-          </Typography>
-        </Box> */}
         <Divider>
           <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
             EDUCATIONAL BACKGROUND
@@ -475,7 +481,7 @@ function AppForm({ open, handleClose }) {
             }}
           >
             <Button variant="contained" sx={{ backgroundColor: "#616161" }}>
-              <PreviewIcon />
+              <VisibilityIcon />
             </Button>
           </Grid>
           <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
@@ -557,7 +563,7 @@ function AppForm({ open, handleClose }) {
             }}
           >
             <Button variant="contained" sx={{ backgroundColor: "#616161" }}>
-              <PreviewIcon />
+              <VisibilityIcon />
             </Button>
           </Grid>
           <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
@@ -639,7 +645,7 @@ function AppForm({ open, handleClose }) {
             }}
           >
             <Button variant="contained" sx={{ backgroundColor: "#616161" }}>
-              <PreviewIcon />
+              <VisibilityIcon />
             </Button>
           </Grid>
         </Grid>

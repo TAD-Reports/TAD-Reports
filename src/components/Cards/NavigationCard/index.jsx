@@ -3,7 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import GrassIcon from "@mui/icons-material/Grass";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-import links from "../../SidebarLinks";
+import links from "../../SidebarLinks/defaultlinks";
 
 function NavigationCard({ cardColor, pathName, title, icon: Icon }) {
   const path = (linkName) => {

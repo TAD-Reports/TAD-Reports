@@ -4,7 +4,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Box, Button, Typography } from "@mui/material";
 import Avatar from "../data/avatarMale.jpg";
 
-import links from "./SidebarLinks";
+import links from "./SidebarLinks/defaultlinks";
+import hrlinks from "./SidebarLinks/hrlinks";
 
 import { useStateContext } from "../contexts/ContextProvider";
 
@@ -12,6 +13,8 @@ export default function SideBar() {
   const { auth, setAuth } = useStateContext();
   const location = useLocation();
   const navigate = useNavigate();
+
+  console.log(hrlinks);
 
   const handleLogout = () => {
     setAuth(null);
@@ -106,22 +109,53 @@ export default function SideBar() {
               mt: 1,
             }}
           >
-            {auth.lastname}, {auth.lastname}
+            {auth.lastname}, {auth.firstname}
           </Typography>
           <Typography
             sx={{
-              textTransform: "capitalize",
+              textTransform: "uppercase",
               fontWeight: "bold",
               fontSize: "12px",
               color: "#fff",
             }}
           >
-            {auth.role === "superadmin" ? "SUPER ADMIN" : auth.role}
+            {auth.role === "superadmin" ? "super admin" : auth.role}
           </Typography>
         </Box>
-        <Box sx={{ my: 5 }}>
-          {links.map((item) => (
-            <Box key={item.title} sx={{ width: "100%" }}>
+        {auth.role === "hr" ? (
+          <Box sx={{ my: 5 }}>
+            {hrlinks.map((item) => (
+              <Box key={item.title} sx={{ width: "100%" }}>
+                <Typography
+                  sx={{
+                    color: "#fff",
+                    m: 2,
+                    mt: 4,
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {item.title}
+                </Typography>
+                {item.links.map((link) => (
+                  <NavLink to={`/${link.path}`} key={link.name}>
+                    <Button
+                      sx={
+                        location.pathname === `/${link.path}`
+                          ? activeLink
+                          : normalLink
+                      }
+                    >
+                      {link.icon}
+                      <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                        {link.name}
+                      </Typography>
+                    </Button>
+                  </NavLink>
+                ))}
+              </Box>
+            ))}
+            <Box sx={{ width: "100%" }}>
               <Typography
                 sx={{
                   color: "#fff",
@@ -131,46 +165,70 @@ export default function SideBar() {
                   fontWeight: "bold",
                 }}
               >
-                {item.title}
+                Log out
               </Typography>
-              {item.links.map((link) => (
-                <NavLink to={`/${link.path}`} key={link.name}>
-                  <Button
-                    sx={
-                      location.pathname === `/${link.path}`
-                        ? activeLink
-                        : normalLink
-                    }
-                  >
-                    {link.icon}
-                    <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                      {link.name}
-                    </Typography>
-                  </Button>
-                </NavLink>
-              ))}
+              <Button sx={normalLink} onClick={handleLogout}>
+                <LogoutIcon />
+                <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                  Logout
+                </Typography>
+              </Button>
             </Box>
-          ))}
-          <Box sx={{ width: "100%" }}>
-            <Typography
-              sx={{
-                color: "#fff",
-                m: 2,
-                mt: 4,
-                textTransform: "uppercase",
-                fontWeight: "bold",
-              }}
-            >
-              Log out
-            </Typography>
-            <Button sx={normalLink} onClick={handleLogout}>
-              <LogoutIcon />
-              <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                Logout
-              </Typography>
-            </Button>
           </Box>
-        </Box>
+        ) : (
+          <Box sx={{ my: 5 }}>
+            {links.map((item) => (
+              <Box key={item.title} sx={{ width: "100%" }}>
+                <Typography
+                  sx={{
+                    color: "#fff",
+                    m: 2,
+                    mt: 4,
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {item.title}
+                </Typography>
+                {item.links.map((link) => (
+                  <NavLink to={`/${link.path}`} key={link.name}>
+                    <Button
+                      sx={
+                        location.pathname === `/${link.path}`
+                          ? activeLink
+                          : normalLink
+                      }
+                    >
+                      {link.icon}
+                      <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                        {link.name}
+                      </Typography>
+                    </Button>
+                  </NavLink>
+                ))}
+              </Box>
+            ))}
+            <Box sx={{ width: "100%" }}>
+              <Typography
+                sx={{
+                  color: "#fff",
+                  m: 2,
+                  mt: 4,
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                }}
+              >
+                Log out
+              </Typography>
+              <Button sx={normalLink} onClick={handleLogout}>
+                <LogoutIcon />
+                <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
+                  Logout
+                </Typography>
+              </Button>
+            </Box>
+          </Box>
+        )}
       </Box>
     </Box>
   );

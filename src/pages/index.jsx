@@ -3,6 +3,9 @@ export { default as Login } from "./Auth/sign-in";
 export { default as Register } from "./Auth/register";
 export { default as Missing } from "./Missing";
 export { default as Unauthorized } from "./Auth/unauthorized";
+
+export { default as ApplicantsData } from "./JobApplication/ApplicantsData";
+export { default as JobPositions } from "./JobApplication/JobPositions";
 export { default as AppForm } from "./ApplicationForm";
 export { default as Dashboard } from "./Dashboard";
 export { default as Nursery } from "./Nursery";
