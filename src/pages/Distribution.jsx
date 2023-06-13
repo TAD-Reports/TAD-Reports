@@ -1,30 +1,31 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import moment from "moment";
 import {
-  Divider,
   Box,
+  Fab,
+  Divider,
   Grid,
-  Typography,
-  TextField,
-  InputAdornment,
-  Tooltip,
-  Button,
   IconButton,
+  InputAdornment,
+  TextField,
+  Tooltip,
+  Typography,
 } from "@mui/material";
+import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution";
 import { GiShakingHands } from "react-icons/gi";
 import SearchIcon from "@mui/icons-material/Search";
-import RefreshIcon from "@mui/icons-material/Refresh";
+import PaletteIcon from "@mui/icons-material/Palette";
 import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
-import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution";
 import PageContainer from "../components/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../components/Textfields/date-picker";
 import SelectRegion from "../components/Textfields/select-region";
-import Table from "../components/Tables/TableFunction";
 import Service from "../services/service";
-import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
+import Table from "../components/Tables/TableFunction";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import DownloadDataButton from "../components/Buttons/DownloadDataButton";
+import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
 import MixBarGraph from "../components/Charts/MixBarChart";
 
 export default function Distribution() {
@@ -42,12 +43,25 @@ export default function Distribution() {
   const [buttonError, setButtonError] = useState("");
 
   const [fileName, setFileName] = useState("");
+  const [radioValue, setRadioValue] = useState("");
+
+  const [colorChanged, setColorChanged] = useState(false);
   const moduleName = "distribution";
 
-  const handleSearch = () => {
+  const handleChangeColor = () => {
+    setColorChanged((prevState) => !prevState);
+  };
+
+  const handleSearch = (radioEndDate, radioStartDate) => {
     setLoading(true);
     setError("");
-    Service.searchAPI(region, startDate, endDate, search, moduleName)
+    Service.searchAPI(
+      region,
+      startDate || radioStartDate,
+      endDate || radioEndDate,
+      search,
+      moduleName
+    )
       .then((e) => {
         setGraphData(e.graph);
         setTableDataData(e.table);
@@ -59,9 +73,29 @@ export default function Distribution() {
         setLoading(false);
       });
   };
+
   React.useEffect(() => {
-    handleSearch();
-  }, [region, startDate, endDate]);
+    const currentDate = moment();
+    const dateRanges = {
+      a: { start: "month", subtract: 0 },
+      b: { start: "month", subtract: 1 },
+      c: { start: "year", subtract: 100 },
+    };
+
+    const { start, subtract } = dateRanges[radioValue] || {};
+    let radioEndDate = currentDate.endOf("month").format("YYYY/MM/DD");
+    let radioStartDate = currentDate
+      .subtract(subtract || 0, start || "month")
+      .startOf("month")
+      .format("YYYY/MM/DD");
+
+    if (radioValue === "a") {
+      radioStartDate = null;
+      radioEndDate = null;
+    }
+
+    handleSearch(radioEndDate, radioStartDate);
+  }, [region, startDate && endDate, radioValue]);
 
   const validateDateRange = (start, end) => {
     const dateStart = dayjs(start, "YYYY/MM/DD");
@@ -228,37 +262,39 @@ export default function Distribution() {
             <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
               Distribution of Planting Materials (No. of Distributed PM)
             </Typography>
-
-            <Tooltip title="Refresh" placement="top">
-              <Button
-                onClick={handleSearch}
-                sx={{
-                  borderRadius: "50%",
-                  color: "gray",
-                  "&:hover": {
-                    textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-                    color: "black",
-                  },
-                }}
-              >
-                <RefreshIcon sx={{ fontSize: "25px" }} />
-              </Button>
-            </Tooltip>
+            <Grid item sx={{ display: "flex", justifyContent: "left" }}>
+              <Tooltip title="Change Color" placement="right">
+                <Fab
+                  color="inherit"
+                  sx={{
+                    minWidth: 30,
+                    minHeight: 30,
+                    width: 25,
+                    height: 25,
+                    mt: 2,
+                    ml: 2,
+                    zIndex: 1,
+                  }}
+                  onClick={handleChangeColor}
+                >
+                  <PaletteIcon sx={{ fontSize: "25px", color: "#321c47" }} />
+                </Fab>
+              </Tooltip>
+            </Grid>
           </Grid>
           <Box sx={{ mb: 1 }}>
-            <MixBarGraph graphData={graphData} />
+            <MixBarGraph graphData={graphData} colorChanged={colorChanged} />
           </Box>
         </Grid>
       </Grid>
-
-      <Divider sx={{ m: 0.5 }} />
-
+      <Divider sx={{ my: 0.6 }} />
       <Box>
         <Table
           data={tableData}
           loadingState={loading}
           dataReload={handleSearch}
           moduleName={moduleName}
+          radioValue={setRadioValue}
         />
       </Box>
       <Box

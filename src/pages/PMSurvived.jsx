@@ -99,7 +99,7 @@ export default function PMSurvived() {
     }
 
     handleSearch(radioEndDate, radioStartDate);
-  }, [region, startDate, endDate, radioValue]);
+  }, [region, startDate && endDate, radioValue]);
 
   const validateDateRange = (start, end) => {
     const dateStart = dayjs(start, "YYYY/MM/DD");
@@ -460,12 +460,8 @@ export default function PMSurvived() {
             <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
               Survived Planting Materials (No. of PM Survived)
             </Typography>
-            <Grid
-              item
-              xs={8.5}
-              sx={{ display: "flex", justifyContent: "left" }}
-            >
-              <Tooltip title="Change Color" placement="top">
+            <Grid item sx={{ display: "flex", justifyContent: "left" }}>
+              <Tooltip title="Change Color" placement="right">
                 <Fab
                   color="inherit"
                   sx={{
@@ -475,6 +471,7 @@ export default function PMSurvived() {
                     height: 25,
                     mt: 2,
                     ml: 2,
+                    zIndex: 1,
                   }}
                   onClick={handleChangeColor}
                 >
