@@ -23,8 +23,23 @@ function searchApplicant(search = "") {
   });
 }
 
-function addApplicant(data, attachments, eligibilities) {
-  return axios.post(`${BASE_URL}/appform`, data, attachments, eligibilities, {
+function addApplicant(data, attachments, eligibility) {
+  const formData = new FormData();
+
+  // Append the data object
+  Object.keys(data).forEach((key) => {
+    formData.append(key, data[key]);
+  });
+
+  // Append the attachments
+  Object.keys(attachments).forEach((key) => {
+    formData.append(key, attachments[key]);
+  });
+
+  // Append the eligibility file
+  formData.append("eligibility", eligibility);
+
+  return axios.post(`${BASE_URL}/appform`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

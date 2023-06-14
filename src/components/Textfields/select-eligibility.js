@@ -10,21 +10,19 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
-const options = ["Eligibility", "Professional", "Sub-Professional"];
+const options = ["Select Eligibility", "Professional", "Sub-Professional"];
 
-export default function SplitButton() {
+export default function SplitButton({
+  importFunction,
+  onEligibilityChange,
+  eligibilityType,
+}) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-  const importFunction = (e) => {
-    const file = e.target.files[0];
-    if (!file) {
-      return null;
-    }
-    return null;
-  };
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [bool, setBool] = React.useState(true);
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -43,6 +41,18 @@ export default function SplitButton() {
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    onEligibilityChange(options[selectedIndex]);
+    if (eligibilityType === "Select Eligibility") {
+      setBool(true);
+    } else {
+      setBool(false);
+    }
+  }, [options[selectedIndex], eligibilityType]);
+
+  console.log(eligibilityType);
+  console.log(bool);
+
   return (
     <>
       <ButtonGroup
@@ -50,8 +60,23 @@ export default function SplitButton() {
         ref={anchorRef}
         aria-label="split button"
       >
-        <Button type="button" className="upload-btn">
-          <span htmlFor="fileUpload" />
+        <Button
+          type="button"
+          className="upload-btn"
+          htmlFor="fileUpload"
+          disabled={bool}
+          sx={{
+            backgroundColor: "#E0E0E0",
+            color: "black",
+            textAlign: "left",
+            width: "12vw",
+            "&:hover": {
+              textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+              color: "#fff",
+              backgroundColor: "gray",
+            },
+          }}
+        >
           <Typography
             variant="label"
             component="label"
@@ -73,6 +98,14 @@ export default function SplitButton() {
           aria-expanded={open ? "true" : undefined}
           aria-label="select merge strategy"
           aria-haspopup="menu"
+          sx={{
+            backgroundColor: "#616161",
+            "&:hover": {
+              textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+              color: "#46008B",
+              backgroundColor: "#E0E0E0",
+            },
+          }}
           onClick={handleToggle}
         >
           <ArrowDropDownIcon />
@@ -80,6 +113,7 @@ export default function SplitButton() {
         <input
           id="fileUpload"
           type="file"
+          accept="pdf, png, jpeg"
           multiple={false}
           onChange={(e) => importFunction(e)}
           style={{ display: "none" }}
@@ -124,3 +158,15 @@ export default function SplitButton() {
     </>
   );
 }
+
+SplitButton.defaultProps = {
+  importFunction: () => {},
+  onEligibilityChange: () => {},
+  eligibilityType: "",
+};
+
+SplitButton.propTypes = {
+  importFunction: PropTypes.func,
+  onEligibilityChange: PropTypes.func,
+  eligibilityType: PropTypes.string,
+};
