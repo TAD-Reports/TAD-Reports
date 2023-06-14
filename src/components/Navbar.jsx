@@ -25,7 +25,7 @@ export default function NavBar() {
             PHILIPPINE FIBER INDUSTRY DEVELOPMENT AUTHORITY
           </Typography>
           <Typography sx={{ fontWeight: "bold" }}>
-            TECHNOLOGICAL ASSISTANCE DIVISION (TAD) - REPORTS COMPILATION
+            TECHNICAL ASSISTANCE DIVISION (TAD) - REPORTS COMPILATION
           </Typography>
         </Box>
       </Box>

@@ -38,21 +38,16 @@ export default function DownloadTemplateButton({ templateName }) {
       className="custom-btn btn-7"
       variant="contained"
       onClick={handleDownload}
-      sx={{
-        height: 50,
-        width: 220,
-        backgroundColor: "#FF8000",
-        color: "white",
-        "&:hover": {
-          textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-          color: "white",
-          backgroundColor: "#8467B6",
-        },
-      }}
     >
-      <span>
-        Download Template
-        <DownloadIcon />
+      <span
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <DownloadIcon sx={{ mr: 1 }} />
+        DOWNLOAD TEMPLATE
       </span>
     </button>
   );

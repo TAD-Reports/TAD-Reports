@@ -15,7 +15,7 @@ const hrlinks = [
   },
 
   {
-    title: "Job Positions",
+    title: "Data/Library",
     links: [
       {
         name: "applicants",

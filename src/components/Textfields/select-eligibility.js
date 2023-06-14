@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { Typography } from "@mui/material";
 
-const options = ["Professional", "Sub-Professional"];
+const options = ["Eligibility", "Professional", "Sub-Professional"];
 
 export default function SplitButton() {
   const [open, setOpen] = React.useState(false);
@@ -80,7 +80,6 @@ export default function SplitButton() {
         <input
           id="fileUpload"
           type="file"
-          accept="xlsx, xls"
           multiple={false}
           onChange={(e) => importFunction(e)}
           style={{ display: "none" }}
