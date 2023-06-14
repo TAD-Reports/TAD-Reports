@@ -226,7 +226,8 @@ export default function Distribution() {
 
           <Grid container>
             <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
-              Distribution of Planting Materials (No. of Distributed PM)
+              Production and Distribution of Planting Materials (No. of
+              Distributed PM)
             </Typography>
             <Grid item sx={{ display: "flex", justifyContent: "left" }}>
               <Tooltip title="Change Color" placement="right">

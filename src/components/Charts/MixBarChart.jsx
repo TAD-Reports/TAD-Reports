@@ -2,6 +2,8 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { PureComponent } from "react";
 import {
+  LineChart,
+  Line,
   BarChart,
   Bar,
   XAxis,
@@ -9,11 +11,14 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  AreaChart,
+  Area,
   ResponsiveContainer,
 } from "recharts";
 
 import PropTypes from "prop-types";
 import randomColor from "randomcolor";
+import { Grid } from "@mui/material";
 
 export default class MixBarGraph extends PureComponent {
   render() {
@@ -26,6 +31,8 @@ export default class MixBarGraph extends PureComponent {
     const data = [];
     const keysSet = new Set();
     const barkeys = [];
+    const lineKeys = [];
+    const areaKeys = [];
 
     graphData.forEach((apiData) => {
       const apiDataMonths = apiData.months;
@@ -79,27 +86,126 @@ export default class MixBarGraph extends PureComponent {
       })
     );
 
+    lineKeys.push(
+      ...keys.map((key, index) => {
+        if (key !== "Total") {
+          return (
+            <Line
+              key={key}
+              dataKey={key}
+              stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+              fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+            />
+          );
+        } else if (key === "Total" && keys.length > 2) {
+          return (
+            <Line
+              key={key}
+              dataKey={key}
+              stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+              fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+            />
+          );
+        } else {
+          return null;
+        }
+      })
+    );
+
+    areaKeys.push(
+      ...keys.map((key, index) => {
+        if (key !== "Total") {
+          return (
+            <Area
+              key={key}
+              dataKey={key}
+              stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+              fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+            />
+          );
+        } else if (key === "Total" && keys.length > 2) {
+          return (
+            <Area
+              key={key}
+              dataKey={key}
+              stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+              fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+            />
+          );
+        } else {
+          return null;
+        }
+      })
+    );
+
     return (
-      <ResponsiveContainer width="100%" height={350}>
-        <BarChart
-          width={500}
-          height={100}
-          data={data}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          {barkeys}
-        </BarChart>
-      </ResponsiveContainer>
+      <Grid container spacing={0}>
+        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
+          <ResponsiveContainer width="100%" height={438}>
+            <BarChart
+              width={500}
+              height={100}
+              data={data}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {barkeys}
+            </BarChart>
+          </ResponsiveContainer>
+        </Grid>
+        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+          <div style={{ width: "100%" }}>
+            <ResponsiveContainer width="100%" height={200}>
+              <LineChart
+                width={500}
+                height={200}
+                data={data}
+                margin={{
+                  top: 10,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                {lineKeys}
+              </LineChart>
+            </ResponsiveContainer>
+
+            <ResponsiveContainer width="100%" height={200}>
+              <AreaChart
+                width={500}
+                height={200}
+                data={data}
+                margin={{
+                  top: 10,
+                  right: 30,
+                  left: 0,
+                  bottom: 0,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                {areaKeys}
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </Grid>
+      </Grid>
     );
   }
 }

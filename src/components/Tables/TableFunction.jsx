@@ -329,7 +329,7 @@ export default function TableFunction({
           rowsPerPageOptions={[1]}
           loading={loading}
           onRowClick={handleRowClick}
-          onCellKeyDown={(params) => setRowId(params.row.uuid)}
+          onCellEditStop={(params) => setRowId(params.row.uuid)}
           columnBuffer={1}
         />
       </Box>
