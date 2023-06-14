@@ -1,32 +1,38 @@
 import React from "react";
 import { Button } from "@mui/material";
-import DownloadIcon from "@mui/icons-material/Download";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PropTypes from "prop-types";
 
 export default function DownloadDataButton({ downloadData }) {
   return (
     <Button
-      variant="contained"
       onClick={downloadData}
       sx={{
-        height: 50,
-        width: 200,
-        backgroundColor: "#76a66e",
+        height: 40,
+        width: 150,
+        backgroundColor: "#fff",
+        mr: 0.2,
+        color: "black",
         "&:hover": {
           textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-          color: "black",
-          backgroundColor: "#60ec60",
+          color: "#46008B",
+          backgroundColor: "#E0E0E0",
         },
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: "pointer",
+        fontWeight: "bold",
       }}
     >
-      Export Data
-      <DownloadIcon sx={{ ml: 1 }} />
+      <FileDownloadOutlinedIcon sx={{ mr: 0.3 }} />
+      Export
     </Button>
   );
 }
 
 DownloadDataButton.defaultProps = {
-  downloadData: [],
+  downloadData: () => {},
 };
 
 DownloadDataButton.propTypes = {

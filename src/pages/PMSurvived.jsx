@@ -4,7 +4,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable dot-notation */
 import React, { useState } from "react";
-import moment from "moment";
 import ExcelJS from "exceljs";
 import {
   Box,
@@ -16,6 +15,7 @@ import {
   TextField,
   Tooltip,
   Typography,
+  ButtonGroup,
 } from "@mui/material";
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import SearchIcon from "@mui/icons-material/Search";
@@ -46,9 +46,6 @@ export default function PMSurvived() {
   const [error, setError] = useState("");
   const [buttonError, setButtonError] = useState("");
 
-  const [fileName, setFileName] = useState("");
-  const [radioValue, setRadioValue] = useState("");
-
   const [colorChanged, setColorChanged] = useState(false);
   const moduleName = "pmsurvived";
 
@@ -56,16 +53,10 @@ export default function PMSurvived() {
     setColorChanged((prevState) => !prevState);
   };
 
-  const handleSearch = (radioEndDate, radioStartDate) => {
+  const handleSearch = () => {
     setLoading(true);
     setError("");
-    Service.searchAPI(
-      region,
-      startDate || radioStartDate,
-      endDate || radioEndDate,
-      search,
-      moduleName
-    )
+    Service.searchAPI(region, startDate, endDate, search, moduleName)
       .then((e) => {
         setGraphData(e.graph);
         setTableDataData(e.table);
@@ -79,27 +70,8 @@ export default function PMSurvived() {
   };
 
   React.useEffect(() => {
-    const currentDate = moment();
-    const dateRanges = {
-      a: { start: "month", subtract: 0 },
-      b: { start: "month", subtract: 1 },
-      c: { start: "year", subtract: 100 },
-    };
-
-    const { start, subtract } = dateRanges[radioValue] || {};
-    let radioEndDate = currentDate.endOf("month").format("YYYY/MM/DD");
-    let radioStartDate = currentDate
-      .subtract(subtract || 0, start || "month")
-      .startOf("month")
-      .format("YYYY/MM/DD");
-
-    if (radioValue === "a") {
-      radioStartDate = null;
-      radioEndDate = null;
-    }
-
-    handleSearch(radioEndDate, radioStartDate);
-  }, [region, startDate && endDate, radioValue]);
+    handleSearch();
+  }, [region, startDate && endDate]);
 
   const validateDateRange = (start, end) => {
     const dateStart = dayjs(start, "YYYY/MM/DD");
@@ -135,7 +107,6 @@ export default function PMSurvived() {
     if (!confirmed) {
       return; // User cancelled the removal
     }
-    setFileName(file.name);
     setButtonError("");
     setLoading(true);
     Service.importDataAPI(auth.uuid, file, moduleName)
@@ -151,12 +122,8 @@ export default function PMSurvived() {
       });
   };
 
-  const clearFileName = () => {
-    setFileName("");
-  };
-
   const handleDownload = () => {
-    if (!tableData || tableData.length === 0) {
+    if (tableData.length === 0 || tableData.columnNames) {
       alert("No data available to export.");
       return;
     }
@@ -492,24 +459,20 @@ export default function PMSurvived() {
           loadingState={loading}
           dataReload={handleSearch}
           moduleName={moduleName}
-          radioValue={setRadioValue}
         />
       </Box>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "right",
           alignItems: "end",
-          px: 2,
-          my: 8,
+          my: -66.6,
         }}
       >
-        <ImportDataButton
-          fileName={fileName}
-          importFunction={handleFile}
-          clearFileName={clearFileName}
-        />
-        <DownloadDataButton downloadData={handleDownload} />
+        <ButtonGroup variant="text" aria-label="text button group">
+          <ImportDataButton importFunction={handleFile} />
+          <DownloadDataButton downloadData={handleDownload} />
+        </ButtonGroup>
       </Box>
       {error}
       {buttonError}

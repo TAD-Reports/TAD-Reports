@@ -1,22 +1,22 @@
 /* eslint-disable no-unused-vars */
 import ExcelJS from "exceljs";
 
-const downloadData = (nurseryData) => {
-  if (!nurseryData || nurseryData.length === 0) {
-    console.log("No data available to export.");
+const downloadData = (tableData) => {
+  if (tableData.length === 0 || tableData.columnNames) {
+    alert("No data available to export.");
     return;
   }
 
-  const a1 = nurseryData.filter(
+  const a1 = tableData.filter(
     (data) => data.nurseries === "Maintained" && data.funded_by === "PhilFIDA"
   );
-  const a2 = nurseryData.filter(
+  const a2 = tableData.filter(
     (data) => data.nurseries === "Maintained" && data.funded_by === "LGU"
   );
-  const a3 = nurseryData.filter(
+  const a3 = tableData.filter(
     (data) => data.nurseries === "Established" && data.funded_by === "PhilFIDA"
   );
-  const a4 = nurseryData.filter(
+  const a4 = tableData.filter(
     (data) => data.nurseries === "Established" && data.funded_by === "LGU"
   );
 
@@ -180,7 +180,7 @@ const downloadData = (nurseryData) => {
     }
   });
 
-  const filename = `Nursery_Report_${nurseryData[0].report_date}.xlsx`;
+  const filename = `Nursery_Report_${tableData[0].report_date}.xlsx`;
 
   workbook.xlsx.writeBuffer().then((buffer) => {
     const blob = new Blob([buffer], {
@@ -203,4 +203,6 @@ const downloadData = (nurseryData) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default downloadData;
+export default {
+  downloadData,
+};

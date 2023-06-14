@@ -1,22 +1,22 @@
 /* eslint-disable no-unused-vars */
 import ExcelJS from "exceljs";
 
-const downloadData = (distributionData) => {
-  if (!distributionData || distributionData.length === 0) {
-    console.log("No data available to export.");
+const downloadData = (tableData) => {
+  if (tableData.length === 0 || tableData.columnNames) {
+    alert("No data available to export.");
     return;
   }
 
-  const a1 = distributionData.filter(
+  const a1 = tableData.filter(
     (data) => data.nurseries === "Maintained" && data.funded_by === "PhilFIDA"
   );
-  const a2 = distributionData.filter(
+  const a2 = tableData.filter(
     (data) => data.nurseries === "Maintained" && data.funded_by === "LGU"
   );
-  const a3 = distributionData.filter(
+  const a3 = tableData.filter(
     (data) => data.nurseries === "Established" && data.funded_by === "PhilFIDA"
   );
-  const a4 = distributionData.filter(
+  const a4 = tableData.filter(
     (data) => data.nurseries === "Established" && data.funded_by === "LGU"
   );
 
@@ -180,7 +180,7 @@ const downloadData = (distributionData) => {
     }
   });
 
-  const filename = `Distribution_Report_${distributionData[0].report_date}.xlsx`;
+  const filename = `Distribution_Report_${tableData[0].report_date}.xlsx`;
 
   workbook.xlsx.writeBuffer().then((buffer) => {
     const blob = new Blob([buffer], {

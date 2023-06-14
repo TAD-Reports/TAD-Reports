@@ -1,8 +1,10 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/no-unknown-property */
 import React from "react";
-import { Button } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 import PropTypes from "prop-types";
 import downloadService from "services/download-service";
+import "../../App.css";
 
 export default function DownloadTemplateButton({ templateName }) {
   const handleDownload = async () => {
@@ -32,24 +34,27 @@ export default function DownloadTemplateButton({ templateName }) {
   };
 
   return (
-    <Button
+    <button
+      className="custom-btn btn-7"
       variant="contained"
       onClick={handleDownload}
       sx={{
         height: 50,
         width: 220,
-        backgroundColor: "#e88585",
+        backgroundColor: "#FF8000",
         color: "white",
         "&:hover": {
           textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-          color: "black",
-          backgroundColor: "#60ec60",
+          color: "white",
+          backgroundColor: "#8467B6",
         },
       }}
     >
-      Download Template
-      <DownloadIcon sx={{ ml: 1 }} />
-    </Button>
+      <span>
+        Download Template
+        <DownloadIcon />
+      </span>
+    </button>
   );
 }
 

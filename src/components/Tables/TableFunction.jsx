@@ -1,16 +1,14 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-else-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Moment from "react-moment";
 import PropTypes from "prop-types";
-import { Grid, Switch, Tooltip, Typography } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import { purple } from "@mui/material/colors";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
+import { Box, Button, ButtonGroup, Grid, Switch, Tooltip } from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
+import ExpandOutlinedIcon from "@mui/icons-material/ExpandOutlined";
 import TableActions from "./TableActions";
 
 export default function TableFunction({
@@ -19,7 +17,6 @@ export default function TableFunction({
   // eslint-disable-next-line no-unused-vars
   dataReload,
   moduleName,
-  radioValue,
 }) {
   const { auth } = useStateContext();
   // eslint-disable-next-line no-unused-vars
@@ -27,20 +24,20 @@ export default function TableFunction({
   const [remarks, setRemarks] = useState("");
   const [rowId, setRowId] = useState(null);
   const [columnData, setColumnData] = useState([]);
-  const [action, setAction] = useState(true);
-  const [selectedValue, setSelectedValue] = useState("b");
+  const [tableHeight, setTableHight] = useState(600);
+  const [action, setAction] = useState(
+    auth.role === "admin" ||
+      auth.role === "superadmin" ||
+      auth.role === "reviewer"
+  );
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+  const handleTableHeight = () => {
+    if (tableHeight < 1000) {
+      setTableHight(1000);
+    } else {
+      setTableHight(600);
+    }
   };
-
-  const controlProps = (item) => ({
-    checked: selectedValue === item,
-    onChange: handleChange,
-    value: item,
-    name: "color-radio-button-demo",
-    inputProps: { "aria-label": item },
-  });
 
   const headerStyles = {
     backgroundColor: "#f0f0f0",
@@ -49,9 +46,7 @@ export default function TableFunction({
   };
 
   const handleSwitchChange = (event) => {
-    const isChecked = event.target.checked;
-    const newAction = !!isChecked;
-    setAction(newAction);
+    setAction(event.target.checked);
   };
 
   const handleRowClick = (params) => {
@@ -60,9 +55,9 @@ export default function TableFunction({
   };
 
   const actionsColumn = {
-    field: "actions",
-    type: "actions",
-    headerName: "Actions",
+    field: "controls",
+    type: "controls",
+    headerName: "",
     headerClassName: "custom-header",
     width: 140,
     renderCell: (params) => (
@@ -92,24 +87,7 @@ export default function TableFunction({
     return null;
   };
 
-  useEffect(() => {
-    if (
-      selectedValue === "a" ||
-      selectedValue === "b" ||
-      selectedValue === "c"
-    ) {
-      // eslint-disable-next-line no-param-reassign
-      radioValue(selectedValue);
-    }
-    if (
-      !(
-        auth.role === "admin" ||
-        auth.role === "superadmin" ||
-        auth.role === "reviewer"
-      )
-    ) {
-      setAction(false);
-    }
+  const columnDataFuntion = () => {
     const excludedKeys = ["uuid", "created_at", "updated_at", "imported_by"];
     if (data && !data.columnNames && data.length > 0) {
       const columns = Object.keys(data[0])
@@ -147,12 +125,10 @@ export default function TableFunction({
           };
           const formattedWidth = () => {
             const maxWidth = data.reduce(
-              // String(record[key]) is the values
               (width, record) => Math.max(width, String(record[key]).length),
               formattedHeader().length
             );
             const finalWidth =
-              // eslint-disable-next-line no-nested-ternary
               maxWidth < 10
                 ? maxWidth * 13
                 : maxWidth >= 28 && key !== "remarks"
@@ -168,7 +144,6 @@ export default function TableFunction({
                 return "singleSelect";
               }
               return "string";
-              // eslint-disable-next-line no-else-return
             } else if (typeof value === "number") {
               return "number";
             } else if (typeof value === "boolean") {
@@ -178,7 +153,7 @@ export default function TableFunction({
             }
           };
           const options =
-            key === "Region" || data[0][key]
+            key === "region"
               ? [
                   "Region 1",
                   "Region 3",
@@ -224,10 +199,14 @@ export default function TableFunction({
         });
       setColumnData(columnNames);
     }
-  }, [data, auth.role, selectedValue]);
+  };
+
+  useEffect(() => {
+    columnDataFuntion();
+  }, [data, auth.role]);
 
   const tableContents = [
-    ...(action === true ? [actionsColumn] : []),
+    ...(action ? [actionsColumn] : []),
     ...columnData.map((column) => ({
       ...column,
       renderCell,
@@ -235,32 +214,75 @@ export default function TableFunction({
   ];
 
   return (
-    <div style={{ height: 530, width: "100%", position: "relative" }}>
+    <div
+      style={{
+        height: 533,
+        width: "100%",
+        position: "relative",
+      }}
+    >
       <Grid container spacing={0}>
-        {auth.role === "admin" ||
-        auth.role === "superadmin" ||
-        auth.role === "reviewer" ? (
+        {(auth.role === "admin" ||
+          auth.role === "superadmin" ||
+          auth.role === "reviewer") &&
+        columnData.length > 0 ? (
           <Grid
             item
             xs={2}
             sx={{
               display: "flex",
-              alignItems: "center",
-              color: action === true ? "purple" : "inherit",
+              mb: 0.4,
             }}
           >
-            <Switch
-              defaultChecked
-              color="secondary"
-              onChange={handleSwitchChange}
-            />
-            {action === true ? (
-              <Typography sx={{ color: purple[800], fontSize: "0.9rem" }}>
-                Hide Actions
-              </Typography>
-            ) : (
-              <Typography sx={{ fontSize: "0.9rem" }}>Show Actions</Typography>
-            )}
+            <ButtonGroup variant="text" aria-label="text button group">
+              <Button
+                sx={{
+                  height: 40,
+                  width: 150,
+                  backgroundColor: "#fff",
+                  color: "black",
+                  "&:hover": {
+                    textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                    color: "#46008B",
+                    backgroundColor: "#E0E0E0",
+                  },
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontWeight: "bold",
+                  cursor: "default",
+                }}
+              >
+                <Switch
+                  defaultChecked
+                  color="warning"
+                  onChange={handleSwitchChange}
+                />
+                {action ? <span>HIDE</span> : <span>SHOW</span>}
+              </Button>
+              <Button
+                onClick={handleTableHeight}
+                sx={{
+                  height: 40,
+                  width: 150,
+                  backgroundColor: "#fff",
+                  color: "black",
+                  "&:hover": {
+                    textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                    color: "#46008B",
+                    backgroundColor: "#E0E0E0",
+                  },
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                <ExpandOutlinedIcon sx={{ mr: 0.3 }} />
+                EXPAND
+              </Button>
+            </ButtonGroup>
           </Grid>
         ) : (
           <Grid item xs={2} />
@@ -293,100 +315,24 @@ export default function TableFunction({
             justifyContent: "right",
             paddingRight: 0.7,
           }}
-        >
-          <FormControl>
-            <RadioGroup
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
-            >
-              <FormControlLabel
-                value="Now"
-                control={
-                  <Radio
-                    {...controlProps("a")}
-                    sx={{
-                      color: "default",
-                      "&.Mui-checked": {
-                        color: purple[600],
-                      },
-                    }}
-                  />
-                }
-                label={
-                  <Typography
-                    sx={{
-                      color: selectedValue === "a" ? purple[800] : "inherit",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    Latest
-                  </Typography>
-                }
-              />
-              <FormControlLabel
-                value="Previous"
-                control={
-                  <Radio
-                    {...controlProps("b")}
-                    sx={{
-                      color: "default",
-                      "&.Mui-checked": {
-                        color: purple[600],
-                      },
-                    }}
-                  />
-                }
-                label={
-                  <Typography
-                    sx={{
-                      color: selectedValue === "b" ? purple[800] : "inherit",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    Compare
-                  </Typography>
-                }
-              />
-              <FormControlLabel
-                value="All"
-                control={
-                  <Radio
-                    {...controlProps("c")}
-                    sx={{
-                      color: "default",
-                      "&.Mui-checked": {
-                        color: purple[600],
-                      },
-                    }}
-                  />
-                }
-                label={
-                  <Typography
-                    sx={{
-                      color: selectedValue === "c" ? purple[800] : "inherit",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    All
-                  </Typography>
-                }
-              />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
+        />
       </Grid>
-      <DataGrid
-        getRowId={(row) => row.uuid}
-        rows={data}
-        columns={tableContents}
-        headerClassName={headerStyles}
-        pageSize={10}
-        rowsPerPageOptions={[1]}
-        loading={loading}
-        onRowClick={handleRowClick}
-        onCellEditStart={(params) => setRowId(params.row.uuid)}
-      />
+      <Box
+        sx={{ height: tableHeight, width: "100%", backgroundColor: "#FFFF" }}
+      >
+        <DataGrid
+          getRowId={(row) => row.uuid}
+          rows={data}
+          columns={columnData.length > 0 ? tableContents : []}
+          headerClassName={headerStyles}
+          pageSize={10}
+          rowsPerPageOptions={[1]}
+          loading={loading}
+          onRowClick={handleRowClick}
+          onCellKeyDown={(params) => setRowId(params.row.uuid)}
+          columnBuffer={1}
+        />
+      </Box>
     </div>
   );
 }
@@ -396,7 +342,6 @@ TableFunction.defaultProps = {
   loadingState: false,
   dataReload: () => {},
   moduleName: "",
-  radioValue: "",
 };
 
 TableFunction.propTypes = {
@@ -404,5 +349,4 @@ TableFunction.propTypes = {
   loadingState: PropTypes.bool,
   dataReload: PropTypes.func,
   moduleName: PropTypes.string,
-  radioValue: PropTypes.string,
 };

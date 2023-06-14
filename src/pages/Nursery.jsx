@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import moment from "moment";
 import {
   Box,
   Fab,
@@ -10,6 +9,7 @@ import {
   TextField,
   Tooltip,
   Typography,
+  ButtonGroup,
 } from "@mui/material";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Nursery";
 import GrassIcon from "@mui/icons-material/Grass";
@@ -41,9 +41,6 @@ export default function Nursery() {
   const [error, setError] = useState("");
   const [buttonError, setButtonError] = useState("");
 
-  const [fileName, setFileName] = useState("");
-  const [radioValue, setRadioValue] = useState("");
-
   const [colorChanged, setColorChanged] = useState(false);
   const moduleName = "nursery";
 
@@ -51,16 +48,10 @@ export default function Nursery() {
     setColorChanged((prevState) => !prevState);
   };
 
-  const handleSearch = (radioEndDate, radioStartDate) => {
+  const handleSearch = () => {
     setLoading(true);
     setError("");
-    Service.searchAPI(
-      region,
-      startDate || radioStartDate,
-      endDate || radioEndDate,
-      search,
-      moduleName
-    )
+    Service.searchAPI(region, startDate, endDate, search, moduleName)
       .then((e) => {
         setGraphData(e.graph);
         setTableDataData(e.table);
@@ -74,27 +65,8 @@ export default function Nursery() {
   };
 
   React.useEffect(() => {
-    const currentDate = moment();
-    const dateRanges = {
-      a: { start: "month", subtract: 0 },
-      b: { start: "month", subtract: 1 },
-      c: { start: "year", subtract: 100 },
-    };
-
-    const { start, subtract } = dateRanges[radioValue] || {};
-    let radioEndDate = currentDate.endOf("month").format("YYYY/MM/DD");
-    let radioStartDate = currentDate
-      .subtract(subtract || 0, start || "month")
-      .startOf("month")
-      .format("YYYY/MM/DD");
-
-    if (radioValue === "a") {
-      radioStartDate = null;
-      radioEndDate = null;
-    }
-
-    handleSearch(radioEndDate, radioStartDate);
-  }, [region, startDate && endDate, radioValue]);
+    handleSearch();
+  }, [region, startDate && endDate]);
 
   const validateDateRange = (start, end) => {
     const dateStart = dayjs(start, "YYYY/MM/DD");
@@ -130,7 +102,6 @@ export default function Nursery() {
     if (!confirmed) {
       return; // User cancelled the removal
     }
-    setFileName(file.name);
     setButtonError("");
     setLoading(true);
     Service.importDataAPI(auth.uuid, file, moduleName)
@@ -144,10 +115,6 @@ export default function Nursery() {
       .finally(() => {
         setLoading(false);
       });
-  };
-
-  const clearFileName = () => {
-    setFileName("");
   };
 
   const handleDownload = () => {
@@ -293,24 +260,20 @@ export default function Nursery() {
           loadingState={loading}
           dataReload={handleSearch}
           moduleName={moduleName}
-          radioValue={setRadioValue}
         />
       </Box>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "right",
           alignItems: "end",
-          px: 2,
-          my: 8,
+          my: -66.6,
         }}
       >
-        <ImportDataButton
-          fileName={fileName}
-          importFunction={handleFile}
-          clearFileName={clearFileName}
-        />
-        <DownloadDataButton downloadData={handleDownload} />
+        <ButtonGroup variant="text" aria-label="text button group">
+          <ImportDataButton importFunction={handleFile} />
+          <DownloadDataButton downloadData={handleDownload} />
+        </ButtonGroup>
       </Box>
       {/* {auth.role === "admin" || auth.role === "superadmin" ? (
         
