@@ -204,7 +204,7 @@ export default function Distribution() {
                 format="MM/DD/YYYY"
               />
             </Box>
-            <Box item xs={6} sx={{ textAlign: "right", py: 2 }}>
+            <Box item xs={8} sx={{ textAlign: "right", py: 2 }}>
               <TextField
                 label="Search"
                 size="small"
