@@ -65,12 +65,13 @@ function AppForm({ open, handleClose }) {
           college: collegeFile,
           masteral: masteralFile,
           doctoral: doctoralFile,
-          eligibility: eligibilityFile,
+          file: eligibilityFile,
         };
 
         const eligibility = {
           type: eligibilityType,
-          file_name: eligibilityFile?.name,
+          fileName: eligibilityFile?.name,
+          file: eligibilityFile,
         };
 
         appformService

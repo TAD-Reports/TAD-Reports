@@ -36,7 +36,7 @@ function addApplicant(data, attachments, eligibility) {
     formData.append(key, attachments[key]);
   });
 
-  // Append eligibility fields
+  // Append eligibility files
   Object.keys(eligibility).forEach((key) => {
     formData.append(key, eligibility[key]);
   });
