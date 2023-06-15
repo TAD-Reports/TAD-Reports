@@ -26,18 +26,20 @@ function searchApplicant(search = "") {
 function addApplicant(data, attachments, eligibility) {
   const formData = new FormData();
 
-  // Append the data object
+  // Append form data fields
   Object.keys(data).forEach((key) => {
     formData.append(key, data[key]);
   });
 
-  // Append the attachments
+  // Append attachment files
   Object.keys(attachments).forEach((key) => {
     formData.append(key, attachments[key]);
   });
 
-  // Append the eligibility file
-  formData.append("eligibility", eligibility);
+  // Append eligibility fields
+  Object.keys(eligibility).forEach((key) => {
+    formData.append(key, eligibility[key]);
+  });
 
   return axios.post(`${BASE_URL}/appform`, formData, {
     headers: {

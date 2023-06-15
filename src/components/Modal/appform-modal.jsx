@@ -48,7 +48,6 @@ function AppForm({ open, handleClose }) {
 
   const formik = useFormik({
     initialValues: initialAppForm,
-
     validationSchema: AppFormSchema,
     onSubmit: () => {
       setError("");
@@ -66,12 +65,13 @@ function AppForm({ open, handleClose }) {
           college: collegeFile,
           masteral: masteralFile,
           doctoral: doctoralFile,
+          eligibility: eligibilityFile,
         };
 
-        const eligibility = new FormData();
-        eligibility.append("type", eligibilityType);
-        eligibility.append("file", eligibilityFile);
-        eligibility.append("file_name", eligibilityFile?.name);
+        const eligibility = {
+          type: eligibilityType,
+          file_name: eligibilityFile?.name,
+        };
 
         appformService
           .addApplicant(formik.values, attachments, eligibility)
@@ -139,15 +139,6 @@ function AppForm({ open, handleClose }) {
     }
     setDoctoral(file);
   };
-
-  const asd = {
-    pds: pdsFile,
-    college: collegeFile,
-    masteral: masteralFile,
-    doctoral: doctoralFile,
-  };
-
-  console.log(asd);
 
   return (
     <Modal open={open} onClose={handleClose}>

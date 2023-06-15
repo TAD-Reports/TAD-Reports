@@ -50,9 +50,6 @@ export default function SplitButton({
     }
   }, [options[selectedIndex], eligibilityType]);
 
-  console.log(eligibilityType);
-  console.log(bool);
-
   return (
     <>
       <ButtonGroup

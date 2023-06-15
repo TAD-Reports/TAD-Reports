@@ -5,6 +5,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import PropTypes from "prop-types";
 import downloadService from "services/download-service";
 import "../../App.css";
+import { Button } from "@mui/material";
 
 export default function DownloadTemplateButton({ templateName }) {
   const handleDownload = async () => {
@@ -34,22 +35,21 @@ export default function DownloadTemplateButton({ templateName }) {
   };
 
   return (
-    <button
+    <Button
       className="custom-btn btn-7"
-      variant="contained"
+      variant="button"
+      component="button"
       onClick={handleDownload}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#fff",
+      }}
     >
-      <span
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <DownloadIcon sx={{ mr: 1 }} />
-        DOWNLOAD TEMPLATE
-      </span>
-    </button>
+      <DownloadIcon sx={{ mr: 0.5 }} />
+      DOWNLOAD TEMPLATE
+    </Button>
   );
 }
 
