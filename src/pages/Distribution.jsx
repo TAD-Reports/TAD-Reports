@@ -268,10 +268,11 @@ export default function Distribution() {
           display: "flex",
           justifyContent: "right",
           alignItems: "end",
-          my: -66.6,
+          ml: 37.4,
+          my: -66.64,
         }}
       >
-        <ButtonGroup variant="text" aria-label="text button group">
+        <ButtonGroup variant="outlined" aria-label="text button group">
           <ImportDataButton importFunction={handleFile} />
           <DownloadDataButton downloadData={handleDownload} />
         </ButtonGroup>

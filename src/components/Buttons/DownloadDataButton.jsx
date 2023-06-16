@@ -10,7 +10,7 @@ export default function DownloadDataButton({ downloadData }) {
       sx={{
         height: 40,
         width: 150,
-        backgroundColor: "#fff",
+        backgroundColor: "#FFFF",
         mr: 0.2,
         color: "black",
         "&:hover": {

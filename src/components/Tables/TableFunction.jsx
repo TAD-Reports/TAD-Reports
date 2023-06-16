@@ -222,24 +222,22 @@ export default function TableFunction({
       }}
     >
       <Grid container spacing={0}>
-        {(auth.role === "admin" ||
-          auth.role === "superadmin" ||
-          auth.role === "reviewer") &&
-        columnData.length > 0 ? (
+        {auth.role === "admin" ||
+        auth.role === "superadmin" ||
+        auth.role === "reviewer" ? (
           <Grid
             item
             xs={2}
             sx={{
               display: "flex",
-              mb: 0.4,
             }}
           >
-            <ButtonGroup variant="text" aria-label="text button group">
+            <ButtonGroup variant="outlined" aria-label="text button group">
               <Button
                 sx={{
                   height: 40,
                   width: 150,
-                  backgroundColor: "#fff",
+                  backgroundColor: "#FFFF",
                   color: "black",
                   "&:hover": {
                     textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
@@ -265,7 +263,7 @@ export default function TableFunction({
                 sx={{
                   height: 40,
                   width: 150,
-                  backgroundColor: "#fff",
+                  backgroundColor: "#FFFF",
                   color: "black",
                   "&:hover": {
                     textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
