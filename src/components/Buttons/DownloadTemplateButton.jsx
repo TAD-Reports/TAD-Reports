@@ -42,13 +42,13 @@ export default function DownloadTemplateButton({ templateName }) {
       onClick={handleDownload}
       sx={{
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         color: "#fff",
       }}
     >
-      <DownloadIcon sx={{ mr: 0.5 }} />
-      DOWNLOAD TEMPLATE
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <DownloadIcon sx={{ mr: 0.5 }} />
+        <span>DOWNLOAD TEMPLATE</span>
+      </div>
     </Button>
   );
 }
