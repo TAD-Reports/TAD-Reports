@@ -11,7 +11,7 @@ function PageContainer({ children }) {
         flexDirection: "column",
         m: "80px 0 80px 300px",
         p: "5vh 4vw",
-        width: "76vw",
+        width: "76.7vw",
         zIndex: 1500,
       }}
     >

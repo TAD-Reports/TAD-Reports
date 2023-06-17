@@ -310,13 +310,18 @@ export default function TableFunction({
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "right",
+            justifyContent: "center",
             paddingRight: 0.7,
           }}
         />
       </Grid>
       <Box
-        sx={{ height: tableHeight, width: "100%", backgroundColor: "#FFFF" }}
+        sx={{
+          height: tableHeight,
+          width: "100%",
+          backgroundColor: "#FFFF",
+          boxShadow: "0px 0px 16px rgba(0, 0, 0, 0.4)",
+        }}
       >
         <DataGrid
           getRowId={(row) => row.uuid}
