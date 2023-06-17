@@ -8,7 +8,6 @@ import ExcelJS from "exceljs";
 import {
   Box,
   Fab,
-  Divider,
   Grid,
   IconButton,
   InputAdornment,
@@ -28,7 +27,7 @@ import SelectRegion from "../components/Textfields/select-region";
 import Service from "../services/service";
 import Table from "../components/Tables/TableFunction";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
-import DownloadDataButton from "../components/Buttons/DownloadDataButton";
+import ExportDataButton from "../components/Buttons/ExportDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
 import MixBarGraph from "../components/Charts/MixBarChart";
 
@@ -324,7 +323,7 @@ export default function PMSurvived() {
   return (
     <PageContainer>
       <Grid container spacing={0}>
-        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
+        <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
           <GppGoodIcon style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
             PM SURVIVED REPORTS
@@ -349,7 +348,6 @@ export default function PMSurvived() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            p: 2,
           }}
         >
           <Box
@@ -378,7 +376,7 @@ export default function PMSurvived() {
                 name="filterBy"
                 value={region}
                 onChange={(evt) => setRegion(evt.target.value)}
-                sx={{ width: "12vw" }}
+                sx={{ width: "12vw", backgroundColor: "#FFFF" }}
               />
             </Box>
             <Box
@@ -390,6 +388,9 @@ export default function PMSurvived() {
               }}
             >
               <TextFieldDatePicker
+                sx={{
+                  backgroundColor: "#FFFF",
+                }}
                 label="Start Date"
                 value={dayjs(startDate)}
                 onChange={handleStartDate}
@@ -397,6 +398,9 @@ export default function PMSurvived() {
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
+                sx={{
+                  backgroundColor: "#FFFF",
+                }}
                 label="End Date"
                 value={dayjs(endDate)}
                 onChange={handleEndDate}
@@ -416,7 +420,7 @@ export default function PMSurvived() {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ my: 1 }}
+                sx={{ my: 1, backgroundColor: "#FFFF" }}
                 onChange={(evt) => setSearch(evt.target.value)}
                 value={search}
               />
@@ -452,7 +456,6 @@ export default function PMSurvived() {
           </Box>
         </Grid>
       </Grid>
-      <Divider sx={{ my: 0.6 }} />
       <Box>
         <Table
           data={tableData}
@@ -472,7 +475,7 @@ export default function PMSurvived() {
       >
         <ButtonGroup variant="outlined" aria-label="text button group">
           <ImportDataButton importFunction={handleFile} />
-          <DownloadDataButton downloadData={handleDownload} />
+          <ExportDataButton downloadData={handleDownload} />
         </ButtonGroup>
       </Box>
       {error}

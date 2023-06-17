@@ -140,7 +140,17 @@ export default class MixBarGraph extends PureComponent {
 
     return (
       <Grid container spacing={0}>
-        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
+        <Grid
+          item
+          xs={5}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            py: 2,
+            mb: 2,
+            backgroundColor: "#FFFF",
+          }}
+        >
           <ResponsiveContainer width="100%" height={438}>
             <BarChart
               width={500}
@@ -162,7 +172,18 @@ export default class MixBarGraph extends PureComponent {
             </BarChart>
           </ResponsiveContainer>
         </Grid>
-        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+        <Grid
+          item
+          xs={7}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            py: 2,
+            mb: 2,
+            pr: 4,
+            backgroundColor: "#FFFF",
+          }}
+        >
           <div style={{ width: "100%" }}>
             <ResponsiveContainer width="100%" height={200}>
               <LineChart
@@ -170,10 +191,10 @@ export default class MixBarGraph extends PureComponent {
                 height={200}
                 data={data}
                 margin={{
-                  top: 10,
+                  top: 0,
                   right: 30,
                   left: 0,
-                  bottom: 0,
+                  bottom: 7,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
@@ -190,10 +211,10 @@ export default class MixBarGraph extends PureComponent {
                 height={200}
                 data={data}
                 margin={{
-                  top: 10,
+                  top: 0,
                   right: 30,
                   left: 0,
-                  bottom: 0,
+                  bottom: 7,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />

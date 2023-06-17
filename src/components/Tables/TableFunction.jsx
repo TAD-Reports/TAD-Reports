@@ -237,18 +237,19 @@ export default function TableFunction({
                 sx={{
                   height: 40,
                   width: 150,
-                  backgroundColor: "#FFFF",
+                  backgroundColor: "#FFF",
                   color: "black",
                   "&:hover": {
                     textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
                     color: "#46008B",
-                    backgroundColor: "#E0E0E0",
+                    backgroundColor: "#76A66E",
                   },
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   fontWeight: "bold",
                   cursor: "default",
+                  zIndex: 200,
                 }}
               >
                 <Switch
@@ -263,18 +264,19 @@ export default function TableFunction({
                 sx={{
                   height: 40,
                   width: 150,
-                  backgroundColor: "#FFFF",
+                  backgroundColor: "#FFF",
                   color: "black",
                   "&:hover": {
                     textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
                     color: "#46008B",
-                    backgroundColor: "#E0E0E0",
+                    backgroundColor: "#76A66E",
                   },
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   cursor: "pointer",
                   fontWeight: "bold",
+                  zIndex: 200,
                 }}
               >
                 <ExpandOutlinedIcon sx={{ mr: 0.3 }} />
@@ -317,6 +319,7 @@ export default function TableFunction({
       </Grid>
       <Box
         sx={{
+          mt: -0.1,
           height: tableHeight,
           width: "100%",
           backgroundColor: "#FFFF",
