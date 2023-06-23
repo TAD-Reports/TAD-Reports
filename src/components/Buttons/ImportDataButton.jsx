@@ -21,12 +21,12 @@ export default function ImportDataButton({ importFunction }) {
         sx={{
           height: 40,
           width: 150,
-          backgroundColor: "#FFF",
+          backgroundColor: "#D1D1D1",
           color: "black",
           "&:hover": {
             textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
-            color: "#46008B",
-            backgroundColor: "#76A66E",
+            color: "black",
+            backgroundColor: "lightgreen",
           },
           display: "flex",
           justifyContent: "center",

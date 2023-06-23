@@ -75,7 +75,7 @@ export default function SideBar() {
             overflow: "auto",
           },
         },
-        backgroundColor: "#5a9c4e",
+        backgroundColor: "#067A61",
         zIndex: 1000,
       }}
     >
