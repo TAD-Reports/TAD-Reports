@@ -87,38 +87,35 @@ export default class MixBarGraph extends PureComponent {
     );
 
     lineKeys.push(
-      ...keys.map((key, index) => {
-        if (key !== "Total") {
-          return (
-            <Line
-              key={key}
-              dataKey={key}
-              stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-              fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-            />
-          );
-        } else {
-          return null;
-        }
-      })
+      ...keys
+        .filter((key) => key !== "Total")
+        .map((key, index) => (
+          <Line
+            type="monotone"
+            dataKey={key}
+            stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+            fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+          />
+        ))
     );
 
     areaKeys.push(
-      ...keys.map((key, index) => {
-        if (key !== "Total") {
-          return (
-            <Area
-              key={key}
-              dataKey={key}
-              stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-              fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-            />
-          );
-        } else {
-          return null;
-        }
-      })
+      ...keys
+        .filter((key) => key !== "Total")
+        .map((key, index) => (
+          <Area
+            type="monotone"
+            dataKey={key}
+            stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+            fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
+          />
+        ))
     );
+
+    const newData = data.map((obj) => {
+      const { Total, ...newObj } = obj;
+      return newObj;
+    });
 
     return (
       <Grid container spacing={0}>
@@ -139,7 +136,7 @@ export default class MixBarGraph extends PureComponent {
           <ResponsiveContainer width="80%" height={438}>
             <BarChart
               width={400}
-              height={100}
+              height={400}
               data={data}
               margin={{
                 top: 20,
@@ -162,7 +159,7 @@ export default class MixBarGraph extends PureComponent {
               <LineChart
                 width={500}
                 height={200}
-                data={data}
+                data={newData}
                 margin={{
                   top: 0,
                   right: 30,
@@ -182,7 +179,7 @@ export default class MixBarGraph extends PureComponent {
               <AreaChart
                 width={500}
                 height={200}
-                data={data}
+                data={newData}
                 margin={{
                   top: 0,
                   right: 30,

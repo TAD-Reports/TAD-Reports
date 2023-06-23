@@ -64,7 +64,13 @@ export default function Nursery() {
   };
 
   React.useEffect(() => {
-    handleSearch();
+    if (
+      startDate !== "" ||
+      endDate !== "" ||
+      (startDate === "" && endDate === "")
+    ) {
+      handleSearch();
+    }
   }, [region, startDate, endDate]);
 
   const validateDateRange = (start, end) => {

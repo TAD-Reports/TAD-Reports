@@ -69,7 +69,13 @@ export default function PMSurvived() {
   };
 
   React.useEffect(() => {
-    handleSearch();
+    if (
+      startDate !== "" ||
+      endDate !== "" ||
+      (startDate === "" && endDate === "")
+    ) {
+      handleSearch();
+    }
   }, [region, startDate, endDate]);
 
   const validateDateRange = (start, end) => {
