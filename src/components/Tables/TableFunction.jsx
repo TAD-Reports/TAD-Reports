@@ -323,7 +323,8 @@ export default function TableFunction({
           height: tableHeight,
           width: "100%",
           backgroundColor: "#FFFF",
-          boxShadow: "0px 0px 16px rgba(0, 0, 0, 0.4)",
+          borderRadius: "10px",
+          boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.4)",
         }}
       >
         <DataGrid

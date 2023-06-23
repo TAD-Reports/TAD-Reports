@@ -142,18 +142,21 @@ export default class MixBarGraph extends PureComponent {
       <Grid container spacing={0}>
         <Grid
           item
-          xs={5}
+          xs={12}
           sx={{
             display: "flex",
             alignItems: "center",
             py: 2,
             mb: 2,
+            pr: 4,
             backgroundColor: "#FFFF",
+            borderRadius: "10px",
+            boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.4)",
           }}
         >
-          <ResponsiveContainer width="100%" height={438}>
+          <ResponsiveContainer width="80%" height={438}>
             <BarChart
-              width={500}
+              width={400}
               height={100}
               data={data}
               margin={{
@@ -171,19 +174,7 @@ export default class MixBarGraph extends PureComponent {
               {barkeys}
             </BarChart>
           </ResponsiveContainer>
-        </Grid>
-        <Grid
-          item
-          xs={7}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            py: 2,
-            mb: 2,
-            pr: 4,
-            backgroundColor: "#FFFF",
-          }}
-        >
+
           <div style={{ width: "100%" }}>
             <ResponsiveContainer width="100%" height={200}>
               <LineChart
@@ -193,7 +184,7 @@ export default class MixBarGraph extends PureComponent {
                 margin={{
                   top: 0,
                   right: 30,
-                  left: 0,
+                  left: 30,
                   bottom: 7,
                 }}
               >
@@ -213,7 +204,7 @@ export default class MixBarGraph extends PureComponent {
                 margin={{
                   top: 0,
                   right: 30,
-                  left: 0,
+                  left: 30,
                   bottom: 7,
                 }}
               >

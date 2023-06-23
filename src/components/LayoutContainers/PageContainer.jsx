@@ -9,9 +9,9 @@ function PageContainer({ children }) {
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
-        m: "80px 0 80px 300px",
-        p: "5vh 4vw",
-        width: "76.7vw",
+        m: "80px 0 80px 310px",
+        p: "5vh 3.5vw",
+        width: "75.9vw",
         zIndex: 1500,
       }}
     >

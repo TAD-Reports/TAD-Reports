@@ -15,7 +15,7 @@ export default function NavBar() {
         width: "100%",
         zIndex: 100,
         marginLeft: "300px",
-        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.4)",
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", ml: 5 }}>

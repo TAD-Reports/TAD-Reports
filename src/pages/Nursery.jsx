@@ -65,7 +65,7 @@ export default function Nursery() {
 
   React.useEffect(() => {
     handleSearch();
-  }, [region, startDate && endDate]);
+  }, [region, startDate, endDate]);
 
   const validateDateRange = (start, end) => {
     const dateStart = dayjs(start, "YYYY/MM/DD");
