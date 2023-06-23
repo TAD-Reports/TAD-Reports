@@ -66,7 +66,7 @@ export default function SideBar() {
     <Box
       sx={{
         width: "300px",
-        height: "100vh",
+        height: "120vh",
         position: "fixed",
         overflow: "hidden",
         "@media screen and (min-width: 768px)": {

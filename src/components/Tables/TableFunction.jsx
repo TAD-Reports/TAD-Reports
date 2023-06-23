@@ -128,13 +128,16 @@ export default function TableFunction({
               (width, record) => Math.max(width, String(record[key]).length),
               formattedHeader().length
             );
+            console.log(key === "remarks" ? maxWidth : null);
             const finalWidth =
               maxWidth < 10
                 ? maxWidth * 13
+                : maxWidth >= 28 && key === "remarks"
+                ? maxWidth * 111
                 : maxWidth >= 28 && key !== "remarks"
                 ? maxWidth * 6
                 : maxWidth * 10;
-            const limitedFinalWidth = Math.min(finalWidth, 170);
+            const limitedFinalWidth = Math.min(finalWidth, 873);
             return limitedFinalWidth;
           };
           const formattedType = () => {

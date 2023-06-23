@@ -1,4 +1,5 @@
 body {
+  zoom: 0.85;
   background-color: #f0f2f5;
 }
 
@@ -29,7 +30,8 @@ a:visited {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  height: 12.5px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {

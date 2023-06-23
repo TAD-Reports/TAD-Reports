@@ -389,7 +389,7 @@ export default function PMSurvived() {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                marginRight: "18vw",
+                marginRight: "34vw",
                 width: "25vw",
               }}
             >
