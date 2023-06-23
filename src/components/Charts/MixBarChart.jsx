@@ -97,15 +97,6 @@ export default class MixBarGraph extends PureComponent {
               fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
             />
           );
-        } else if (key === "Total" && keys.length > 2) {
-          return (
-            <Line
-              key={key}
-              dataKey={key}
-              stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-              fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-            />
-          );
         } else {
           return null;
         }
@@ -115,15 +106,6 @@ export default class MixBarGraph extends PureComponent {
     areaKeys.push(
       ...keys.map((key, index) => {
         if (key !== "Total") {
-          return (
-            <Area
-              key={key}
-              dataKey={key}
-              stroke={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-              fill={`hsl(${colors[index][0]}, ${colors[index][1]}%, ${colors[index][2]}%)`}
-            />
-          );
-        } else if (key === "Total" && keys.length > 2) {
           return (
             <Area
               key={key}
