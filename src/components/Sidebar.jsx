@@ -29,12 +29,13 @@ export default function SideBar() {
     width: "100%",
     gap: "5",
     paddingLeft: "1rem",
+    paddingRight: "2rem",
     paddingTop: "0.75rem",
     paddingBottom: "0.625rem",
     borderRadius: "0.5rem 0 0 0.5rem",
     backgroundColor: "white",
     color: "black",
-    fontSize: "1rem",
+    fontSize: "2rem",
     margin: "5px",
     "&:hover": {
       color: "black",
@@ -43,6 +44,7 @@ export default function SideBar() {
   };
 
   const normalLink = {
+    zoom: 0.8,
     display: "flex",
     alignItems: "center",
     justifyContent: "start",
@@ -50,10 +52,11 @@ export default function SideBar() {
     width: "100%",
     gap: "5",
     paddingLeft: "1rem",
+    paddingRight: "2rem",
     paddingTop: "0.75rem",
     paddingBottom: "0.625rem",
-    borderRadius: "0.5rem 0 0 0.5rem",
-    fontSize: "1rem",
+    borderRadius: "0.5rem",
+    fontSize: "2rem",
     color: "#f0f0f0",
     margin: "5px",
     "&:hover": {
@@ -65,8 +68,8 @@ export default function SideBar() {
   return (
     <Box
       sx={{
-        width: "300px",
-        height: "120vh",
+        width: "285px",
+        height: "100vh",
         position: "fixed",
         overflow: "hidden",
         "@media screen and (min-width: 768px)": {
@@ -87,7 +90,7 @@ export default function SideBar() {
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
-            mt: 5,
+            mt: 6.5,
           }}
         >
           <Link to={auth.role === "superadmin" ? "/register" : "/dashboard"}>
@@ -95,8 +98,8 @@ export default function SideBar() {
               src={Avatar}
               alt="logo"
               style={{
-                width: "64px",
-                height: "64px",
+                width: "94px",
+                height: "94px",
                 borderRadius: "50%",
               }}
             />
@@ -104,7 +107,7 @@ export default function SideBar() {
           <Typography
             sx={{
               fontWeight: "bold",
-              fontSize: "14px",
+              fontSize: "18px",
               color: "#fff",
               mt: 1,
             }}

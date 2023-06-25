@@ -9,11 +9,15 @@ import {
   Tooltip,
   Typography,
   ButtonGroup,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
 } from "@mui/material";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Nursery";
 import GrassIcon from "@mui/icons-material/Grass";
 import SearchIcon from "@mui/icons-material/Search";
 import PaletteIcon from "@mui/icons-material/Palette";
+import HdrWeakIcon from "@mui/icons-material/HdrWeak";
 import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
 import PageContainer from "../components/LayoutContainers/PageContainer";
@@ -24,7 +28,7 @@ import Table from "../components/Tables/TableFunction";
 import ImportDataButton from "../components/Buttons/ImportDataButton";
 import ExportDataButton from "../components/Buttons/ExportDataButton";
 import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
-import MixBarGraph from "../components/Charts/MixBarChart";
+import MixChart from "../components/Charts/MixChart";
 
 export default function Nursery() {
   const { auth } = useStateContext();
@@ -33,7 +37,8 @@ export default function Nursery() {
   const [region, setRegion] = useState("");
   const [search, setSearch] = useState("");
 
-  const [graphData, setGraphData] = useState([]);
+  const [lineGraphData, setLineGraphData] = useState([]);
+  const [barGraphData, setBarGraphData] = useState([]);
   const [tableData, setTableDataData] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -41,18 +46,33 @@ export default function Nursery() {
   const [buttonError, setButtonError] = useState("");
 
   const [colorChanged, setColorChanged] = useState(false);
+  const [decimal, setDecimal] = useState(" >-.2f");
+  const [selectedValue, setSelectedValue] = React.useState("c");
   const moduleName = "nursery";
 
   const handleChangeColor = () => {
-    setColorChanged((prevState) => !prevState);
+    if (colorChanged) {
+      setColorChanged(false);
+    } else {
+      setColorChanged(true);
+    }
   };
 
-  const handleSearch = () => {
+  const handleDecimal = () => {
+    if (decimal !== "") {
+      setDecimal("");
+    } else {
+      setDecimal(" >-.2f");
+    }
+  };
+
+  const handleSearch = (filter) => {
     setLoading(true);
     setError("");
-    Service.searchAPI(region, startDate, endDate, search, moduleName)
+    Service.searchAPI(region, startDate, endDate, search || filter, moduleName)
       .then((e) => {
-        setGraphData(e.graph);
+        setLineGraphData(e.lineGraph);
+        setBarGraphData(e.barGraph);
         setTableDataData(e.table);
       })
       .catch((err) => {
@@ -63,15 +83,37 @@ export default function Nursery() {
       });
   };
 
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const controlProps = (item) => ({
+    checked: selectedValue === item,
+    onChange: handleChange,
+    value: item,
+    name: "color-radio-button-demo",
+    inputProps: { "aria-label": item },
+  });
+
   React.useEffect(() => {
+    let filter = null;
+    if (selectedValue === "a") {
+      filter = "Maintained";
+      setSearch();
+    } else if (selectedValue === "b") {
+      filter = "Established";
+    } else {
+      filter = null;
+    }
+
     if (
       startDate !== "" ||
       endDate !== "" ||
       (startDate === "" && endDate === "")
     ) {
-      handleSearch();
+      handleSearch(filter);
     }
-  }, [region, startDate, endDate]);
+  }, [region, startDate, endDate, selectedValue]);
 
   const validateDateRange = (start, end) => {
     const dateStart = dayjs(start, "YYYY/MM/DD");
@@ -129,7 +171,7 @@ export default function Nursery() {
   return (
     <PageContainer>
       <Grid container spacing={0}>
-        <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
+        <Grid item xs={10} sx={{ display: "flex", alignItems: "center" }}>
           <GrassIcon style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
             NURSERY REPORTS
@@ -137,7 +179,7 @@ export default function Nursery() {
         </Grid>
         <Grid
           item
-          xs={6}
+          xs={2}
           sx={{
             display: "flex",
             alignItems: "center",
@@ -168,6 +210,7 @@ export default function Nursery() {
                 display: "flex",
                 alignItems: "center",
                 width: "20vw",
+                marginRight: "40px",
               }}
             >
               <Typography
@@ -189,7 +232,7 @@ export default function Nursery() {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                marginRight: "34vw",
+                marginRight: "calc(30% - 40px)",
                 width: "25vw",
               }}
             >
@@ -234,12 +277,20 @@ export default function Nursery() {
           </Box>
 
           <Grid container>
-            <Typography sx={{ fontWeight: "bold", fontSize: "20px", py: 2 }}>
-              Nurseries Maintained (Area in Hectares)
-            </Typography>
-
-            <Grid item sx={{ display: "flex", justifyContent: "left" }}>
-              <Tooltip title="Change Color" placement="right">
+            <Grid
+              item
+              xs={6}
+              sx={{
+                display: "flex",
+                justifyContent: "left",
+              }}
+            >
+              <Typography
+                sx={{ fontWeight: "bold", fontSize: "18px", py: 2.3 }}
+              >
+                Nurseries Maintained / Established (Area in Hectares)
+              </Typography>
+              <Tooltip title="Colorize Area" placement="right">
                 <Fab
                   color="inherit"
                   sx={{
@@ -256,10 +307,63 @@ export default function Nursery() {
                   <PaletteIcon sx={{ fontSize: "25px", color: "#321c47" }} />
                 </Fab>
               </Tooltip>
+              <Tooltip title="Remove or Show Decimals" placement="right">
+                <Fab
+                  color="inherit"
+                  sx={{
+                    minWidth: 30,
+                    minHeight: 30,
+                    width: 25,
+                    height: 25,
+                    mt: 2,
+                    ml: 2,
+                    zIndex: 1,
+                  }}
+                  onClick={handleDecimal}
+                >
+                  <HdrWeakIcon sx={{ fontSize: "25px", color: "#321c47" }} />
+                </Fab>
+              </Tooltip>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              sx={{
+                zoom: 0.9,
+                display: "flex",
+                justifyContent: "right",
+              }}
+            >
+              <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="Maintained"
+                  control={<Radio {...controlProps("a")} color="warning" />}
+                  label="Maintained"
+                />
+                <FormControlLabel
+                  value="Established"
+                  control={<Radio {...controlProps("b")} color="warning" />}
+                  label="Established"
+                />
+                <FormControlLabel
+                  value="Both"
+                  control={<Radio {...controlProps("c")} color="warning" />}
+                  label="Both"
+                />
+              </RadioGroup>
             </Grid>
           </Grid>
           <Box sx={{ mb: 1 }}>
-            <MixBarGraph graphData={graphData} colorChanged={colorChanged} />
+            <MixChart
+              areaColor={colorChanged}
+              decimal={decimal}
+              lineGraphData={lineGraphData}
+              barGraphData={barGraphData}
+            />
           </Box>
         </Grid>
       </Grid>
@@ -276,7 +380,6 @@ export default function Nursery() {
           display: "flex",
           justifyContent: "right",
           alignItems: "end",
-          ml: 37.4,
           my: -66.64,
         }}
       >

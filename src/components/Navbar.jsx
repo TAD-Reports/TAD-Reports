@@ -6,6 +6,7 @@ export default function NavBar() {
   return (
     <Box
       sx={{
+        zoom: 0.95,
         display: "flex",
         position: "fixed",
         height: "112px",
@@ -18,7 +19,7 @@ export default function NavBar() {
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.4)",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", ml: 5 }}>
+      <Box sx={{ display: "flex", alignItems: "center", ml: 10 }}>
         <img src={Logo} alt="logo" width="80px" height="80px" />
         <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
           <Typography sx={{ fontWeight: "bold", fontSize: "24px" }}>

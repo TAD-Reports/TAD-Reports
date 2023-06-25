@@ -6,7 +6,15 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Moment from "react-moment";
 import PropTypes from "prop-types";
-import { Box, Button, ButtonGroup, Grid, Switch, Tooltip } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Grid,
+  Switch,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
 import ExpandOutlinedIcon from "@mui/icons-material/ExpandOutlined";
 import TableActions from "./TableActions";
@@ -128,7 +136,6 @@ export default function TableFunction({
               (width, record) => Math.max(width, String(record[key]).length),
               formattedHeader().length
             );
-            console.log(key === "remarks" ? maxWidth : null);
             const finalWidth =
               maxWidth < 10
                 ? maxWidth * 13
@@ -238,6 +245,7 @@ export default function TableFunction({
             <ButtonGroup variant="outlined" aria-label="text button group">
               <Button
                 sx={{
+                  ml: 0.2,
                   height: 40,
                   width: 150,
                   backgroundColor: "#D1D1D1",
@@ -257,7 +265,7 @@ export default function TableFunction({
               >
                 <Switch
                   defaultChecked
-                  color="secondary"
+                  color="warning"
                   onChange={handleSwitchChange}
                 />
                 {action ? <span>HIDE</span> : <span>SHOW</span>}
@@ -309,16 +317,6 @@ export default function TableFunction({
         ) : (
           <Grid item xs={8} />
         )}
-        <Grid
-          item
-          xs={2}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingRight: 0.7,
-          }}
-        />
       </Grid>
       <Box
         sx={{
@@ -328,6 +326,7 @@ export default function TableFunction({
           backgroundColor: "#FFFF",
           borderRadius: "10px",
           boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.4)",
+          zoom: 0.85,
         }}
       >
         <DataGrid
@@ -342,6 +341,24 @@ export default function TableFunction({
           onCellEditStop={(params) => setRowId(params.row.uuid)}
           columnBuffer={1}
         />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          my: -4,
+          color: "grey",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "12px",
+            zIndex: 100,
+          }}
+        >
+          By default, this table data is automatically set to the current month.
+        </Typography>
       </Box>
     </div>
   );
