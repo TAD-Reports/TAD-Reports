@@ -308,7 +308,10 @@ export default function TableFunction({
               justifyContent: "center",
             }}
           >
-            <div className="remarks-box" style={{ zIndex: 2 }}>
+            <div
+              className="remarks-box"
+              style={{ zIndex: 2, fontSize: "12px" }}
+            >
               <span />
               <span />
               {remarks}
