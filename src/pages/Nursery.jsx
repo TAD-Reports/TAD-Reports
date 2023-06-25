@@ -14,7 +14,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Nursery";
-import GrassIcon from "@mui/icons-material/Grass";
+import { TbSeeding } from "react-icons/tb";
 import SearchIcon from "@mui/icons-material/Search";
 import PaletteIcon from "@mui/icons-material/Palette";
 import HdrWeakIcon from "@mui/icons-material/HdrWeak";
@@ -45,7 +45,7 @@ export default function Nursery() {
   const [error, setError] = useState("");
   const [buttonError, setButtonError] = useState("");
 
-  const [colorChanged, setColorChanged] = useState(false);
+  const [colorChanged, setColorChanged] = useState(true);
   const [decimal, setDecimal] = useState(" >-.2f");
   const [selectedValue, setSelectedValue] = React.useState("c");
   const moduleName = "nursery";
@@ -172,7 +172,7 @@ export default function Nursery() {
     <PageContainer>
       <Grid container spacing={0}>
         <Grid item xs={10} sx={{ display: "flex", alignItems: "center" }}>
-          <GrassIcon style={{ fontSize: "80px" }} />
+          <TbSeeding style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
             NURSERY REPORTS
           </Typography>
@@ -279,7 +279,7 @@ export default function Nursery() {
           <Grid container>
             <Grid
               item
-              xs={6}
+              xs={9}
               sx={{
                 display: "flex",
                 justifyContent: "left",
@@ -288,9 +288,9 @@ export default function Nursery() {
               <Typography
                 sx={{ fontWeight: "bold", fontSize: "18px", py: 2.3 }}
               >
-                Nurseries Maintained / Established (Area in Hectares)
+                Nurseries Maintained / Established (Area Planted)
               </Typography>
-              <Tooltip title="Colorize Area" placement="right">
+              <Tooltip title="Line/Area Chart Color" placement="right">
                 <Fab
                   color="inherit"
                   sx={{
@@ -307,7 +307,7 @@ export default function Nursery() {
                   <PaletteIcon sx={{ fontSize: "25px", color: "#321c47" }} />
                 </Fab>
               </Tooltip>
-              <Tooltip title="Remove or Show Decimals" placement="right">
+              <Tooltip title="Remove/Show Decimals" placement="right">
                 <Fab
                   color="inherit"
                   sx={{
@@ -327,7 +327,7 @@ export default function Nursery() {
             </Grid>
             <Grid
               item
-              xs={6}
+              xs={3}
               sx={{
                 zoom: 0.9,
                 display: "flex",
@@ -361,6 +361,8 @@ export default function Nursery() {
             <MixChart
               areaColor={colorChanged}
               decimal={decimal}
+              lineChartLegend="Area Planted (Ha)"
+              barChartLegend="Area Planted (Ha)"
               lineGraphData={lineGraphData}
               barGraphData={barGraphData}
             />

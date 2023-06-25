@@ -1,6 +1,6 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-else-return */
 /* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/jsx-boolean-value */
+/* eslint-disable class-methods-use-this */
 import React, { PureComponent } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsiveBar } from "@nivo/bar";
@@ -26,7 +26,14 @@ export default class MixBarGraph extends PureComponent {
   }
 
   render() {
-    const { areaColor, decimal, lineGraphData, barGraphData } = this.props;
+    const {
+      areaColor,
+      decimal,
+      lineChartLegend,
+      barChartLegend,
+      lineGraphData,
+      barGraphData,
+    } = this.props;
 
     const Item = styled(Paper)(({ theme }) => ({
       backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -48,7 +55,7 @@ export default class MixBarGraph extends PureComponent {
             <Item>
               <ResponsiveLine
                 data={lineGraphData}
-                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                margin={{ top: 40, right: 110, bottom: 60, left: 60 }}
                 xScale={{ type: "point" }}
                 yScale={{
                   type: "linear",
@@ -65,6 +72,7 @@ export default class MixBarGraph extends PureComponent {
                   tickSize: 5,
                   tickPadding: 5,
                   tickRotation: 0,
+                  legend: lineChartLegend,
                   legendOffset: 36,
                   legendPosition: "middle",
                 }}
@@ -75,19 +83,15 @@ export default class MixBarGraph extends PureComponent {
                   legendPosition: "middle",
                   legendOffset: -40,
                 }}
-                // eslint-disable-next-line react/jsx-boolean-value
                 enableGridX={false}
                 colors={{ scheme: "nivo" }}
                 // colors={{ scheme: "category10" }}
                 pointSize={10}
                 pointColor={{ from: "color", modifiers: [] }}
-                // eslint-disable-next-line react/jsx-boolean-value
                 enablePointLabel={true}
                 pointLabelYOffset={-15}
-                // eslint-disable-next-line react/jsx-boolean-value
                 enableArea={areaColor}
                 areaBlendMode="exclusion"
-                // eslint-disable-next-line react/jsx-boolean-value
                 useMesh={true}
                 legends={[
                   {
@@ -125,7 +129,7 @@ export default class MixBarGraph extends PureComponent {
                 data={barGraphData}
                 keys={keysArray}
                 indexBy="name"
-                margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                margin={{ top: 40, right: 130, bottom: 60, left: 60 }}
                 padding={0.3}
                 groupMode="grouped"
                 valueScale={{ type: "linear" }}
@@ -177,6 +181,7 @@ export default class MixBarGraph extends PureComponent {
                   tickSize: 5,
                   tickPadding: 5,
                   tickRotation: 0,
+                  legend: barChartLegend,
                   legendPosition: "middle",
                   legendOffset: 32,
                 }}
@@ -236,6 +241,8 @@ export default class MixBarGraph extends PureComponent {
 MixBarGraph.defaultProps = {
   areaColor: false,
   decimal: " >-.2f",
+  lineChartLegend: "",
+  barChartLegend: "",
   lineGraphData: [],
   barGraphData: [],
 };
@@ -243,6 +250,8 @@ MixBarGraph.defaultProps = {
 MixBarGraph.propTypes = {
   areaColor: PropTypes.bool,
   decimal: PropTypes.string,
+  lineChartLegend: PropTypes.string,
+  barChartLegend: PropTypes.string,
   lineGraphData: PropTypes.array,
   barGraphData: PropTypes.array,
 };

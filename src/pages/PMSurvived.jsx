@@ -12,7 +12,7 @@ import {
   Typography,
   ButtonGroup,
 } from "@mui/material";
-import GppGoodIcon from "@mui/icons-material/GppGood";
+import { GiPlantSeed } from "react-icons/gi";
 import SearchIcon from "@mui/icons-material/Search";
 import PaletteIcon from "@mui/icons-material/Palette";
 import HdrWeakIcon from "@mui/icons-material/HdrWeak";
@@ -44,7 +44,7 @@ export default function PMSurvived() {
   const [buttonError, setButtonError] = useState("");
 
   const [colorChanged, setColorChanged] = useState(false);
-  const [decimal, setDecimal] = useState(" >-.2f");
+  const [decimal, setDecimal] = useState("");
   const moduleName = "pmsurvived";
 
   const handleChangeColor = () => {
@@ -342,7 +342,7 @@ export default function PMSurvived() {
     <PageContainer>
       <Grid container spacing={0}>
         <Grid item xs={10} sx={{ display: "flex", alignItems: "center" }}>
-          <GppGoodIcon style={{ fontSize: "80px" }} />
+          <GiPlantSeed style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
             PLANTING MATERIALS SURVIVED REPORTS
           </Typography>
@@ -356,7 +356,7 @@ export default function PMSurvived() {
             justifyContent: "right",
           }}
         >
-          <DownloadTemplateButton templateName="Distribution_Template" />
+          <DownloadTemplateButton templateName="PMSurvived_Template" />
         </Grid>
       </Grid>
       <Grid container spacing={0}>
@@ -449,7 +449,7 @@ export default function PMSurvived() {
           <Grid container>
             <Grid
               item
-              xs={6}
+              xs={12}
               sx={{
                 display: "flex",
                 justifyContent: "left",
@@ -460,7 +460,7 @@ export default function PMSurvived() {
               >
                 Survived Planting Materials (No. of Survived PM)
               </Typography>
-              <Tooltip title="Colorize Area" placement="right">
+              <Tooltip title="Line/Area Chart Color" placement="right">
                 <Fab
                   color="inherit"
                   sx={{
@@ -477,7 +477,7 @@ export default function PMSurvived() {
                   <PaletteIcon sx={{ fontSize: "25px", color: "#321c47" }} />
                 </Fab>
               </Tooltip>
-              <Tooltip title="Remove or Show Decimals" placement="right">
+              <Tooltip title="Remove/Show Decimals" placement="right">
                 <Fab
                   color="inherit"
                   sx={{
@@ -500,6 +500,8 @@ export default function PMSurvived() {
             <MixChart
               areaColor={colorChanged}
               decimal={decimal}
+              lineChartLegend="No. of Survived PM"
+              barChartLegend="No. of Survived PM"
               lineGraphData={lineGraphData}
               barGraphData={barGraphData}
             />

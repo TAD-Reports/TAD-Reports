@@ -10,8 +10,8 @@ import {
   Typography,
   ButtonGroup,
 } from "@mui/material";
+import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution";
-import { GiShakingHands } from "react-icons/gi";
 import SearchIcon from "@mui/icons-material/Search";
 import PaletteIcon from "@mui/icons-material/Palette";
 import HdrWeakIcon from "@mui/icons-material/HdrWeak";
@@ -43,7 +43,7 @@ export default function Distribution() {
   const [buttonError, setButtonError] = useState("");
 
   const [colorChanged, setColorChanged] = useState(false);
-  const [decimal, setDecimal] = useState(" >-.2f");
+  const [decimal, setDecimal] = useState("");
   const moduleName = "distribution";
 
   const handleChangeColor = () => {
@@ -146,7 +146,7 @@ export default function Distribution() {
     <PageContainer>
       <Grid container spacing={0}>
         <Grid item xs={10} sx={{ display: "flex", alignItems: "center" }}>
-          <GiShakingHands style={{ fontSize: "80px" }} />
+          <HandshakeOutlinedIcon style={{ fontSize: "80px" }} />
           <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
             PRODUCTION AND DISTRIBUTION OF PLANTING MATERIALS REPORTS
           </Typography>
@@ -253,7 +253,7 @@ export default function Distribution() {
           <Grid container>
             <Grid
               item
-              xs={6}
+              xs={12}
               sx={{
                 display: "flex",
                 justifyContent: "left",
@@ -264,7 +264,7 @@ export default function Distribution() {
               >
                 Production and Distribution of PM (No. of Distributed PM)
               </Typography>
-              <Tooltip title="Colorize Area" placement="right">
+              <Tooltip title="Line/Area Chart Color" placement="right">
                 <Fab
                   color="inherit"
                   sx={{
@@ -281,7 +281,7 @@ export default function Distribution() {
                   <PaletteIcon sx={{ fontSize: "25px", color: "#321c47" }} />
                 </Fab>
               </Tooltip>
-              <Tooltip title="Remove or Show Decimals" placement="right">
+              <Tooltip title="Remove/Show Decimals" placement="right">
                 <Fab
                   color="inherit"
                   sx={{
@@ -304,6 +304,8 @@ export default function Distribution() {
             <MixChart
               areaColor={colorChanged}
               decimal={decimal}
+              lineChartLegend="No. of Distributed PM"
+              barChartLegend="No. of Distributed PM"
               lineGraphData={lineGraphData}
               barGraphData={barGraphData}
             />

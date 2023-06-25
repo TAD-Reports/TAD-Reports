@@ -1,262 +1,175 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
-  Button,
-  Divider,
+  Fab,
   Grid,
   IconButton,
   InputAdornment,
   TextField,
+  Tooltip,
   Typography,
+  ButtonGroup,
 } from "@mui/material";
-import FolderCopyIcon from "@mui/icons-material/FolderCopy";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import DownloadIcon from "@mui/icons-material/Download";
+import { HiOutlineDocumentDuplicate } from "react-icons/hi";
+import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution";
 import SearchIcon from "@mui/icons-material/Search";
-import TextFieldDatePicker from "../components/Textfields/date-picker";
-import SelectFilterBy from "../components/Textfields/select-region";
+import PaletteIcon from "@mui/icons-material/Palette";
+import HdrWeakIcon from "@mui/icons-material/HdrWeak";
+import dayjs from "dayjs";
+import { useStateContext } from "contexts/ContextProvider";
 import PageContainer from "../components/LayoutContainers/PageContainer";
-import DistributionOfIECMaterialsBarChart from "../components/Charts/DistributionOfIECMaterialsCharts";
+import TextFieldDatePicker from "../components/Textfields/date-picker";
+import SelectRegion from "../components/Textfields/select-region";
+import Service from "../services/service";
+import Table from "../components/Tables/TableFunction";
+import ImportDataButton from "../components/Buttons/ImportDataButton";
+import ExportDataButton from "../components/Buttons/ExportDataButton";
+import DownloadTemplateButton from "../components/Buttons/DownloadTemplateButton";
+import MixChart from "../components/Charts/MixChart";
 
-export default function IEC() {
-  const [startDate, setStartDate] = React.useState("");
-  const [endDate, setEndDate] = React.useState("");
-  const [startFilterBy, setFilterByStart] = React.useState("");
+export default function Iec() {
+  const { auth } = useStateContext();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [region, setRegion] = useState("");
+  const [search, setSearch] = useState("");
+
+  const [lineGraphData, setLineGraphData] = useState([]);
+  const [barGraphData, setBarGraphData] = useState([]);
+  const [tableData, setTableDataData] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [buttonError, setButtonError] = useState("");
+
+  const [colorChanged, setColorChanged] = useState(false);
+  const [decimal, setDecimal] = useState("");
+  const moduleName = "iecmaterials";
+
+  const handleChangeColor = () => {
+    if (colorChanged) {
+      setColorChanged(false);
+    } else {
+      setColorChanged(true);
+    }
+  };
+
+  const handleDecimal = () => {
+    if (decimal !== "") {
+      setDecimal("");
+    } else {
+      setDecimal(" >-.2f");
+    }
+  };
+
+  const handleSearch = () => {
+    setLoading(true);
+    setError("");
+    Service.searchAPI(region, startDate, endDate, search, moduleName)
+      .then((e) => {
+        setLineGraphData(e.lineGraph);
+        setBarGraphData(e.barGraph);
+        setTableDataData(e.table);
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  React.useEffect(() => {
+    if (
+      startDate !== "" ||
+      endDate !== "" ||
+      (startDate === "" && endDate === "")
+    ) {
+      handleSearch();
+    }
+  }, [region, startDate, endDate]);
 
   const validateDateRange = (start, end) => {
-    if (start && end) {
-      if (new Date(start) >= new Date(end)) {
-        alert("Start date can't be equal or later than the End date.");
-        setStartDate(null);
-        setEndDate(null);
-      }
+    const dateStart = dayjs(start, "YYYY/MM/DD");
+    const dateEnd = dayjs(end, "YYYY/MM/DD");
+
+    if (dateStart.isAfter(dateEnd)) {
+      alert("Start date cannot be after end date");
+      setStartDate(null);
+      setEndDate(null);
     }
   };
 
   const handleStartDate = (evt) => {
-    const month = String(evt.$M + 1).padStart(2, "0");
-    const day = String(evt.$D).padStart(2, "0");
-    const date = `${evt.$y}/${month}/${day}`;
+    const date = dayjs(evt).format("YYYY/MM/DD");
     setStartDate(date);
     validateDateRange(date, endDate);
   };
 
   const handleEndDate = (evt) => {
-    const month = String(evt.$M + 1).padStart(2, "0");
-    const day = String(evt.$D).padStart(2, "0");
-    const date = `${evt.$y}/${month}/${day}`;
+    const date = dayjs(evt).format("YYYY/MM/DD");
     setEndDate(date);
     validateDateRange(startDate, date);
   };
 
-  const rows = [
-    {
-      reportDate: 1,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-    {
-      reportDate: 2,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-    {
-      reportDate: 3,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-    {
-      reportDate: 4,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-    {
-      reportDate: 5,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-    {
-      reportDate: 6,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-    {
-      reportDate: 7,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-    {
-      reportDate: 8,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-    {
-      reportDate: 9,
-      titleOfIECMaterials: "Snow",
-      noOfCopiesDistributed: "Jon",
-      region: "hasd",
-      province: "hasd",
-      district: "hasd",
-      municipality: "hasd",
-      barangay: "hasd",
-      gender: "hasd",
-      category: "area",
-      dateDistributed: "area",
-    },
-  ];
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    const confirmed = window.confirm(
+      `Are you sure you want to import ${file.name}?`
+    );
+    if (!confirmed) {
+      return; // User cancelled the removal
+    }
+    setButtonError("");
+    setLoading(true);
+    Service.importDataAPI(auth.uuid, file, moduleName)
+      .then((res) => {
+        alert(res.data.message);
+        handleSearch();
+      })
+      .catch((err) => {
+        setButtonError(err.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-  const columns = [
-    { field: "reportDate", headerName: "Report Date", width: 200 },
-    {
-      field: "titleOfIECMaterials",
-      headerName: "Title of IEC Materials",
-      width: 200,
-    },
-    {
-      field: "noOfCopiesDistributed",
-      headerName: "No. of Copies Distributed",
-      width: 200,
-    },
-    { field: "region", headerName: "Region", width: 200 },
-    {
-      field: "province",
-      headerName: "Province",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "district",
-      headerName: "District",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "municipality",
-      headerName: "Municipality",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "barangay",
-      headerName: "Barangay",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "gender",
-      headerName: "Gender",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "category",
-      headerName: "Category",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "dateDistributed",
-      headerName: "Date Distributed",
-      type: "string",
-      width: 200,
-    },
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "Actions",
-      width: 200,
-      // eslint-disable-next-line react/no-unstable-nested-components
-      getActions: () => [
-        <GridActionsCellItem icon={<VisibilityIcon />} label="View" />,
-      ],
-    },
-  ];
+  const handleDownload = () => {
+    DownloadFunction.downloadData(tableData);
+  };
 
   return (
     <PageContainer>
-      <Box sx={{ display: "flex", alignItems: "center", py: 3 }}>
-        <FolderCopyIcon style={{ fontSize: "80px" }} />
-        <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
-          Distribution of IEC Materials Reports
-        </Typography>
-      </Box>
-      <Typography sx={{ fontWeight: "bold", fontSize: "30px", pt: 3 }}>
-        Distribution of IEC Materials (Total No. of Copies Distributed)
-      </Typography>
-      <Grid container spacing={0} sx={{ pb: 4 }}>
+      <Grid container spacing={0}>
+        <Grid item xs={10} sx={{ display: "flex", alignItems: "center" }}>
+          <HiOutlineDocumentDuplicate style={{ fontSize: "80px" }} />
+          <Typography sx={{ fontWeight: "bold", fontSize: "20px", ml: 2 }}>
+            DISTRIBUTION OF IEC MATERIALS REPORTS
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={2}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "right",
+          }}
+        >
+          <DownloadTemplateButton templateName="IECMaterial_Template" />
+        </Grid>
+      </Grid>
+      <Grid container spacing={0}>
         <Grid
           item
           xs={12}
           sx={{
             display: "flex",
             flexDirection: "column",
-            p: 2,
           }}
         >
           <Box
@@ -264,7 +177,6 @@ export default function IEC() {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              p: 2,
             }}
           >
             <Box
@@ -272,6 +184,7 @@ export default function IEC() {
                 display: "flex",
                 alignItems: "center",
                 width: "20vw",
+                marginRight: "40px",
               }}
             >
               <Typography
@@ -281,23 +194,26 @@ export default function IEC() {
               >
                 Filter by:
               </Typography>
-              <SelectFilterBy
+              <SelectRegion
                 id="outlined-basic"
                 name="filterBy"
-                value={startFilterBy}
-                onChange={(evt) => setFilterByStart(evt.target.value)}
-                sx={{ width: "14vw" }}
+                value={region}
+                onChange={(evt) => setRegion(evt.target.value)}
+                sx={{ width: "12vw", backgroundColor: "#FFFF" }}
               />
             </Box>
-
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
+                marginRight: "calc(30% - 40px)",
                 width: "25vw",
               }}
             >
               <TextFieldDatePicker
+                sx={{
+                  backgroundColor: "#FFFF",
+                }}
                 label="Start Date"
                 value={startDate}
                 onChange={handleStartDate}
@@ -305,84 +221,121 @@ export default function IEC() {
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
-                label="Date"
+                sx={{
+                  backgroundColor: "#FFFF",
+                }}
+                label="End Date"
                 value={endDate}
                 onChange={handleEndDate}
                 format="MM/DD/YYYY"
               />
             </Box>
+            <Box item xs={8} sx={{ textAlign: "right", py: 2 }}>
+              <TextField
+                label="Search"
+                size="small"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton onClick={handleSearch}>
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ my: 1, backgroundColor: "#FFFF" }}
+                onChange={(evt) => setSearch(evt.target.value)}
+                value={search}
+              />
+            </Box>
           </Box>
-          <Box>
-            <DistributionOfIECMaterialsBarChart />
+
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                justifyContent: "left",
+              }}
+            >
+              <Typography
+                sx={{ fontWeight: "bold", fontSize: "18px", py: 2.3 }}
+              >
+                Distribution of IEC Materials (No. of Distributed Copies)
+              </Typography>
+              <Tooltip title="Line/Area Chart Color" placement="right">
+                <Fab
+                  color="inherit"
+                  sx={{
+                    minWidth: 30,
+                    minHeight: 30,
+                    width: 25,
+                    height: 25,
+                    mt: 2,
+                    ml: 2,
+                    zIndex: 1,
+                  }}
+                  onClick={handleChangeColor}
+                >
+                  <PaletteIcon sx={{ fontSize: "25px", color: "#321c47" }} />
+                </Fab>
+              </Tooltip>
+              <Tooltip title="Remove/Show Decimals" placement="right">
+                <Fab
+                  color="inherit"
+                  sx={{
+                    minWidth: 30,
+                    minHeight: 30,
+                    width: 25,
+                    height: 25,
+                    mt: 2,
+                    ml: 2,
+                    zIndex: 1,
+                  }}
+                  onClick={handleDecimal}
+                >
+                  <HdrWeakIcon sx={{ fontSize: "25px", color: "#321c47" }} />
+                </Fab>
+              </Tooltip>
+            </Grid>
+          </Grid>
+          <Box sx={{ mb: 1 }}>
+            <MixChart
+              areaColor={colorChanged}
+              decimal={decimal}
+              lineChartLegend="No. of Distributed Copies"
+              barChartLegend="No. of Distributed Copies"
+              lineGraphData={lineGraphData}
+              barGraphData={barGraphData}
+            />
           </Box>
         </Grid>
       </Grid>
-
-      <Divider sx={{ m: 4 }} />
-
-      <Grid container>
-        <Grid item xs={6} sx={{ display: "flex", alignItems: "center", py: 2 }}>
-          <Typography
-            variant="label"
-            component="label"
-            sx={{ ml: 1, fontWeight: "bold", fontSize: "25px" }}
-          >
-            IEC MATERIALS DATA
-          </Typography>
-        </Grid>
-        <Grid item xs={6} sx={{ textAlign: "right", py: 2 }}>
-          <TextField
-            label="Search"
-            size="small"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment>
-                  <IconButton
-                  // onClick={handleSearch}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{ my: 1, mx: 1 }}
-            // onChange={(evt) => setSearch(evt.target.value)}
-            // value={search}
-          />
-        </Grid>
-      </Grid>
-
-      <div style={{ height: 530, width: "100%", position: "relative" }}>
-        <DataGrid
-          getRowId={(row) => row.reportDate}
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[1]}
+      <Box>
+        <Table
+          data={tableData}
+          loadingState={loading}
+          dataReload={handleSearch}
+          moduleName={moduleName}
         />
-      </div>
-      <Box sx={{ display: "flex", px: 2, mt: 10 }}>
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{
-            mr: 6,
-            height: 50,
-            width: 200,
-            backgroundColor: "#76a66e",
-          }}
-        >
-          Import Data
-          <ArrowUpwardIcon sx={{ ml: 1 }} />
-        </Button>
-        <Button
-          variant="contained"
-          sx={{ height: 50, width: 200, backgroundColor: "#76a66e" }}
-        >
-          Download Data
-          <DownloadIcon sx={{ ml: 1 }} />
-        </Button>
       </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "end",
+          ml: 37.4,
+          my: -66.64,
+        }}
+      >
+        <ButtonGroup variant="outlined" aria-label="text button group">
+          <ImportDataButton importFunction={handleFile} />
+          <ExportDataButton downloadData={handleDownload} />
+        </ButtonGroup>
+      </Box>
+      {error}
+      {buttonError}
     </PageContainer>
   );
 }

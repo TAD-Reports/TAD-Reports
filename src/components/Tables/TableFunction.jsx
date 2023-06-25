@@ -197,7 +197,12 @@ export default function TableFunction({
           const formattedLabel =
             formattedKey.charAt(0).toUpperCase() + formattedKey.slice(1);
           const width = String(key).length;
-          const fotmattedWidth = width < 10 ? width * 13 : width * 9;
+          const fotmattedWidth =
+            key === "remarks"
+              ? width * 111
+              : width < 10
+              ? width * 13
+              : width * 9;
           return {
             field: key,
             headerName: formattedLabel,
@@ -360,7 +365,8 @@ export default function TableFunction({
             zIndex: 100,
           }}
         >
-          By default, this table data is automatically set to the current month.
+          By default, this table data is automatically set to the current month
+          and chart data is set to 6 months. Use the filters to see changes.
         </Typography>
       </Box>
     </div>

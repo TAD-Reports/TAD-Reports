@@ -1,14 +1,12 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import GrassIcon from "@mui/icons-material/Grass";
-import HandshakeIcon from "@mui/icons-material/Handshake";
-import GppGoodIcon from "@mui/icons-material/GppGood";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import CloudIcon from "@mui/icons-material/Cloud";
-import SportsRugbyIcon from "@mui/icons-material/SportsRugby";
-import SchoolIcon from "@mui/icons-material/School";
-import FolderCopyIcon from "@mui/icons-material/FolderCopy";
-import RiceBowlIcon from "@mui/icons-material/RiceBowl";
-import CoronavirusIcon from "@mui/icons-material/Coronavirus";
+import { TbSeeding, TbVirusOff, TbButterfly } from "react-icons/tb";
+import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
+import { LiaBaconSolid } from "react-icons/lia";
+import { TiWeatherWindyCloudy } from "react-icons/ti";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import { HiOutlineDocumentDuplicate } from "react-icons/hi";
+import { PiTreePalmBold } from "react-icons/pi";
+import { GiPlantSeed } from "react-icons/gi";
 
 const links = [
   {
@@ -28,52 +26,52 @@ const links = [
       {
         name: "nursery reports",
         path: "nursery",
-        icon: <GrassIcon />,
+        icon: <TbSeeding style={{ fontSize: 29 }} />,
       },
       {
         name: "distribution reports",
         path: "distribution",
-        icon: <HandshakeIcon />,
+        icon: <HandshakeOutlinedIcon />,
       },
       {
         name: "pm survived reports",
         path: "pmsurvived",
-        icon: <GppGoodIcon />,
+        icon: <GiPlantSeed style={{ fontSize: 24 }} />,
       },
       {
         name: "expansion and rehabilitation reports",
         path: "expansionandrehab",
-        icon: <ApartmentIcon />,
+        icon: <LiaBaconSolid />,
       },
       {
         name: "cotton reports",
         path: "cotton",
-        icon: <CloudIcon />,
+        icon: <TiWeatherWindyCloudy style={{ fontSize: 27 }} />,
       },
       {
         name: "cocoon reports",
         path: "cocoon",
-        icon: <SportsRugbyIcon />,
+        icon: <TbButterfly style={{ fontSize: 27 }} />,
       },
       {
         name: "training reports",
         path: "training",
-        icon: <SchoolIcon />,
+        icon: <SchoolOutlinedIcon style={{ fontSize: 27 }} />,
       },
       {
         name: "iec material reports",
         path: "iec",
-        icon: <FolderCopyIcon />,
+        icon: <HiOutlineDocumentDuplicate style={{ fontSize: 27 }} />,
       },
       {
         name: "expansion under coconut projects reports",
         path: "expansioncoconut",
-        icon: <RiceBowlIcon />,
+        icon: <PiTreePalmBold style={{ fontSize: 29 }} />,
       },
       {
         name: "abaca disease management project reports",
         path: "diseasemanagement",
-        icon: <CoronavirusIcon />,
+        icon: <TbVirusOff style={{ fontSize: 36 }} />,
       },
     ],
   },
