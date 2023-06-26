@@ -214,7 +214,7 @@ export default function Nursery() {
             >
               <Typography
                 sx={{
-                  mr: 6,
+                  mr: 4,
                 }}
               >
                 Filter by:
@@ -231,7 +231,7 @@ export default function Nursery() {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                marginRight: "calc(30% - 40px)",
+                marginRight: "40px",
                 width: "25vw",
               }}
             >
@@ -255,7 +255,31 @@ export default function Nursery() {
                 format="MM/DD/YYYY"
               />
             </Box>
-            <Box item xs={6} sx={{ textAlign: "right", py: 2 }}>
+            <Box sx={{ width: "450px" }}>
+              <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="Both"
+                  control={<Radio {...controlProps("c")} color="warning" />}
+                  label="Both"
+                />
+                <FormControlLabel
+                  value="Maintained"
+                  control={<Radio {...controlProps("a")} color="warning" />}
+                  label="Maintained"
+                />
+                <FormControlLabel
+                  value="Established"
+                  control={<Radio {...controlProps("b")} color="warning" />}
+                  label="Established"
+                />
+              </RadioGroup>
+            </Box>
+
+            <Box sx={{ textAlign: "right", width: "280px", py: 2 }}>
               <TextField
                 label="Search"
                 size="small"
@@ -298,7 +322,7 @@ export default function Nursery() {
                     width: 25,
                     height: 25,
                     mt: 2,
-                    ml: 2,
+                    ml: 3,
                     zIndex: 1,
                   }}
                   onClick={handleChangeColor}
@@ -341,37 +365,6 @@ export default function Nursery() {
                   </span>
                 </Fab>
               </Tooltip>
-            </Grid>
-            <Grid
-              item
-              xs={3}
-              sx={{
-                zoom: 0.9,
-                display: "flex",
-                justifyContent: "right",
-              }}
-            >
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
-                <FormControlLabel
-                  value="Maintained"
-                  control={<Radio {...controlProps("a")} color="warning" />}
-                  label="Maintained"
-                />
-                <FormControlLabel
-                  value="Established"
-                  control={<Radio {...controlProps("b")} color="warning" />}
-                  label="Established"
-                />
-                <FormControlLabel
-                  value="Both"
-                  control={<Radio {...controlProps("c")} color="warning" />}
-                  label="Both"
-                />
-              </RadioGroup>
             </Grid>
           </Grid>
           <Box sx={{ mb: 1 }}>
