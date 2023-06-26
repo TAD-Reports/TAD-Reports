@@ -4,7 +4,6 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Moment from "react-moment";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -12,7 +11,6 @@ import {
   ButtonGroup,
   Grid,
   Switch,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
@@ -71,28 +69,6 @@ export default function TableFunction({
     renderCell: (params) => (
       <TableActions {...{ params, rowId, setRowId, moduleName }} />
     ),
-  };
-
-  const renderCell = (params) => {
-    if (params.field === "report_date" || params.field === "date_received") {
-      return (
-        <Tooltip title={params.value} placement="top">
-          <span>
-            {params.value && (
-              <Moment format="YYYY/MM/DD">{params.value}</Moment>
-            )}
-          </span>
-        </Tooltip>
-      );
-    }
-    if (params.value) {
-      return (
-        <Tooltip title={params.value} placement="top">
-          <span>{params.value}</span>
-        </Tooltip>
-      );
-    }
-    return null;
   };
 
   const columnDataFuntion = () => {
@@ -224,7 +200,6 @@ export default function TableFunction({
     ...(action ? [actionsColumn] : []),
     ...columnData.map((column) => ({
       ...column,
-      renderCell,
     })),
   ];
 

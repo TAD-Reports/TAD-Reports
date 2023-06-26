@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 import { LiaBaconSolid } from "react-icons/lia";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution";
+import { TbDecimal } from "react-icons/tb";
+import { FcComboChart } from "react-icons/fc";
 import SearchIcon from "@mui/icons-material/Search";
-import PaletteIcon from "@mui/icons-material/Palette";
-import HdrWeakIcon from "@mui/icons-material/HdrWeak";
 import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
 import PageContainer from "../components/LayoutContainers/PageContainer";
@@ -279,7 +279,16 @@ export default function ExpansionAndRehab() {
                   }}
                   onClick={handleChangeColor}
                 >
-                  <PaletteIcon sx={{ fontSize: "25px", color: "#321c47" }} />
+                  <span
+                    style={{
+                      fontSize: "18px",
+                      color: "#321c47",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FcComboChart />
+                  </span>
                 </Fab>
               </Tooltip>
               <Tooltip title="Remove/Show Decimals" placement="right">
@@ -296,7 +305,16 @@ export default function ExpansionAndRehab() {
                   }}
                   onClick={handleDecimal}
                 >
-                  <HdrWeakIcon sx={{ fontSize: "25px", color: "#321c47" }} />
+                  <span
+                    style={{
+                      fontSize: "25px",
+                      color: "#4C0099",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TbDecimal />
+                  </span>
                 </Fab>
               </Tooltip>
             </Grid>
