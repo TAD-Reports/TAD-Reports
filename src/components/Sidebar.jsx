@@ -112,7 +112,7 @@ export default function SideBar() {
               mt: 1,
             }}
           >
-            {auth.lastname}, {auth.firstname}
+            {auth.firstname} {auth.lastname}
           </Typography>
           <Typography
             sx={{
