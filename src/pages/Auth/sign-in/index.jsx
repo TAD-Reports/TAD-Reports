@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./sign-in.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/images/philfida.png";
@@ -48,7 +48,23 @@ function Login() {
   });
 
   return (
-    <Box className="App">
+    <Grid
+      className="App"
+      // sx={{
+      //   display: "flex",
+      //   position: "relative",
+      //   backgroundAttachment: "fixed",
+      //   backgroundImage:
+      //     "linear-gradient(rgba(4, 30, 5, 0.7), rgba(4, 30, 12, 0.7) 90%, #20571b), url('/public/images/farm.jpg')",
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "50%",
+      //   backgroundRepeat: "no-repeat",
+      //   height: "100vh",
+      //   width: "100vw",
+      //   overflow: "hidden",
+      //   color: "#fff",
+      // }}
+    >
       <Box className="stylish-design">
         <form
           className="login-form"
@@ -158,7 +174,7 @@ function Login() {
           </Link>
         </form>
       </Box>
-    </Box>
+    </Grid>
   );
 }
 

@@ -1,10 +1,9 @@
 .App {
     position: relative;
     background-attachment: fixed;
-    background-image: linear-gradient(rgba(4, 30, 5, 0.7),
-            rgba(4, 30, 12, 0.7) 90%,
-            #20571b),
-        url("/public/images/farm.jpg");
+    background-image: linear-gradient(rgba(26, 41, 31, 0.7),
+            rgba(15, 24, 20, 0.7) 90%),
+        url("/public/images/dahon.jpg");
     background-size: cover;
     background-position: 50%;
     background-repeat: no-repeat;

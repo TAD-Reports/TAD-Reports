@@ -65,7 +65,6 @@ function AppForm({ open, handleClose }) {
           college: collegeFile,
           masteral: masteralFile,
           doctoral: doctoralFile,
-          file: eligibilityFile,
         };
 
         const eligibility = {
