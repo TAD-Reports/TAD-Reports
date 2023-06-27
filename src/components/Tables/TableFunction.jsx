@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useStateContext } from "contexts/ContextProvider";
-import ExpandOutlinedIcon from "@mui/icons-material/ExpandOutlined";
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import TableActions from "./TableActions";
 
 export default function TableFunction({
@@ -141,16 +141,16 @@ export default function TableFunction({
           const options =
             key === "region"
               ? [
-                  "Region 1",
-                  "Region 3",
-                  "Region 4",
-                  "Region 5",
-                  "Region 6",
-                  "Region 7",
-                  "Region 8",
-                  "Region 9",
-                  "Region 10",
-                  "Region 13",
+                  "Regional Office 1",
+                  "Regional Office 3",
+                  "Regional Office 4",
+                  "Regional Office 5",
+                  "Regional Office 6",
+                  "Regional Office 7",
+                  "Regional Office 8",
+                  "Regional Office 9",
+                  "Regional Office 10",
+                  "Regional Office 13",
                 ]
               : undefined;
 
@@ -270,8 +270,13 @@ export default function TableFunction({
                   zIndex: 200,
                 }}
               >
-                <ExpandOutlinedIcon sx={{ mr: 0.3 }} />
-                EXPAND
+                <KeyboardDoubleArrowDownIcon
+                  sx={{
+                    mr: 0.3,
+                    fontSize: "28px",
+                  }}
+                />
+                EXTEND
               </Button>
             </ButtonGroup>
           </Grid>

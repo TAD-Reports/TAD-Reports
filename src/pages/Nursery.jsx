@@ -40,6 +40,7 @@ export default function Nursery() {
   const [lineGraphData, setLineGraphData] = useState([]);
   const [barGraphData, setBarGraphData] = useState([]);
   const [tableData, setTableDataData] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -74,6 +75,7 @@ export default function Nursery() {
         setLineGraphData(e.lineGraph);
         setBarGraphData(e.barGraph);
         setTableDataData(e.table);
+        setTotal(e.total);
       })
       .catch((err) => {
         setError(err.message);
@@ -399,7 +401,7 @@ export default function Nursery() {
                       verticalAlign: "middle",
                     }}
                   />
-                  Total number of cooperators/individual:
+                  Total number of cooperators: {total}
                 </span>
               </div>
             </Grid>

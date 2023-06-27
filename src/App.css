@@ -65,7 +65,7 @@ a:visited {
 }
 
 .custom-header {
-  background-color: #0D9772;
+  background-color: #078c6f;
   color: white;
   font-weight: bold;
 }
@@ -104,7 +104,7 @@ a:visited {
 
 .btn-12 span {
   background: #067a61;
-  background: linear-gradient(0deg, #067a61 0%, #158e76 100%);
+  background: linear-gradient(0deg, #078c6f 0%, #067a61 100%);
   display: block;
   position: absolute;
   width: 130px;

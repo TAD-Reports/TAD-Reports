@@ -38,6 +38,7 @@ export default function Training() {
   const [lineGraphData, setLineGraphData] = useState([]);
   const [barGraphData, setBarGraphData] = useState([]);
   const [tableData, setTableDataData] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -71,6 +72,7 @@ export default function Training() {
         setLineGraphData(e.lineGraph);
         setBarGraphData(e.barGraph);
         setTableDataData(e.table);
+        setTotal(e.total);
       })
       .catch((err) => {
         setError(err.message);
@@ -351,7 +353,7 @@ export default function Training() {
                       verticalAlign: "middle",
                     }}
                   />
-                  Total number of cooperators/individual:
+                  Total number of cooperators: {total}
                 </span>
               </div>
             </Grid>
