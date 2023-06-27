@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Nursery";
 import { TbSeeding, TbDecimal } from "react-icons/tb";
+import { FaUsers } from "react-icons/fa";
 import { FcComboChart } from "react-icons/fc";
 import SearchIcon from "@mui/icons-material/Search";
 import dayjs from "dayjs";
@@ -255,17 +256,14 @@ export default function Nursery() {
                 format="MM/DD/YYYY"
               />
             </Box>
-            <Box sx={{ width: "450px" }}>
+            <Box
+              sx={{ width: "450px", display: "flex", justifyContent: "center" }}
+            >
               <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
               >
-                <FormControlLabel
-                  value="Both"
-                  control={<Radio {...controlProps("c")} color="warning" />}
-                  label="Both"
-                />
                 <FormControlLabel
                   value="Maintained"
                   control={<Radio {...controlProps("a")} color="warning" />}
@@ -275,6 +273,11 @@ export default function Nursery() {
                   value="Established"
                   control={<Radio {...controlProps("b")} color="warning" />}
                   label="Established"
+                />
+                <FormControlLabel
+                  value="Both"
+                  control={<Radio {...controlProps("c")} color="warning" />}
+                  label="Both"
                 />
               </RadioGroup>
             </Box>
@@ -299,7 +302,7 @@ export default function Nursery() {
             </Box>
           </Box>
 
-          <Grid container>
+          <Grid container justifyContent="space-between">
             <Grid
               item
               xs={9}
@@ -365,6 +368,40 @@ export default function Nursery() {
                   </span>
                 </Fab>
               </Tooltip>
+            </Grid>
+            <Grid
+              item
+              xs={3}
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  background: "linear-gradient(45deg, #CCCCFF, #FCE6FA)",
+                  color: "black",
+                  fontWeight: "500",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "7px 15px",
+                  borderRadius: "20px 10px 10px 0px  ",
+                  boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.4)",
+                }}
+              >
+                <span>
+                  <FaUsers
+                    style={{
+                      marginRight: "0.3em",
+                      marginBottom: "0.1em",
+                      fontSize: "25",
+                      verticalAlign: "middle",
+                    }}
+                  />
+                  Total number of cooperators/individual:
+                </span>
+              </div>
             </Grid>
           </Grid>
           <Box sx={{ mb: 1 }}>

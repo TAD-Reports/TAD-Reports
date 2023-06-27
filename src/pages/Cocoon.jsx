@@ -13,6 +13,7 @@ import {
 import { TbButterfly, TbDecimal } from "react-icons/tb";
 import { FcComboChart } from "react-icons/fc";
 import DownloadFunction from "components/Buttons/DownloadFunctions/Distribution";
+import { FaUsers } from "react-icons/fa";
 import SearchIcon from "@mui/icons-material/Search";
 import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
@@ -188,7 +189,7 @@ export default function Cocoon() {
             >
               <Typography
                 sx={{
-                  mr: 6,
+                  mr: 4,
                 }}
               >
                 Filter by:
@@ -205,7 +206,7 @@ export default function Cocoon() {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                marginRight: "calc(30% - 40px)",
+                marginRight: "40px",
                 width: "25vw",
               }}
             >
@@ -229,7 +230,10 @@ export default function Cocoon() {
                 format="MM/DD/YYYY"
               />
             </Box>
-            <Box item xs={8} sx={{ textAlign: "right", py: 2 }}>
+            <Box
+              sx={{ width: "450px", display: "flex", justifyContent: "center" }}
+            />
+            <Box sx={{ textAlign: "right", width: "280px", py: 2 }}>
               <TextField
                 label="Search"
                 size="small"
@@ -252,7 +256,7 @@ export default function Cocoon() {
           <Grid container>
             <Grid
               item
-              xs={12}
+              xs={9}
               sx={{
                 display: "flex",
                 justifyContent: "left",
@@ -315,6 +319,40 @@ export default function Cocoon() {
                   </span>
                 </Fab>
               </Tooltip>
+            </Grid>
+            <Grid
+              item
+              xs={3}
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  background: "linear-gradient(45deg, #CCCCFF, #FCE6FA)",
+                  color: "black",
+                  fontWeight: "500",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "7px 15px",
+                  borderRadius: "20px 10px 10px 0px  ",
+                  boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.4)",
+                }}
+              >
+                <span>
+                  <FaUsers
+                    style={{
+                      marginRight: "0.3em",
+                      marginBottom: "0.1em",
+                      fontSize: "25",
+                      verticalAlign: "middle",
+                    }}
+                  />
+                  Total number of cooperators/individual:
+                </span>
+              </div>
             </Grid>
           </Grid>
           <Box sx={{ mb: 1 }}>
