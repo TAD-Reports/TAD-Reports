@@ -27,17 +27,17 @@ import {
   PMSurvived,
   Training,
 } from "./pages";
-import HrDashboard from "./pages/JobApplication/scenes/dashboard";
-import Team from "./pages/JobApplication/scenes/team";
-import Invoices from "./pages/JobApplication/scenes/positions";
-import Contacts from "./pages/JobApplication/scenes/applicants";
-import Bar from "./pages/JobApplication/scenes/bar";
-import Form from "./pages/JobApplication/scenes/form";
-import Line from "./pages/JobApplication/scenes/line";
-import Pie from "./pages/JobApplication/scenes/pie";
-import FAQ from "./pages/JobApplication/scenes/faq";
-import Geography from "./pages/JobApplication/scenes/geography";
-import Calendar from "./pages/JobApplication/scenes/calendar";
+import HrDashboard from "./pages/co/scene/dashboard";
+import Team from "./pages/co/scene/team";
+import Invoices from "./pages/co/scene/positions";
+import Contacts from "./pages/co/scene/applicants";
+import Bar from "./pages/co/scene/bar";
+import Form from "./pages/co/scene/form";
+import Line from "./pages/co/scene/line";
+import Pie from "./pages/co/scene/pie";
+import FAQ from "./pages/co/scene/faq";
+import Geography from "./pages/co/scene/geography";
+import Calendar from "./pages/co/scene/calendar";
 import themes from "./theme";
 // import { useStateContext } from "./contexts/ContextProvider";
 

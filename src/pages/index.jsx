@@ -1,13 +1,13 @@
 export { default as LandingPage } from "./landing";
-export { default as Login } from "./Auth/sign-in";
-export { default as Register } from "./Auth/register";
+export { default as Login } from "./auth/sign-in";
+export { default as Register } from "./auth/register";
 export { default as Missing } from "./Missing";
-export { default as Unauthorized } from "./Auth/unauthorized";
+export { default as Unauthorized } from "./auth/unauthorized";
 
 // JOB APP
-export { default as ApplicantsData } from "./oc/scene/jobapp/ApplicantsData";
-export { default as JobPositions } from "./oc/scene/jobapp/JobPositions";
-export { default as AppForm } from "./oc/scene/jobapp/ApplicationForm";
+export { default as ApplicantsData } from "./co/jobapp/ApplicantsData";
+export { default as JobPositions } from "./co/jobapp/JobPositions";
+export { default as AppForm } from "./co/jobapp/ApplicationForm";
 
 // TAD
 export { default as Dashboard } from "./philfida/global/Dashboard";

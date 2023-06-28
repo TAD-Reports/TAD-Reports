@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Box, Button, Typography } from "@mui/material";
-import Avatar from "../../../assets/user2.jpg";
+import Avatar from "../../../assets/user.jpg";
 
 import links from "../../../components/philfida/SidebarLinks/defaultlinks";
 import hrlinks from "../../../components/philfida/SidebarLinks/hrlinks";
@@ -13,8 +13,6 @@ export default function SideBar() {
   const { auth, setAuth } = useStateContext();
   const location = useLocation();
   const navigate = useNavigate();
-
-  console.log(hrlinks);
 
   const handleLogout = () => {
     setAuth(null);

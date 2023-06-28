@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
-import Topbar from "../pages/JobApplication/scenes/global/Topbar";
-import Sidebar from "../pages/JobApplication/scenes/global/Sidebar";
+import Topbar from "../pages/co/global/Topbar";
+import Sidebar from "../pages/co/global/Sidebar";
 
 function HrLayout() {
   const [isSidebar, setIsSidebar] = useState(true);
