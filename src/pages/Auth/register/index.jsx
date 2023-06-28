@@ -3,10 +3,12 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import PageContainer from "../../../components/LayoutContainers/PageContainer";
+import PageContainer from "../../../components/philfida/LayoutContainers/PageContainer";
 import accountService from "../../../services/account-service";
-import SelectRole from "../../../components/Textfields/select-role";
-import RegSchema, { initialAccount } from "../../../schemas/register-schema";
+import SelectRole from "../../../components/philfida/Textfields/select-role";
+import registerValidation, {
+  initialAccount,
+} from "../../../validation/register";
 
 export default function Register() {
   const [loading, setLoading] = React.useState(false);
@@ -16,7 +18,7 @@ export default function Register() {
   const formik = useFormik({
     initialValues: initialAccount,
 
-    validationSchema: RegSchema,
+    validationSchema: registerValidation,
     onSubmit: () => {
       setError("");
       setLoading(true);

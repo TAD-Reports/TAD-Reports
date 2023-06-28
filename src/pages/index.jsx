@@ -1,20 +1,23 @@
-export { default as LandingPage } from "./landing-page";
-export { default as Login } from "./Auth/sign-in";
-export { default as Register } from "./Auth/register";
+export { default as LandingPage } from "./landing";
+export { default as Login } from "./auth/sign-in";
+export { default as Register } from "./auth/register";
 export { default as Missing } from "./Missing";
-export { default as Unauthorized } from "./Auth/unauthorized";
+export { default as Unauthorized } from "./auth/unauthorized";
 
-export { default as ApplicantsData } from "./JobApplication/ApplicantsData";
-export { default as JobPositions } from "./JobApplication/JobPositions";
-export { default as AppForm } from "./ApplicationForm";
-export { default as Dashboard } from "./Dashboard";
-export { default as Nursery } from "./Nursery";
-export { default as Distribution } from "./Distribution";
-export { default as PMSurvived } from "./PMSurvived";
-export { default as ExpansionAndRehab } from "./ExpansionAndRehab";
-export { default as Cotton } from "./Cotton";
-export { default as Cocoon } from "./Cocoon";
-export { default as Training } from "./Training";
-export { default as IEC } from "./IEC";
-export { default as ExpansionUnderCoconutProj } from "./ExpansionUnderCoconutProj";
-export { default as DiseaseManagementProj } from "./DiseaseManagementProj";
+// JOB APP
+export { default as ApplicantsData } from "./oc/scene/jobapp/ApplicantsData";
+export { default as JobPositions } from "./oc/scene/jobapp/JobPositions";
+export { default as AppForm } from "./oc/scene/jobapp/ApplicationForm";
+
+// TAD
+export { default as Dashboard } from "./philfida/global/Dashboard";
+export { default as Nursery } from "./philfida/scenes/tad/Nursery";
+export { default as Distribution } from "./philfida/scenes/tad/Distribution";
+export { default as PMSurvived } from "./philfida/scenes/tad/PMSurvived";
+export { default as ExpansionAndRehab } from "./philfida/scenes/tad/ExpansionAndRehab";
+export { default as Cotton } from "./philfida/scenes/tad/Cotton";
+export { default as Cocoon } from "./philfida/scenes/tad/Cocoon";
+export { default as Training } from "./philfida/scenes/tad/Training";
+export { default as IEC } from "./philfida/scenes/tad/IEC";
+export { default as ExpansionUnderCoconutProj } from "./philfida/scenes/tad/ExpansionUnderCoconutProj";
+export { default as DiseaseManagementProj } from "./philfida/scenes/tad/DiseaseManagementProj";

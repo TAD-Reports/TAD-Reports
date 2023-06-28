@@ -1,14 +1,14 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
-import { Navbar, Sidebar } from "../components";
+import { Topbar, Sidebar } from "../pages/philfida/global";
 
 function Layout() {
   return (
     <div>
       <Box sx={{ display: "flex", position: "relative" }}>
         <Sidebar />
-        <Navbar />
+        <Topbar />
       </Box>
       <Outlet />
     </div>

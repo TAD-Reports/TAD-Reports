@@ -3,7 +3,7 @@
     background-attachment: fixed;
     background-image: linear-gradient(rgba(26, 41, 31, 0.7),
             rgba(15, 24, 20, 0.7) 90%),
-        url("/public/images/dahon.jpg");
+        url("/src/assets/dahon.jpg");
     background-size: cover;
     background-position: 50%;
     background-repeat: no-repeat;

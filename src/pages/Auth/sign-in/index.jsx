@@ -5,10 +5,10 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../../assets/images/philfida.png";
+import Logo from "../../../assets/philfida.png";
 import { useStateContext } from "../../../contexts/ContextProvider";
 import accountService from "../../../services/account-service";
-import Schema, { initialLog } from "../../../schemas/login-schema";
+import loginValidation, { initialLog } from "../../../validation/login";
 
 function Login() {
   const { setAuth } = useStateContext();
@@ -20,7 +20,7 @@ function Login() {
 
   const formik = useFormik({
     initialValues: initialLog,
-    validationSchema: Schema,
+    validationSchema: loginValidation,
     onSubmit: async () => {
       setLoading(true);
       setError("");
