@@ -8,7 +8,7 @@ const hrlinks = [
     links: [
       {
         name: "dashboard",
-        path: "dashboard",
+        path: "hrdashboard",
         icon: <DashboardIcon />,
       },
     ],

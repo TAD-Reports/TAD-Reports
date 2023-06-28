@@ -6,6 +6,8 @@ export default function RequireAuth({ allowedRoles }) {
   const { auth } = useStateContext();
   const location = useLocation();
 
+  console.log(auth);
+
   const hasAllowedRole =
     allowedRoles && allowedRoles.some((roleObject) => roleObject[auth?.role]);
 

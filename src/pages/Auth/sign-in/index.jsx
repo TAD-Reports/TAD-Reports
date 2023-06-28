@@ -24,26 +24,27 @@ function Login() {
     onSubmit: async () => {
       setLoading(true);
       setError("");
-      accountService
-        .authenticate(formik?.values)
-        .then((res) => {
-          if (res.valid) {
-            setAuth(res.data);
+      try {
+        const res = await accountService.authenticate(formik?.values);
+        if (res.valid) {
+          setAuth(res.data);
+          if (res.data.role === "hradmin") {
+            navigate("/hrdashboard");
+          } else {
             navigate("/dashboard");
           }
-        })
-        .catch((err) => {
-          let message = "";
-          if (err?.response?.status === 400 || err?.response?.status === 401) {
-            message = "Invalid Username / Password";
-          } else if (err?.response?.status === 500) {
-            message = "Internal Server Error";
-          }
-          setError(message || err?.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+        }
+      } catch (err) {
+        let message = "";
+        if (err?.response?.status === 400 || err?.response?.status === 401) {
+          message = "Invalid Username / Password";
+        } else if (err?.response?.status === 500) {
+          message = "Internal Server Error";
+        }
+        setError(message || err?.message);
+      } finally {
+        setLoading(false);
+      }
     },
   });
 
