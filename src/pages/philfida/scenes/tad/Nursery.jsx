@@ -227,7 +227,7 @@ export default function Nursery() {
                 name="filterBy"
                 value={region}
                 onChange={(evt) => setRegion(evt.target.value)}
-                sx={{ width: "12vw", backgroundColor: "#FFFF" }}
+                sx={{ width: "12vw" }}
               />
             </Box>
             <Box
@@ -239,9 +239,6 @@ export default function Nursery() {
               }}
             >
               <TextFieldDatePicker
-                sx={{
-                  backgroundColor: "#FFFF",
-                }}
                 label="Start Date"
                 value={dayjs(startDate)}
                 onChange={handleStartDate}
@@ -249,9 +246,6 @@ export default function Nursery() {
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
-                sx={{
-                  backgroundColor: "#FFFF",
-                }}
                 label="End Date"
                 value={dayjs(endDate)}
                 onChange={handleEndDate}
@@ -297,7 +291,7 @@ export default function Nursery() {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ my: 1, backgroundColor: "#FFFF" }}
+                sx={{ my: 1 }}
                 onChange={(evt) => setSearch(evt.target.value)}
                 value={search}
               />

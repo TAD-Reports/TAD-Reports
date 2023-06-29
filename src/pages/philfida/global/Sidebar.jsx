@@ -1,188 +1,137 @@
-import React from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { Box, Button, Typography } from "@mui/material";
-import Avatar from "../../../assets/user.jpg";
-
+/* eslint-disable import/no-duplicates */
+import { useState } from "react";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
+import userImg from "../../../assets/user2.jpg";
+import themes from "../../../themes/co-theme";
 import links from "../../../components/philfida/SidebarLinks/defaultlinks";
-import hrlinks from "../../../components/philfida/SidebarLinks/hrlinks";
+import "react-pro-sidebar/dist/css/styles.css";
 
-import { useStateContext } from "../../../contexts/ContextProvider";
+const { tokens } = themes;
 
-export default function SideBar() {
-  const { auth, setAuth } = useStateContext();
-  const location = useLocation();
-  const navigate = useNavigate();
+function Item({ title, to, icon, selected, setSelected }) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
-  const handleLogout = () => {
-    setAuth(null);
-    navigate("/");
-  };
+  return (
+    <MenuItem
+      active={selected === title}
+      style={{
+        color: colors.grey[100],
+      }}
+      onClick={() => setSelected(title)}
+      icon={icon}
+    >
+      <Typography>{title}</Typography>
+      <Link to={to} />
+    </MenuItem>
+  );
+}
 
-  const activeLink = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "start",
-    textAlign: "left",
-    width: "100%",
-    gap: "5",
-    paddingLeft: "1rem",
-    paddingRight: "2rem",
-    paddingTop: "0.75rem",
-    paddingBottom: "0.625rem",
-    borderRadius: "0.5rem 0 0 0.5rem",
-    backgroundColor: "white",
-    color: "black",
-    fontSize: "2rem",
-    margin: "5px",
-    "&:hover": {
-      color: "black",
-      backgroundColor: "#fff",
-    },
-  };
+Item.defaultProps = {
+  title: "",
+  to: "",
+  icon: null,
+  selected: null,
+  setSelected: () => {},
+};
 
-  const normalLink = {
-    zoom: 0.8,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "start",
-    textAlign: "left",
-    width: "100%",
-    gap: "5",
-    paddingLeft: "1rem",
-    paddingRight: "2rem",
-    paddingTop: "0.75rem",
-    paddingBottom: "0.625rem",
-    borderRadius: "0.5rem",
-    fontSize: "2rem",
-    color: "#f0f0f0",
-    margin: "5px",
-    "&:hover": {
-      color: "black",
-      backgroundColor: "lightgreen",
-    },
-  };
+Item.propTypes = {
+  title: PropTypes.string,
+  to: PropTypes.string,
+  icon: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  selected: PropTypes.object,
+  setSelected: PropTypes.func,
+};
+
+export default function Sidebar() {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [selected, setSelected] = useState("Dashboard");
 
   return (
     <Box
       sx={{
-        width: "285px",
-        height: "100vh",
-        position: "fixed",
-        overflow: "hidden",
-        "@media screen and (min-width: 768px)": {
-          overflow: "auto",
-          ":hover": {
-            overflow: "auto",
-          },
+        "& .pro-sidebar-inner": {
+          background: `${colors.primary[400]} !important`,
         },
-        backgroundColor: "#067A61",
-        zIndex: 1000,
+        "& .pro-icon-wrapper": {
+          backgroundColor: "transparent !important",
+        },
+        "& .pro-inner-item": {
+          padding: "5px 35px 5px 20px !important",
+        },
+        "& .pro-inner-item:hover": {
+          color: "#868dfb !important",
+        },
+        "& .pro-menu-item.active": {
+          color: "#6870fa !important",
+        },
       }}
     >
-      <Box sx={{ position: "absolute", width: "288px" }}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            mt: 6.5,
-          }}
-        >
-          <Link to={auth.role === "superadmin" ? "/register" : "/dashboard"}>
-            <img
-              src={Avatar}
-              alt="logo"
-              style={{
-                width: "94px",
-                height: "94px",
-                borderRadius: "50%",
-              }}
-            />
-          </Link>
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontSize: "18px",
-              color: "#fff",
-              mt: 1,
+      <ProSidebar collapsed={isCollapsed}>
+        <Menu iconShape="square">
+          {/* LOGO AND MENU ICON */}
+          <MenuItem
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            style={{
+              margin: "10px 0 20px 0",
+              color: colors.grey[100],
             }}
           >
-            {auth.firstname} {auth.lastname}
-          </Typography>
-          <Typography
-            sx={{
-              textTransform: "uppercase",
-              fontWeight: "bold",
-              fontSize: "12px",
-              color: "#fff",
-            }}
-          >
-            {auth.role === "superadmin" ? "super admin" : auth.role}
-          </Typography>
-        </Box>
-        {auth.role === "hr" ? (
-          <Box sx={{ my: 5 }}>
-            {hrlinks.map((item) => (
-              <Box key={item.title} sx={{ width: "100%" }}>
-                <Typography
-                  sx={{
-                    color: "#fff",
-                    m: 2,
-                    mt: 4,
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {item.title}
-                </Typography>
-                {item.links.map((link) => (
-                  <NavLink to={`/${link.path}`} key={link.name}>
-                    <Button
-                      sx={
-                        location.pathname === `/${link.path}`
-                          ? activeLink
-                          : normalLink
-                      }
-                    >
-                      {link.icon}
-                      <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                        {link.name}
-                      </Typography>
-                    </Button>
-                  </NavLink>
-                ))}
-              </Box>
-            ))}
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                sx={{
-                  color: "#fff",
-                  m: 2,
-                  mt: 4,
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                }}
+            {!isCollapsed && (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                ml="15px"
               >
-                Log out
-              </Typography>
-              <Button sx={normalLink} onClick={handleLogout}>
-                <LogoutIcon />
-                <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                  Logout
+                <Typography variant="h3" color={colors.grey[100]} />
+                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                  <MenuOutlinedIcon />
+                </IconButton>
+              </Box>
+            )}
+          </MenuItem>
+
+          {!isCollapsed && (
+            <Box mb="25px">
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <img
+                  alt="profile-user"
+                  width="100px"
+                  height="100px"
+                  src={userImg}
+                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                />
+              </Box>
+              <Box textAlign="center">
+                <Typography
+                  variant="h2"
+                  color={colors.grey[100]}
+                  fontWeight="bold"
+                  sx={{ m: "10px 0 0 0" }}
+                >
+                  Ray Hernandez
                 </Typography>
-              </Button>
+                <Typography variant="h5" color={colors.greenAccent[500]}>
+                  HR Admin
+                </Typography>
+              </Box>
             </Box>
-          </Box>
-        ) : (
-          <Box sx={{ my: 5 }}>
+          )}
+
+          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             {links.map((item) => (
               <Box key={item.title} sx={{ width: "100%" }}>
                 <Typography
                   sx={{
-                    color: "#fff",
                     m: 2,
                     mt: 4,
                     textTransform: "uppercase",
@@ -192,45 +141,19 @@ export default function SideBar() {
                   {item.title}
                 </Typography>
                 {item.links.map((link) => (
-                  <NavLink to={`/${link.path}`} key={link.name}>
-                    <Button
-                      sx={
-                        location.pathname === `/${link.path}`
-                          ? activeLink
-                          : normalLink
-                      }
-                    >
-                      {link.icon}
-                      <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                        {link.name}
-                      </Typography>
-                    </Button>
-                  </NavLink>
+                  <Item
+                    title={link.name}
+                    to={`/${link.path}`}
+                    icon={link.icon}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
                 ))}
               </Box>
             ))}
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                sx={{
-                  color: "#fff",
-                  m: 2,
-                  mt: 4,
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                }}
-              >
-                Log out
-              </Typography>
-              <Button sx={normalLink} onClick={handleLogout}>
-                <LogoutIcon />
-                <Typography sx={{ textTransform: "capitalize", ml: 1 }}>
-                  Logout
-                </Typography>
-              </Button>
-            </Box>
           </Box>
-        )}
-      </Box>
+        </Menu>
+      </ProSidebar>
     </Box>
   );
 }

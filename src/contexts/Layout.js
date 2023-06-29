@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
+
 import { Topbar, Sidebar } from "../pages/philfida/global";
 
 function Layout() {

@@ -13,7 +13,7 @@ const links = [
     title: "Dashboard",
     links: [
       {
-        name: "dashboard",
+        name: "Dashboard",
         path: "dashboard",
         icon: <DashboardIcon />,
       },
@@ -24,52 +24,52 @@ const links = [
     title: "Reports",
     links: [
       {
-        name: "nursery reports",
+        name: "Nursery Reports",
         path: "nursery",
         icon: <TbSeeding style={{ fontSize: 29 }} />,
       },
       {
-        name: "distribution reports",
+        name: "Distribution Reports",
         path: "distribution",
         icon: <HandshakeOutlinedIcon />,
       },
       {
-        name: "pm survived reports",
+        name: "PM Survived Reports",
         path: "pmsurvived",
         icon: <GiPlantSeed style={{ fontSize: 24 }} />,
       },
       {
-        name: "expansion and rehabilitation reports",
+        name: "Expansion and Rehabilitation Reports",
         path: "expansionandrehab",
         icon: <LiaBaconSolid />,
       },
       {
-        name: "cotton reports",
+        name: "Cotton Reports",
         path: "cotton",
         icon: <TiWeatherWindyCloudy style={{ fontSize: 27 }} />,
       },
       {
-        name: "cocoon reports",
+        name: "Cocoon Reports",
         path: "cocoon",
         icon: <TbButterfly style={{ fontSize: 27 }} />,
       },
       {
-        name: "training reports",
+        name: "Training Reports",
         path: "training",
         icon: <SchoolOutlinedIcon style={{ fontSize: 27 }} />,
       },
       {
-        name: "iec material reports",
+        name: "IEC Material Reports",
         path: "iec",
         icon: <HiOutlineDocumentDuplicate style={{ fontSize: 27 }} />,
       },
       {
-        name: "expansion under coconut projects reports",
+        name: "Expansion Under Coconut Projects Reports",
         path: "expansioncoconut",
         icon: <PiTreePalmBold style={{ fontSize: 29 }} />,
       },
       {
-        name: "abaca disease management project reports",
+        name: "Abaca Disease Management Project Reports",
         path: "diseasemanagement",
         icon: <TbVirusOff style={{ fontSize: 36 }} />,
       },

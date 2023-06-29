@@ -34,9 +34,6 @@ function Login() {
   const [errMessage, setError] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
-  // eslint-disable-next-line react/destructuring-assignment
-  console.log(colorMode.toggleColorMode);
-
   const formik = useFormik({
     initialValues: initialLog,
     validationSchema: loginValidation,
@@ -132,13 +129,12 @@ function Login() {
               alignItems: "center",
               justifyContent: "center",
               textAlign: "center",
-              marginBottom: "60px",
               background: (themeMode) =>
                 themeMode.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.8)"
+                  ? "linear-gradient(-160deg, rgba(114, 135, 227, 0.9), rgba(238, 255, 0, 0.8), rgba(255, 0, 0, 0.8))"
                   : "transparent",
-              p: "8px 15px 15px 15px",
-              borderRadius: "50px",
+              p: "3px 10px 10px 10px",
+              borderRadius: "50%",
             }}
           >
             <Box
@@ -149,17 +145,30 @@ function Login() {
               height="150px"
               width="150px"
             />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              marginBottom: "60px",
+            }}
+          >
             <Typography
               component="h4"
               variant="h4"
               sx={{
-                color: "black",
+                color: (themeMode) =>
+                  themeMode.palette.mode === "dark" ? "#e0e0e0" : "black",
                 fontWeight: "bolder",
               }}
             >
               Philippine Fiber Industry <br /> Development Authority
             </Typography>
           </Box>
+
           <Typography
             sx={{ color: "red", fontWeight: "bolder", fontSize: "20px" }}
           >

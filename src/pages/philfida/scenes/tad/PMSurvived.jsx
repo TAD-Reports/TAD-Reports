@@ -203,7 +203,7 @@ export default function PMSurvived() {
                 name="filterBy"
                 value={region}
                 onChange={(evt) => setRegion(evt.target.value)}
-                sx={{ width: "12vw", backgroundColor: "#FFFF" }}
+                sx={{ width: "12vw" }}
               />
             </Box>
             <Box
@@ -215,9 +215,6 @@ export default function PMSurvived() {
               }}
             >
               <TextFieldDatePicker
-                sx={{
-                  backgroundColor: "#FFFF",
-                }}
                 label="Start Date"
                 value={startDate}
                 onChange={handleStartDate}
@@ -225,9 +222,6 @@ export default function PMSurvived() {
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
-                sx={{
-                  backgroundColor: "#FFFF",
-                }}
                 label="End Date"
                 value={endDate}
                 onChange={handleEndDate}
@@ -250,7 +244,7 @@ export default function PMSurvived() {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ my: 1, backgroundColor: "#FFFF" }}
+                sx={{ my: 1 }}
                 onChange={(evt) => setSearch(evt.target.value)}
                 value={search}
               />

@@ -202,7 +202,7 @@ export default function Iec() {
                 name="filterBy"
                 value={region}
                 onChange={(evt) => setRegion(evt.target.value)}
-                sx={{ width: "12vw", backgroundColor: "#FFFF" }}
+                sx={{ width: "12vw" }}
               />
             </Box>
             <Box
@@ -214,9 +214,6 @@ export default function Iec() {
               }}
             >
               <TextFieldDatePicker
-                sx={{
-                  backgroundColor: "#FFFF",
-                }}
                 label="Start Date"
                 value={startDate}
                 onChange={handleStartDate}
@@ -224,9 +221,6 @@ export default function Iec() {
               />
               <Typography sx={{ mx: 2 }}>to</Typography>
               <TextFieldDatePicker
-                sx={{
-                  backgroundColor: "#FFFF",
-                }}
                 label="End Date"
                 value={endDate}
                 onChange={handleEndDate}
@@ -249,7 +243,7 @@ export default function Iec() {
                     </InputAdornment>
                   ),
                 }}
-                sx={{ my: 1, backgroundColor: "#FFFF" }}
+                sx={{ my: 1 }}
                 onChange={(evt) => setSearch(evt.target.value)}
                 value={search}
               />
