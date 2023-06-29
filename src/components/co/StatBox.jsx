@@ -1,11 +1,11 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import PropTypes from "prop-types";
+import PropTypes, { elementType } from "prop-types";
 import themes from "../../themes/co-theme";
 import ProgressCircle from "./ProgressCircle";
 
 const { tokens } = themes;
 
-export default function StatBox({ title, subtitle, icon, progress, increase }) {
+function StatBox({ title, subtitle, icon, progress, increase }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -42,6 +42,8 @@ export default function StatBox({ title, subtitle, icon, progress, increase }) {
   );
 }
 
+export default StatBox;
+
 StatBox.defaultProps = {
   title: "",
   subtitle: "",
@@ -53,8 +55,7 @@ StatBox.defaultProps = {
 StatBox.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
-  icon: PropTypes.object,
+  icon: elementType,
   progress: PropTypes.string,
   increase: PropTypes.string,
 };

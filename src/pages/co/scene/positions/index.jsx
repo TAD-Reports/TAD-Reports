@@ -7,7 +7,7 @@ import Header from "../../../../components/co/Header";
 const { tokens } = themes;
 const { mockDataInvoices } = mockData;
 
-export default function Invoices() {
+function Positions() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -92,3 +92,5 @@ export default function Invoices() {
     </Box>
   );
 }
+
+export default Positions;

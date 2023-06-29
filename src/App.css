@@ -1,5 +1,18 @@
-body {
-  background-color: #f0f2f5;
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap");
+
+html,
+body,
+#root,
+.app,
+.content {
+  height: 100vh;
+  width: 100vw;
+  font-family: "Source Sans 3", sans-serif;
+}
+
+.app {
+  display: flex;
+  position: relative;
 }
 
 a:link,
@@ -29,17 +42,22 @@ a:visited {
 }
 
 ::-webkit-scrollbar {
-  height: 12.5px;
-  width: 8px;
+  width: 10px;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: rgb(216, 216, 216);
-  border-radius: 40px;
-}
-
+/* Track */
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background: #e0e0e0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 /* color-picker style  */
@@ -224,7 +242,7 @@ a:visited {
 
 /* 7 */
 .btn-7 {
-  background: linear-gradient(0deg, #0D9772 0%, #158e76 100%);
+  background: linear-gradient(0deg, #0d9772 0%, #158e76 100%);
   line-height: 42px;
   padding: 0;
   width: 11vw;

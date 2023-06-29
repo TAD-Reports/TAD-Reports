@@ -9,7 +9,7 @@ import themes from "../../../../themes/co-theme";
 
 const { tokens } = themes;
 
-export default function FAQ() {
+function FAQ() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -84,3 +84,5 @@ export default function FAQ() {
     </Box>
   );
 }
+
+export default FAQ;

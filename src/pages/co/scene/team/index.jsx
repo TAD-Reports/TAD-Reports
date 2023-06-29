@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
@@ -10,7 +11,7 @@ import Header from "../../../../components/co/Header";
 const { tokens } = themes;
 const { mockDataTeam } = mockData;
 
-export default function Team() {
+function Team() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -50,7 +51,6 @@ export default function Team() {
           display="flex"
           justifyContent="center"
           backgroundColor={
-            // eslint-disable-next-line no-nested-ternary
             access === "admin"
               ? colors.greenAccent[600]
               : access === "manager"
@@ -107,3 +107,5 @@ export default function Team() {
     </Box>
   );
 }
+
+export default Team;

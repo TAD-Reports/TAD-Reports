@@ -8,7 +8,7 @@ import mockData from "../../data/mockData";
 const { tokens } = themes;
 const { mockGeographyData } = mockData;
 
-export default function GeographyChart({ isDashboard = false }) {
+function GeographyChart({ isDashboard }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -85,6 +85,8 @@ export default function GeographyChart({ isDashboard = false }) {
     />
   );
 }
+
+export default GeographyChart;
 
 GeographyChart.defaultProps = {
   isDashboard: false,

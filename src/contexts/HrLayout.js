@@ -1,19 +1,27 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Box } from "@mui/material";
 import Topbar from "../pages/co/global/Topbar";
 import Sidebar from "../pages/co/global/Sidebar";
+import "../App.css";
+import background from "../assets/user.jpg";
 
 function HrLayout() {
   const [isSidebar, setIsSidebar] = useState(true);
   return (
-    <Box sx={{ display: "flex", position: "relative" }}>
+    <div
+      className="app"
+      style={{
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundImage: `url(${background})`,
+      }}
+    >
       <Sidebar isSidebar={isSidebar} />
-      <Box sx={{ height: "100%", width: "100%" }}>
+      <main className="content">
         <Topbar setIsSidebar={setIsSidebar} />
         <Outlet />
-      </Box>
-    </Box>
+      </main>
+    </div>
   );
 }
 

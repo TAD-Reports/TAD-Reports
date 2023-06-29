@@ -27,8 +27,8 @@ import {
 } from "./pages";
 import HrDashboard from "./pages/co/scene/dashboard";
 import Team from "./pages/co/scene/team";
-import Invoices from "./pages/co/scene/positions";
-import Contacts from "./pages/co/scene/applicants";
+import Positions from "./pages/co/scene/positions";
+import Applicants from "./pages/co/scene/applicants";
 import Bar from "./pages/co/scene/bar";
 import Form from "./pages/co/scene/form";
 import Line from "./pages/co/scene/line";
@@ -90,8 +90,8 @@ function App() {
               <Route path="/" element={<HrLayout />}>
                 <Route path="/hrdashboard" element={<HrDashboard />} />
                 <Route path="/team" element={<Team />} />
-                <Route path="/contacts" element={<Contacts />} />
-                <Route path="/invoices" element={<Invoices />} />
+                <Route path="/applicants" element={<Applicants />} />
+                <Route path="/positions" element={<Positions />} />
                 <Route path="/form" element={<Form />} />
                 <Route path="/bar" element={<Bar />} />
                 <Route path="/pie" element={<Pie />} />

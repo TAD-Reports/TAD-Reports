@@ -7,7 +7,7 @@ import Header from "../../../../components/co/Header";
 const { tokens } = themes;
 const { mockDataContacts } = mockData;
 
-export default function Contacts() {
+function Applicants() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -98,3 +98,5 @@ export default function Contacts() {
     </Box>
   );
 }
+
+export default Applicants;

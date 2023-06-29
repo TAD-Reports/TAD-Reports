@@ -1,8 +1,8 @@
 export { default as LandingPage } from "./landing";
-export { default as Login } from "./Auth/sign-in";
-export { default as Register } from "./Auth/register";
+export { default as Login } from "./auth/sign-in";
+export { default as Register } from "./auth/register";
 export { default as Missing } from "./Missing";
-export { default as Unauthorized } from "./Auth/unauthorized";
+export { default as Unauthorized } from "./auth/unauthorized";
 
 // JOB APP
 export { default as ApplicantsData } from "./co/jobapp/ApplicantsData";

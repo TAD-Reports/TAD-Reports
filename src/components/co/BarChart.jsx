@@ -7,7 +7,7 @@ import mockData from "../../data/mockData";
 const { tokens } = themes;
 const { mockBarData } = mockData;
 
-export default function BarChart({ isDashboard }) {
+function BarChart({ isDashboard }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -131,6 +131,8 @@ export default function BarChart({ isDashboard }) {
     />
   );
 }
+
+export default BarChart;
 
 BarChart.defaultProps = {
   isDashboard: false,

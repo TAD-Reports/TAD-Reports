@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import Header from "../../../../components/co/Header";
 import PieChart from "../../../../components/co/PieChart";
 
-export default function Pie() {
+function Pie() {
   return (
     <Box m="20px">
       <Header title="Pie Chart" subtitle="Simple Pie Chart" />
@@ -12,3 +12,5 @@ export default function Pie() {
     </Box>
   );
 }
+
+export default Pie;

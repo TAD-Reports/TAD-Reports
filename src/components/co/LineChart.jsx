@@ -7,7 +7,7 @@ import mockData from "../../data/mockData";
 const { tokens } = themes;
 const { mockLineData } = mockData;
 
-export default function LineChart({ isDashboard }) {
+function LineChart({ isDashboard }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -87,7 +87,8 @@ export default function LineChart({ isDashboard }) {
       pointBorderWidth={2}
       pointBorderColor={{ from: "serieColor" }}
       pointLabelYOffset={-12}
-      useMesh
+      // eslint-disable-next-line react/jsx-boolean-value
+      useMesh={true}
       legends={[
         {
           anchor: "bottom-right",
@@ -117,6 +118,8 @@ export default function LineChart({ isDashboard }) {
     />
   );
 }
+
+export default LineChart;
 
 LineChart.defaultProps = {
   isDashboard: false,

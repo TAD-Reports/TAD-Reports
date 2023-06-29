@@ -4,7 +4,7 @@ import themes from "../../themes/co-theme";
 
 const { tokens } = themes;
 
-export default function Header({ title, subtitle }) {
+function Header({ title, subtitle }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -23,6 +23,8 @@ export default function Header({ title, subtitle }) {
     </Box>
   );
 }
+
+export default Header;
 
 Header.defaultProps = {
   title: "",

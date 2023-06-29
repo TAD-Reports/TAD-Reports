@@ -5,17 +5,22 @@ import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 import themes from "../../../themes/co-theme";
 
 const { tokens, ColorModeContext } = themes;
 
-export default function Topbar() {
+function Topbar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const colorMode = useContext(ColorModeContext);
+  const { toggleColorMode } = useContext(ColorModeContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/");
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -33,8 +38,7 @@ export default function Topbar() {
 
       {/* ICONS */}
       <Box display="flex">
-        {/* eslint-disable-next-line react/destructuring-assignment */}
-        <IconButton onClick={colorMode.toggleColorMode}>
+        <IconButton onClick={toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (
@@ -44,13 +48,12 @@ export default function Topbar() {
         <IconButton>
           <NotificationsOutlinedIcon />
         </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
+        <IconButton onClick={handleLogout}>
+          <LogoutIcon />
         </IconButton>
       </Box>
     </Box>
   );
 }
+
+export default Topbar;

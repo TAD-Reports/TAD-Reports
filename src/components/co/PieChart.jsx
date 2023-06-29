@@ -6,7 +6,7 @@ import mockData from "../../data/mockData";
 const { tokens } = themes;
 const { mockPieData } = mockData;
 
-export default function PieChart() {
+function PieChart() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -108,3 +108,5 @@ export default function PieChart() {
     />
   );
 }
+
+export default PieChart;

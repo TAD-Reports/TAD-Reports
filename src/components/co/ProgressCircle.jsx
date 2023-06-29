@@ -4,7 +4,7 @@ import themes from "../../themes/co-theme";
 
 const { tokens } = themes;
 
-export default function ProgressCircle({ progress = "0.75", size = "40" }) {
+function ProgressCircle({ progress, size }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const angle = progress * 360;
@@ -22,9 +22,11 @@ export default function ProgressCircle({ progress = "0.75", size = "40" }) {
   );
 }
 
+export default ProgressCircle;
+
 ProgressCircle.defaultProps = {
-  progress: "",
-  size: "",
+  progress: "0.75",
+  size: "40",
 };
 
 ProgressCircle.propTypes = {

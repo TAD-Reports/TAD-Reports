@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import "react-pro-sidebar/dist/css/styles.css";
+import PropTypes, { elementType } from "prop-types";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -18,14 +19,12 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
 import userImg from "../../../assets/user2.jpg";
 import themes from "../../../themes/co-theme";
-import "react-pro-sidebar/dist/css/styles.css";
 
 const { tokens } = themes;
 
 function Item({ title, to, icon, selected, setSelected }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
   return (
     <MenuItem
       active={selected === title}
@@ -41,24 +40,7 @@ function Item({ title, to, icon, selected, setSelected }) {
   );
 }
 
-Item.defaultProps = {
-  title: "",
-  to: "",
-  icon: null,
-  selected: null,
-  setSelected: () => {},
-};
-
-Item.propTypes = {
-  title: PropTypes.string,
-  to: PropTypes.string,
-  icon: PropTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
-  selected: PropTypes.object,
-  setSelected: PropTypes.func,
-};
-
-export default function Sidebar() {
+function Sidebar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -91,7 +73,7 @@ export default function Sidebar() {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
+              margin: "auto",
               color: colors.grey[100],
             }}
           >
@@ -140,7 +122,7 @@ export default function Sidebar() {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/hrdashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -162,14 +144,14 @@ export default function Sidebar() {
             />
             <Item
               title="Applicants"
-              to="/contacts"
+              to="/applicants"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Job Positions"
-              to="/invoices"
+              to="/positions"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -245,3 +227,21 @@ export default function Sidebar() {
     </Box>
   );
 }
+
+export default Sidebar;
+
+Item.defaultProps = {
+  title: "",
+  to: "",
+  icon: null,
+  selected: "",
+  setSelected: "",
+};
+
+Item.propTypes = {
+  title: PropTypes.string,
+  to: PropTypes.string,
+  icon: elementType,
+  selected: PropTypes.string,
+  setSelected: PropTypes.string,
+};

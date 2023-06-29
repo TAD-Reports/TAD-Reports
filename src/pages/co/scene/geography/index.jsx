@@ -5,7 +5,7 @@ import themes from "../../../../themes/co-theme";
 
 const { tokens } = themes;
 
-export default function Geography() {
+function Geography() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -22,3 +22,5 @@ export default function Geography() {
     </Box>
   );
 }
+
+export default Geography;
