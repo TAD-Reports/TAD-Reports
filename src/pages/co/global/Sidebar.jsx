@@ -17,7 +17,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
 import userImg from "../../../assets/user2.jpg";
-import themes from "../../../theme";
+import themes from "../../../themes/co-theme";
 import "react-pro-sidebar/dist/css/styles.css";
 
 const { tokens } = themes;

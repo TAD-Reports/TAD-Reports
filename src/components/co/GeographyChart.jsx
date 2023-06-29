@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material";
 import { ResponsiveChoropleth } from "@nivo/geo";
 import PropTypes from "prop-types";
 import geoFeatures from "../../data/mockGeoFeatures";
-import themes from "../../theme";
+import themes from "../../themes/co-theme";
 import mockData from "../../data/mockData";
 
 const { tokens } = themes;

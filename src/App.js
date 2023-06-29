@@ -1,5 +1,3 @@
-/* eslint-disable import/no-duplicates */
-/* eslint-disable no-nested-ternary */
 import React from "react";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
@@ -38,24 +36,18 @@ import Pie from "./pages/co/scene/pie";
 import FAQ from "./pages/co/scene/faq";
 import Geography from "./pages/co/scene/geography";
 import Calendar from "./pages/co/scene/calendar";
-import themes from "./theme";
-// import { useStateContext } from "./contexts/ContextProvider";
+import themes from "./themes/co-theme";
 
 const { ColorModeContext, useMode } = themes;
 
 function App() {
   const [theme, colorMode] = useMode();
-
   const Roles = {
     admin: "admin",
     superadmin: "superadmin",
     reviewer: "reviewer",
     uploader: "uploader",
     planner: "planner",
-  };
-
-  const HrRoles = {
-    hradmin: "hradmin",
   };
 
   return (
@@ -71,7 +63,6 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[Roles]} />}>
               <Route path="/" element={<Layout />}>
                 <Route path="/register" element={<Register />} />
-
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/nursery" element={<Nursery />} />
                 <Route path="/distribution" element={<Distribution />} />
@@ -94,7 +85,8 @@ function App() {
                 />
               </Route>
             </Route>
-            <Route element={<HrAuth allowedRole={HrRoles.hradmin} />}>
+
+            <Route element={<HrAuth allowedRole="hradmin" />}>
               <Route path="/" element={<HrLayout />}>
                 <Route path="/hrdashboard" element={<HrDashboard />} />
                 <Route path="/team" element={<Team />} />

@@ -8,7 +8,6 @@ export default function NavBar() {
       sx={{
         zoom: 0.95,
         display: "flex",
-        position: "fixed",
         height: "112px",
         justifyContent: "space-between",
         alignItems: "center",

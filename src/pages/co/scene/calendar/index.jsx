@@ -13,7 +13,7 @@ import {
   useTheme,
 } from "@mui/material";
 import Header from "../../../../components/co/Header";
-import themes from "../../../../theme";
+import themes from "../../../../themes/co-theme";
 
 const { tokens } = themes;
 

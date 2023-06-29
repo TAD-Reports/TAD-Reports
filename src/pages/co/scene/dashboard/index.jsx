@@ -6,7 +6,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import themes from "../../../../theme";
+import themes from "../../../../themes/co-theme";
 import mockTransaction from "../../../../data/mockData";
 import Header from "../../../../components/co/Header";
 import LineChart from "../../../../components/co/LineChart";

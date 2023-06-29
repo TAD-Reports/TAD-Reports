@@ -1,6 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import PropTypes from "prop-types";
-import themes from "../../theme";
+import themes from "../../themes/co-theme";
 
 const { tokens } = themes;
 

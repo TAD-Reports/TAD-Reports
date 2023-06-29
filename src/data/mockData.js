@@ -1,4 +1,4 @@
-import theme from "../theme";
+import theme from "../themes/co-theme";
 
 const { tokens } = theme;
 

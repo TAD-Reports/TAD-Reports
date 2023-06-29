@@ -1,6 +1,6 @@
 import { ResponsivePie } from "@nivo/pie";
 import { useTheme } from "@mui/material";
-import themes from "../../theme";
+import themes from "../../themes/co-theme";
 import mockData from "../../data/mockData";
 
 const { tokens } = themes;

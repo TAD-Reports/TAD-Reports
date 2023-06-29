@@ -1,7 +1,7 @@
 import { Box, useTheme } from "@mui/material";
 import GeographyChart from "../../../../components/co/GeographyChart";
 import Header from "../../../../components/co/Header";
-import themes from "../../../../theme";
+import themes from "../../../../themes/co-theme";
 
 const { tokens } = themes;
 

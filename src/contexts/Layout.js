@@ -5,13 +5,13 @@ import { Topbar, Sidebar } from "../pages/philfida/global";
 
 function Layout() {
   return (
-    <div>
-      <Box sx={{ display: "flex", position: "relative" }}>
-        <Sidebar />
+    <Box sx={{ display: "flex", position: "relative" }}>
+      <Sidebar />
+      <Box sx={{ height: "100%", width: "100%" }}>
         <Topbar />
+        <Outlet />
       </Box>
-      <Outlet />
-    </div>
+    </Box>
   );
 }
 

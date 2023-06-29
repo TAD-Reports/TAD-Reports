@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import themes from "../../../../theme";
+import themes from "../../../../themes/co-theme";
 import mockData from "../../../../data/mockData";
 import Header from "../../../../components/co/Header";
 

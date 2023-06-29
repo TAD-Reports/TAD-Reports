@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import PropTypes from "prop-types";
-import themes from "../../theme";
+import themes from "../../themes/co-theme";
 import ProgressCircle from "./ProgressCircle";
 
 const { tokens } = themes;

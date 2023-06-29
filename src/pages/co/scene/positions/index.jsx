@@ -1,6 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import themes from "../../../../theme";
+import themes from "../../../../themes/co-theme";
 import mockData from "../../../../data/mockData";
 import Header from "../../../../components/co/Header";
 

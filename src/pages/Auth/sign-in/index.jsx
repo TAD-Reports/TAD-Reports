@@ -1,22 +1,41 @@
-import { useState } from "react";
+/* eslint-disable react/destructuring-assignment */
+import { useContext, useState } from "react";
 import "./sign-in.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/philfida.png";
 import { useStateContext } from "../../../contexts/ContextProvider";
 import accountService from "../../../services/account-service";
 import loginValidation, { initialLog } from "../../../validation/login";
+import themes from "../../../themes/co-theme";
+
+const { ColorModeContext } = themes;
 
 function Login() {
+  const colorMode = useContext(ColorModeContext);
+  const theme = useTheme();
+
   const { setAuth } = useStateContext();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState();
   const [errMessage, setError] = useState();
   const [showPassword, setShowPassword] = useState(false);
+
+  // eslint-disable-next-line react/destructuring-assignment
+  console.log(colorMode.toggleColorMode);
 
   const formik = useFormik({
     initialValues: initialLog,
@@ -49,24 +68,57 @@ function Login() {
   });
 
   return (
-    <Grid
-      className="App"
-      // sx={{
-      //   display: "flex",
-      //   position: "relative",
-      //   backgroundAttachment: "fixed",
-      //   backgroundImage:
-      //     "linear-gradient(rgba(4, 30, 5, 0.7), rgba(4, 30, 12, 0.7) 90%, #20571b), url('/public/images/farm.jpg')",
-      //   backgroundSize: "cover",
-      //   backgroundPosition: "50%",
-      //   backgroundRepeat: "no-repeat",
-      //   height: "100vh",
-      //   width: "100vw",
-      //   overflow: "hidden",
-      //   color: "#fff",
-      // }}
-    >
-      <Box className="stylish-design">
+    <Grid className="login">
+      <Box
+        sx={{
+          height: "100vh",
+          width: "100vw",
+          position: "fixed",
+          background: (themeMode) =>
+            themeMode.palette.mode === "dark"
+              ? "linear-gradient(rgba(26, 41, 31, 0.7), rgba(15, 24, 20, 0.7))"
+              : "linear-gradient(rgba(57, 114, 70, 0.7), rgba(55, 91, 75, 0.7))",
+        }}
+      />
+      <Box
+        sx={{ position: "fixed", bottom: "40px", left: "40px", zIndex: 2000 }}
+      >
+        <Button
+          type="button"
+          onClick={colorMode.toggleColorMode}
+          sx={{
+            midWidth: 0,
+            height: "55px",
+            width: "40px",
+            borderRadius: "50%",
+            padding: 0,
+            backgroundColor: "lightgray",
+            transition: "background-color 0.3s ease",
+            "&:hover": {
+              backgroundColor: "lightgreen",
+            },
+          }}
+        >
+          {theme.palette.mode === "dark" ? (
+            <DarkModeOutlinedIcon />
+          ) : (
+            <LightModeOutlinedIcon />
+          )}
+        </Button>
+      </Box>
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          width: "50vw",
+          height: "100vh",
+          clipPath: "polygon(0 0, 80% 0, 100% 100%, 0 100%, 0 80%)",
+          background: (themeMode) =>
+            themeMode.palette.mode === "dark"
+              ? "rgba(20, 27, 45, 0.9)"
+              : "rgba(255, 255, 255, 0.9)",
+        }}
+      >
         <form
           className="login-form"
           onSubmit={formik.handleSubmit}
@@ -78,8 +130,15 @@ function Login() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              justifyContent: "center",
               textAlign: "center",
               marginBottom: "60px",
+              background: (themeMode) =>
+                themeMode.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.8)"
+                  : "transparent",
+              p: "8px 15px 15px 15px",
+              borderRadius: "50px",
             }}
           >
             <Box
@@ -93,7 +152,10 @@ function Login() {
             <Typography
               component="h4"
               variant="h4"
-              sx={{ color: "black", fontWeight: "bolder" }}
+              sx={{
+                color: "black",
+                fontWeight: "bolder",
+              }}
             >
               Philippine Fiber Industry <br /> Development Authority
             </Typography>
@@ -169,7 +231,17 @@ function Login() {
             Log in
           </Button>
           <Link to="/">
-            <Typography sx={{ color: "blue", fontSize: "14px", m: 0 }}>
+            <Typography
+              sx={{
+                color: (themeMode) =>
+                  themeMode.palette.mode === "dark" ? "lightblue" : "blue",
+                fontSize: "14px",
+                m: 0,
+                "&:hover": {
+                  fontWeight: "bold",
+                },
+              }}
+            >
               Not a PhilFIDA member? Click Here
             </Typography>
           </Link>
