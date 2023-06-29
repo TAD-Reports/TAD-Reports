@@ -42,17 +42,18 @@ a:visited {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
+  height: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: #c800ff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #00a2ff;
 }
 
 /* Handle on hover */

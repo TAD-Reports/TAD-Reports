@@ -8,7 +8,7 @@ function Layout() {
   return (
     <Box sx={{ display: "flex", position: "relative" }}>
       <Sidebar />
-      <Box sx={{ height: "100%", width: "100%" }}>
+      <Box sx={{ height: "100vh", width: "100vw" }}>
         <Topbar />
         <Outlet />
       </Box>

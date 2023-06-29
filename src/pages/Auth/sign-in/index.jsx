@@ -202,7 +202,11 @@ function Login() {
                   tabIndex={0}
                   onClick={() => setShowPassword(!showPassword)}
                   onKeyPress={() => setShowPassword(!showPassword)}
-                  sx={{ margin: 0, cursor: "pointer" }}
+                  sx={{
+                    margin: 0,
+                    cursor: "pointer",
+                    backgroundColor: "transparent",
+                  }}
                 >
                   {showPassword ? (
                     <VisibilityIcon size={18} />

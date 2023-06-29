@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-duplicates */
 import { useState } from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -19,7 +20,7 @@ function Item({ title, to, icon, selected, setSelected }) {
     <MenuItem
       active={selected === title}
       style={{
-        color: colors.grey[100],
+        color: "#fff",
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -40,7 +41,7 @@ function Sidebar() {
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
+          background: "linear-gradient(100deg, #6F5F8D, #5D4C8B)",
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -49,10 +50,13 @@ function Sidebar() {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#00FFF7 !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#fff !important",
+          backgroundColor: "#302659",
+          marginRight: isCollapsed ? "0" : "29px",
+          borderRadius: "10px",
         },
       }}
     >
@@ -64,7 +68,7 @@ function Sidebar() {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "auto",
-              color: colors.grey[100],
+              color: "#fff",
             }}
           >
             {!isCollapsed && (
@@ -76,14 +80,18 @@ function Sidebar() {
               >
                 <Typography variant="h3" color={colors.grey[100]} />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
+                  <MenuOutlinedIcon
+                    style={{
+                      color: "#fff",
+                    }}
+                  />
                 </IconButton>
               </Box>
             )}
           </MenuItem>
 
           {!isCollapsed && (
-            <Box mb="25px">
+            <Box mb="25">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
@@ -96,13 +104,13 @@ function Sidebar() {
               <Box textAlign="center">
                 <Typography
                   variant="h2"
-                  color={colors.grey[100]}
+                  color="#fff"
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ray Hernandez
+                  Ray
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                <Typography variant="h5" color="#00FFF7">
                   HR Admin
                 </Typography>
               </Box>
@@ -121,7 +129,9 @@ function Sidebar() {
                     fontWeight: "bold",
                   }}
                 >
-                  {item.title}
+                  {item.title === "Dashboard" && isCollapsed
+                    ? "Dash"
+                    : item.title}
                 </Typography>
                 {item.links.map((link) => (
                   <Item

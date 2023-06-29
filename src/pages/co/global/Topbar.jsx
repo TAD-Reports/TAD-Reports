@@ -23,18 +23,29 @@ function Topbar() {
   };
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      p={2}
+    >
       {/* SEARCH BAR */}
+      <Box width="30%" />
       <Box
         display="flex"
         backgroundColor={colors.primary[400]}
-        borderRadius="3px"
+        borderRadius="10px"
+        paddingLeft="16px"
+        paddingRight="16px"
+        boxShadow="1px 1px 5px rgba(0, 0, 0, 0.5)"
+        sx={{ flexGrow: 1 }}
       >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
+        <InputBase sx={{ flex: 1 }} placeholder="Explore" />
         <IconButton type="button" sx={{ p: 1 }}>
-          <SearchIcon />
+          <SearchIcon sx={{ mr: 1 }} />
         </IconButton>
       </Box>
+      <Box width="30%" />
 
       {/* ICONS */}
       <Box display="flex">

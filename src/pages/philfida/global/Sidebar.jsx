@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
-import userImg from "../../../assets/user2.jpg";
+import userImg from "../../../assets/user.jpg";
 import themes from "../../../themes/co-theme";
 import links from "../../../components/philfida/SidebarLinks/defaultlinks";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -118,10 +118,10 @@ export default function Sidebar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ray Hernandez
+                  Mark Salem
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  HR Admin
+                  Super Admin
                 </Typography>
               </Box>
             </Box>

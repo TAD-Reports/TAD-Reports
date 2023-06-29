@@ -38,6 +38,7 @@ export default function Dashboard() {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
+              borderRadius: "10px",
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
@@ -62,11 +63,6 @@ export default function Dashboard() {
           justifyContent="center"
           borderRadius="20px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
-          sx={{
-            WebkitBackdropFilter: "blur(5px)",
-            backdropFilter: "blur(5px)",
-            opacity: 0.9,
-          }}
         >
           <StatBox
             title="12"
@@ -88,11 +84,6 @@ export default function Dashboard() {
           justifyContent="center"
           borderRadius="20px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
-          sx={{
-            WebkitBackdropFilter: "blur(5px)",
-            backdropFilter: "blur(5px)",
-            opacity: 0.9,
-          }}
         >
           <StatBox
             title="24"
@@ -114,11 +105,6 @@ export default function Dashboard() {
           justifyContent="center"
           borderRadius="20px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
-          sx={{
-            WebkitBackdropFilter: "blur(5px)",
-            backdropFilter: "blur(5px)",
-            opacity: 0.9,
-          }}
         >
           <StatBox
             title="63"
@@ -140,11 +126,6 @@ export default function Dashboard() {
           justifyContent="center"
           borderRadius="20px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
-          sx={{
-            WebkitBackdropFilter: "blur(5px)",
-            backdropFilter: "blur(5px)",
-            opacity: 0.9,
-          }}
         >
           <StatBox
             title="5"
@@ -166,11 +147,6 @@ export default function Dashboard() {
           backgroundColor={colors.primary[400]}
           borderRadius="25px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
-          sx={{
-            WebkitBackdropFilter: "blur(5px)",
-            backdropFilter: "blur(5px)",
-            opacity: 0.9,
-          }}
         >
           <Box
             mt="25px"
@@ -178,11 +154,6 @@ export default function Dashboard() {
             display="flex "
             justifyContent="space-between"
             alignItems="center"
-            sx={{
-              WebkitBackdropFilter: "blur(5px)",
-              backdropFilter: "blur(5px)",
-              opacity: 0.9,
-            }}
           >
             <Box>
               <Typography
@@ -218,11 +189,7 @@ export default function Dashboard() {
           backgroundColor={colors.primary[400]}
           borderRadius="25px"
           overflow="hidden"
-          sx={{
-            WebkitBackdropFilter: "blur(5px)",
-            backdropFilter: "blur(5px)",
-            opacity: 0.9,
-          }}
+          boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
         >
           <Box
             display="flex"
@@ -283,11 +250,6 @@ export default function Dashboard() {
           p="30px"
           borderRadius="25px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
-          sx={{
-            WebkitBackdropFilter: "blur(5px)",
-            backdropFilter: "blur(5px)",
-            opacity: 0.9,
-          }}
         >
           <Typography variant="h5" fontWeight="600">
             Available Tasks
@@ -315,11 +277,6 @@ export default function Dashboard() {
           backgroundColor={colors.primary[400]}
           borderRadius="25px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
-          sx={{
-            WebkitBackdropFilter: "blur(15px)",
-            backdropFilter: "blur(15px)",
-            opacity: 0.9,
-          }}
         >
           <Typography
             variant="h5"

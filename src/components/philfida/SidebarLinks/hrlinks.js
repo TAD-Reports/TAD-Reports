@@ -8,7 +8,6 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
 const hrlinks = [
   {
@@ -32,12 +31,12 @@ const hrlinks = [
       },
       {
         name: "Applicants",
-        path: "contacts",
+        path: "applicants",
         icon: <ContactsOutlinedIcon />,
       },
       {
         name: "Job Positions",
-        path: "invoices",
+        path: "positions",
         icon: <ReceiptOutlinedIcon />,
       },
     ],
@@ -79,11 +78,6 @@ const hrlinks = [
         name: "Line Chart",
         path: "line",
         icon: <TimelineOutlinedIcon />,
-      },
-      {
-        name: "Geography Chart",
-        path: "geography",
-        icon: <MapOutlinedIcon />,
       },
     ],
   },
