@@ -33,7 +33,7 @@ export default function Dashboard() {
         <Box>
           <Button
             sx={{
-              backgroundColor: colors.blueAccent[700],
+              backgroundColor: colors.blueAccent[400],
               color: colors.grey[100],
               fontSize: "14px",
               fontWeight: "bold",
@@ -71,7 +71,7 @@ export default function Dashboard() {
             increase="+33.4%"
             icon={
               <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.redAccent[400], fontSize: "26px" }}
               />
             }
           />
@@ -92,7 +92,7 @@ export default function Dashboard() {
             increase="+66.7%"
             icon={
               <FactCheckIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.redAccent[400], fontSize: "26px" }}
               />
             }
           />
@@ -113,7 +113,7 @@ export default function Dashboard() {
             increase="+43%"
             icon={
               <PictureAsPdfIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.redAccent[400], fontSize: "26px" }}
               />
             }
           />
@@ -134,7 +134,7 @@ export default function Dashboard() {
             increase="+5%"
             icon={
               <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.redAccent[400], fontSize: "26px" }}
               />
             }
           />
@@ -159,7 +159,7 @@ export default function Dashboard() {
               <Typography
                 variant="h4"
                 fontWeight="bold"
-                color={colors.greenAccent[500]}
+                color={colors.greenAccent[300]}
               >
                 Applications
               </Typography>
@@ -219,7 +219,7 @@ export default function Dashboard() {
               >
                 <Box>
                   <Typography
-                    color={colors.greenAccent[500]}
+                    color={colors.greenAccent[300]}
                     variant="h5"
                     fontWeight="600"
                   >
@@ -231,7 +231,7 @@ export default function Dashboard() {
                 </Box>
                 <Box color={colors.grey[100]}>{transaction.date}</Box>
                 <Box
-                  backgroundColor={colors.blueAccent[600]}
+                  backgroundColor={colors.blueAccent[400]}
                   p="5px 10px"
                   borderRadius="4px"
                 >
@@ -263,7 +263,7 @@ export default function Dashboard() {
             <ProgressCircle size="125" />
             <Typography
               variant="h5"
-              color={colors.greenAccent[500]}
+              color={colors.greenAccent[300]}
               sx={{ mt: "15px" }}
             >
               43 new Tasks
