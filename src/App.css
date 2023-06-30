@@ -58,7 +58,7 @@ a:visited {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #ffd900;
 }
 
 /* color-picker style  */
