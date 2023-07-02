@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
-import userImg from "../../../assets/user.jpg";
+import userImg from "../../../assets/dev3.jpg";
 import themes from "../../../themes/co-theme";
 import links from "../../../components/philfida/SidebarLinks/defaultlinks";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -13,14 +13,11 @@ import "react-pro-sidebar/dist/css/styles.css";
 const { tokens } = themes;
 
 function Item({ title, to, icon, selected, setSelected }) {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
   return (
     <MenuItem
       active={selected === title}
       style={{
-        color: colors.grey[100],
+        color: "#fff",
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -31,23 +28,6 @@ function Item({ title, to, icon, selected, setSelected }) {
   );
 }
 
-Item.defaultProps = {
-  title: "",
-  to: "",
-  icon: null,
-  selected: null,
-  setSelected: () => {},
-};
-
-Item.propTypes = {
-  title: PropTypes.string,
-  to: PropTypes.string,
-  icon: PropTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
-  selected: PropTypes.object,
-  setSelected: PropTypes.func,
-};
-
 export default function Sidebar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -57,8 +37,11 @@ export default function Sidebar() {
   return (
     <Box
       sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
         "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
+          background: `linear-gradient(100deg, ${colors.theme[100]}, ${colors.theme[200]})`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -67,10 +50,13 @@ export default function Sidebar() {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#00FFF7 !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#fff !important",
+          backgroundColor: colors.theme[300],
+          marginRight: isCollapsed ? "0.5px" : "29px",
+          borderRadius: "10px",
         },
       }}
     >
@@ -81,8 +67,8 @@ export default function Sidebar() {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
-              color: colors.grey[100],
+              margin: "auto",
+              color: "#fff",
             }}
           >
             {!isCollapsed && (
@@ -94,14 +80,18 @@ export default function Sidebar() {
               >
                 <Typography variant="h3" color={colors.grey[100]} />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
+                  <MenuOutlinedIcon
+                    style={{
+                      color: "#fff",
+                    }}
+                  />
                 </IconButton>
               </Box>
             )}
           </MenuItem>
 
           {!isCollapsed && (
-            <Box mb="25px">
+            <Box mb="25">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
@@ -114,13 +104,13 @@ export default function Sidebar() {
               <Box textAlign="center">
                 <Typography
                   variant="h2"
-                  color={colors.grey[100]}
+                  color="#fff"
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Mark Salem
+                  Ray
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                <Typography variant="h5" color="#00FFF7">
                   Super Admin
                 </Typography>
               </Box>
@@ -132,6 +122,7 @@ export default function Sidebar() {
               <Box key={item.title} sx={{ width: "100%" }}>
                 <Typography
                   sx={{
+                    color: "#fff",
                     m: 2,
                     mt: 4,
                     textTransform: "uppercase",
@@ -157,3 +148,20 @@ export default function Sidebar() {
     </Box>
   );
 }
+
+Item.defaultProps = {
+  title: "",
+  to: "",
+  icon: null,
+  selected: null,
+  setSelected: () => {},
+};
+
+Item.propTypes = {
+  title: PropTypes.string,
+  to: PropTypes.string,
+  icon: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  selected: PropTypes.object,
+  setSelected: PropTypes.func,
+};

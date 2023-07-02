@@ -35,10 +35,15 @@ export default function Dashboard() {
             sx={{
               backgroundColor: colors.theme[100],
               color: colors.grey[100],
+              "&:hover": {
+                color: "black",
+                backgroundColor: colors.redAccent[700],
+              },
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
               borderRadius: "10px",
+              boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.5)",
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
@@ -146,39 +151,15 @@ export default function Dashboard() {
           borderRadius="25px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
         >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ padding: "30px 30px 0 30px" }}
           >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
-              >
-                Applications
-              </Typography>
-              <Typography
-                variant="h7"
-                fontWeight="500"
-                color={colors.greenAccent[300]}
-              >
-                36 total applications for the last 12 months
-              </Typography>
-            </Box>
-            {/* <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
-            </Box> */}
-          </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            Applied Positions
+          </Typography>
+          <Box height="260px" mt="-20px">
+            <BarChart isDashboard={true} />
           </Box>
         </Box>
         <Box
@@ -271,15 +252,39 @@ export default function Dashboard() {
           borderRadius="25px"
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
         >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
+          <Box
+            mt="25px"
+            p="0 30px"
+            display="flex "
+            justifyContent="space-between"
+            alignItems="center"
           >
-            Applied Positions
-          </Typography>
-          <Box height="260px" mt="-20px">
-            <BarChart isDashboard={true} />
+            <Box>
+              <Typography
+                variant="h5"
+                fontWeight="600"
+                color={colors.grey[100]}
+              >
+                Applications
+              </Typography>
+              {/* <Typography
+                variant="h7"
+                fontWeight="500"
+                color={colors.greenAccent[300]}
+              >
+                36 total applications for the last 6 months
+              </Typography> */}
+            </Box>
+            {/* <Box>
+              <IconButton>
+                <DownloadOutlinedIcon
+                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
+                />
+              </IconButton>
+            </Box> */}
+          </Box>
+          <Box height="260px" m="-20px 0 0 0">
+            <LineChart isDashboard={true} />
           </Box>
         </Box>
       </Box>

@@ -474,12 +474,12 @@ const mockTransactions = [
 const mockBarData = [
   {
     country: "Web Dev",
-    Total: 28,
+    Total: 90,
     TotalColor: "hsl(111, 70%, 50%)",
   },
   {
     country: "Software Engr",
-    Total: 28,
+    Total: 38,
     TotalColor: "hsl(111, 70%, 50%)",
   },
   {
@@ -520,34 +520,6 @@ const mockLineData = [
     color: tokens("dark").greenAccent[500],
     data: [
       {
-        x: "July",
-        y: 14,
-      },
-      {
-        x: "August",
-        y: 101,
-      },
-      {
-        x: "September",
-        y: 75,
-      },
-      {
-        x: "October",
-        y: 36,
-      },
-      {
-        x: "November",
-        y: 216,
-      },
-      {
-        x: "December",
-        y: 35,
-      },
-      {
-        x: "January",
-        y: 236,
-      },
-      {
         x: "February",
         y: 88,
       },
@@ -567,40 +539,16 @@ const mockLineData = [
         x: "June",
         y: 35,
       },
+      {
+        x: "July",
+        y: 236,
+      },
     ],
   },
   {
     id: "Software Engineer",
     color: tokens("dark").blueAccent[300],
     data: [
-      {
-        x: "July",
-        y: 212,
-      },
-      {
-        x: "August",
-        y: 190,
-      },
-      {
-        x: "September",
-        y: 270,
-      },
-      {
-        x: "October",
-        y: 9,
-      },
-      {
-        x: "November",
-        y: 75,
-      },
-      {
-        x: "December",
-        y: 175,
-      },
-      {
-        x: "January",
-        y: 33,
-      },
       {
         x: "February",
         y: 189,
@@ -621,40 +569,16 @@ const mockLineData = [
         x: "June",
         y: 251,
       },
+      {
+        x: "July",
+        y: 33,
+      },
     ],
   },
   {
     id: "IT Specialist",
     color: tokens("dark").redAccent[200],
     data: [
-      {
-        x: "July",
-        y: 191,
-      },
-      {
-        x: "August",
-        y: 136,
-      },
-      {
-        x: "September",
-        y: 91,
-      },
-      {
-        x: "October",
-        y: 190,
-      },
-      {
-        x: "November",
-        y: 211,
-      },
-      {
-        x: "December",
-        y: 152,
-      },
-      {
-        x: "January",
-        y: 189,
-      },
       {
         x: "February",
         y: 152,
@@ -674,6 +598,10 @@ const mockLineData = [
       {
         x: "June",
         y: 170,
+      },
+      {
+        x: "July",
+        y: 189,
       },
     ],
   },

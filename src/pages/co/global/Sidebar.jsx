@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
-import userImg from "../../../assets/user2.jpg";
+import userImg from "../../../assets/dev3.jpg";
 import themes from "../../../themes/co-theme";
 import hrlinks from "../../../components/philfida/SidebarLinks/hrlinks";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -41,7 +41,6 @@ function Sidebar() {
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          // background: "linear-gradient(100deg, #6F5F8D, #5D4C8B)",
           background: `linear-gradient(100deg, ${colors.theme[100]}, ${colors.theme[200]})`,
         },
         "& .pro-icon-wrapper": {

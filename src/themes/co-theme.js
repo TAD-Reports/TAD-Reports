@@ -68,8 +68,8 @@ const tokens = (mode) => ({
       }
     : {
         theme: {
-          100: "#3da58a",
-          200: "#2e7c67",
+          100: "#078c6f",
+          200: "#0c794f",
           300: "#276655",
         },
         grey: {
@@ -209,7 +209,7 @@ const ColorModeContext = createContext({
 });
 
 const useMode = () => {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
 
   const colorMode = useMemo(
     () => ({

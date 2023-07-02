@@ -7,12 +7,21 @@ import "../App.css";
 function HrLayout() {
   const [isSidebar, setIsSidebar] = useState(true);
   return (
-    <div className="app">
-      <Sidebar isSidebar={isSidebar} />
-      <main className="content">
-        <Topbar setIsSidebar={setIsSidebar} />
-        <Outlet />
-      </main>
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        flex: "1",
+        overflowY: "auto",
+      }}
+    >
+      <div className="app">
+        <Sidebar isSidebar={isSidebar} />
+        <main className="content">
+          <Topbar setIsSidebar={setIsSidebar} />
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

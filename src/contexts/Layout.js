@@ -6,13 +6,17 @@ import { Topbar, Sidebar } from "../pages/philfida/global";
 
 function Layout() {
   return (
-    <Box sx={{ display: "flex", position: "relative" }}>
-      <Sidebar />
-      <Box sx={{ height: "100vh", width: "100vw" }}>
-        <Topbar />
-        <Outlet />
+    <div style={{ display: "flex", minHeight: "100vh" }}>
+      <Box sx={{ display: "flex", position: "relative" }}>
+        <Sidebar />
+        <Box
+          sx={{ height: "100vh", width: "100vw", flex: "1", overflowY: "auto" }}
+        >
+          <Topbar />
+          <Outlet />
+        </Box>
       </Box>
-    </Box>
+    </div>
   );
 }
 
