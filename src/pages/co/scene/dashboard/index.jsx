@@ -71,7 +71,7 @@ export default function Dashboard() {
             increase="+33.4%"
             icon={
               <PersonAddIcon
-                sx={{ color: colors.redAccent[400], fontSize: "26px" }}
+                sx={{ color: colors.theme[100], fontSize: "26px" }}
               />
             }
           />
@@ -92,7 +92,7 @@ export default function Dashboard() {
             increase="+66.7%"
             icon={
               <FactCheckIcon
-                sx={{ color: colors.redAccent[400], fontSize: "26px" }}
+                sx={{ color: colors.theme[100], fontSize: "26px" }}
               />
             }
           />
@@ -113,7 +113,7 @@ export default function Dashboard() {
             increase="+43%"
             icon={
               <PictureAsPdfIcon
-                sx={{ color: colors.redAccent[400], fontSize: "26px" }}
+                sx={{ color: colors.theme[100], fontSize: "26px" }}
               />
             }
           />
@@ -133,9 +133,7 @@ export default function Dashboard() {
             progress="0.05"
             increase="+5%"
             icon={
-              <EmailIcon
-                sx={{ color: colors.redAccent[400], fontSize: "26px" }}
-              />
+              <EmailIcon sx={{ color: colors.theme[100], fontSize: "26px" }} />
             }
           />
         </Box>
