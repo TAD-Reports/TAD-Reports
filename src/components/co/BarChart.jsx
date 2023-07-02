@@ -45,14 +45,19 @@ function BarChart({ isDashboard }) {
             fill: colors.grey[100],
           },
         },
+        tooltip: {
+          container: {
+            color: colors.primary[500],
+          },
+        },
       }}
-      keys={["Task1", "Task2", "Task3"]}
+      keys={["Applied"]}
       indexBy="country"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
-      colors={{ scheme: "nivo" }}
+      colors={{ scheme: "accent" }}
       defs={[
         {
           id: "dots",
@@ -71,6 +76,14 @@ function BarChart({ isDashboard }) {
           rotation: -45,
           lineWidth: 6,
           spacing: 10,
+        },
+      ]}
+      fill={[
+        {
+          match: {
+            id: "Applied",
+          },
+          id: "dots",
         },
       ]}
       borderColor={{
@@ -95,7 +108,7 @@ function BarChart({ isDashboard }) {
         legendPosition: "middle",
         legendOffset: -40,
       }}
-      enableLabel={false}
+      enableGridY={false}
       labelSkipWidth={12}
       labelSkipHeight={12}
       labelTextColor={{
@@ -120,6 +133,7 @@ function BarChart({ isDashboard }) {
             {
               on: "hover",
               style: {
+                itemBackground: "rgba(0, 0, 0, .03)",
                 itemOpacity: 1,
               },
             },
@@ -127,6 +141,7 @@ function BarChart({ isDashboard }) {
         },
       ]}
       role="application"
+      isFocusable
       barAriaLabel={getBarAriaLabel}
     />
   );

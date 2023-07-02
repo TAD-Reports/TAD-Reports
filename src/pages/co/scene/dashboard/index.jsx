@@ -12,7 +12,7 @@ import Header from "../../../../components/co/Header";
 import LineChart from "../../../../components/co/LineChart";
 import BarChart from "../../../../components/co/BarChart";
 import StatBox from "../../../../components/co/StatBox";
-import ProgressCircle from "../../../../components/co/ProgressCircle";
+import PieChart from "../../../../components/co/PieChart";
 
 const { tokens } = themes;
 const { mockTransactions } = mockTransaction;
@@ -157,16 +157,16 @@ export default function Dashboard() {
           >
             <Box>
               <Typography
-                variant="h4"
-                fontWeight="bold"
-                color={colors.greenAccent[300]}
+                variant="h5"
+                fontWeight="600"
+                color={colors.grey[100]}
               >
                 Applications
               </Typography>
               <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
+                variant="h7"
+                fontWeight="500"
+                color={colors.greenAccent[300]}
               >
                 36 total applications for the last 12 months
               </Typography>
@@ -252,25 +252,20 @@ export default function Dashboard() {
           boxShadow="0px 5px 10px rgba(0, 0, 0, 0.4)"
         >
           <Typography variant="h5" fontWeight="600">
-            Available Tasks
+            Applicants Gender
           </Typography>
           <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
-            mt="25px"
+            marginTop="-10px"
           >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[300]}
-              sx={{ mt: "15px" }}
-            >
-              43 new Tasks
-            </Typography>
-            <Typography>5 in progress</Typography>
+            <Box height="290px" width="100%">
+              <PieChart />
+            </Box>
           </Box>
         </Box>
+
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -283,9 +278,9 @@ export default function Dashboard() {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Most Active Employees
+            Applied Positions
           </Typography>
-          <Box height="250px" mt="-20px">
+          <Box height="260px" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
         </Box>

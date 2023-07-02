@@ -47,7 +47,7 @@ function LineChart({ isDashboard }) {
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
+      colors={isDashboard ? { datum: "color" } : { scheme: "set1" }} // added
       margin={{ top: 50, right: 150, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{

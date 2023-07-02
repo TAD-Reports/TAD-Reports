@@ -89,15 +89,16 @@ function App() {
             <Route element={<HrAuth allowedRole="hradmin" />}>
               <Route path="/" element={<HrLayout />}>
                 <Route path="/hrdashboard" element={<HrDashboard />} />
-                <Route path="/team" element={<Team />} />
                 <Route path="/applicants" element={<Applicants />} />
                 <Route path="/positions" element={<Positions />} />
-                <Route path="/form" element={<Form />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/jobform" element={<FAQ />} />
+                <Route path="/userform" element={<Form />} />
+                <Route path="/calendar" element={<Calendar />} />
                 <Route path="/bar" element={<Bar />} />
                 <Route path="/pie" element={<Pie />} />
                 <Route path="/line" element={<Line />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/calendar" element={<Calendar />} />
+
                 <Route path="/geography" element={<Geography />} />
               </Route>
             </Route>

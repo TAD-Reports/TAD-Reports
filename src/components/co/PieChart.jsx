@@ -39,12 +39,20 @@ function PieChart() {
             fill: colors.grey[100],
           },
         },
+        tooltip: {
+          container: {
+            color: colors.primary[500],
+          },
+        },
       }}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
+      activeInnerRadiusOffset={10}
       activeOuterRadiusOffset={8}
+      colors={{ scheme: "accent" }}
+      borderWidth={1}
       borderColor={{
         from: "color",
         modifiers: [["darker", 0.2]],
@@ -53,9 +61,7 @@ function PieChart() {
       arcLinkLabelsTextColor={colors.grey[100]}
       arcLinkLabelsThickness={2}
       arcLinkLabelsColor={{ from: "color" }}
-      enableArcLabels={false}
-      arcLabelsRadiusOffset={0.4}
-      arcLabelsSkipAngle={7}
+      arcLabelsSkipAngle={10}
       arcLabelsTextColor={{
         from: "color",
         modifiers: [["darker", 2]],
@@ -80,17 +86,31 @@ function PieChart() {
           spacing: 10,
         },
       ]}
+      fill={[
+        {
+          match: {
+            id: "Male",
+          },
+          id: "lines",
+        },
+        {
+          match: {
+            id: "Female",
+          },
+          id: "dots",
+        },
+      ]}
       legends={[
         {
-          anchor: "bottom",
-          direction: "row",
+          anchor: "right",
+          direction: "column",
           justify: false,
-          translateX: 0,
-          translateY: 56,
-          itemsSpacing: 0,
+          translateX: 90,
+          translateY: 65,
+          itemsSpacing: 5,
           itemWidth: 100,
           itemHeight: 18,
-          itemTextColor: "#999",
+          itemTextColor: colors.grey[100],
           itemDirection: "left-to-right",
           itemOpacity: 1,
           symbolSize: 18,
@@ -99,7 +119,8 @@ function PieChart() {
             {
               on: "hover",
               style: {
-                itemTextColor: "#000",
+                itemBackground: "rgba(0, 0, 0, .03)",
+                itemOpacity: 1,
               },
             },
           ],

@@ -55,7 +55,7 @@ function Sidebar() {
         "& .pro-menu-item.active": {
           color: "#fff !important",
           backgroundColor: "#302659",
-          marginRight: isCollapsed ? "0" : "29px",
+          marginRight: isCollapsed ? "0.5px" : "29px",
           borderRadius: "10px",
         },
       }}
@@ -129,9 +129,7 @@ function Sidebar() {
                     fontWeight: "bold",
                   }}
                 >
-                  {item.title === "Dashboard" && isCollapsed
-                    ? "Dash"
-                    : item.title}
+                  {item.title}
                 </Typography>
                 {item.links.map((link) => (
                   <Item

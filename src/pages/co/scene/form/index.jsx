@@ -4,7 +4,7 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../../../components/co/Header";
 
-function Form() {
+function UserForm() {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit = (values) => {
@@ -151,4 +151,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default UserForm;
