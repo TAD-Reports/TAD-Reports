@@ -474,28 +474,28 @@ const mockTransactions = [
 const mockBarData = [
   {
     country: "Web Dev",
-    Applied: 28,
-    ApplicantsColor: "hsl(111, 70%, 50%)",
+    Total: 28,
+    TotalColor: "hsl(111, 70%, 50%)",
   },
   {
     country: "Software Engr",
-    Applied: 28,
-    ApplicantsColor: "hsl(111, 70%, 50%)",
+    Total: 28,
+    TotalColor: "hsl(111, 70%, 50%)",
   },
   {
     country: "IT Spec",
-    Applied: 23,
-    ApplicantsColor: "hsl(96, 70%, 50%)",
+    Total: 23,
+    TotalColor: "hsl(96, 70%, 50%)",
   },
   {
     country: "Data Analyst",
-    Applied: 52,
-    ApplicantsColor: "hsl(326, 70%, 50%)",
+    Total: 52,
+    TotalColor: "hsl(326, 70%, 50%)",
   },
   {
     country: "Project Manager",
-    Applied: 80,
-    ApplicantsColor: "hsl(325, 70%, 50%)",
+    Total: 80,
+    TotalColor: "hsl(325, 70%, 50%)",
   },
 ];
 

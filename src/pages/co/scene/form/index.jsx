@@ -1,10 +1,15 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../../../components/co/Header";
+import themes from "../../../../themes/co-theme";
 
-function UserForm() {
+const { tokens } = themes;
+
+export default function UserForm() {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit = (values) => {
@@ -140,7 +145,13 @@ function UserForm() {
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  backgroundColor: colors.theme[100],
+                }}
+              >
                 Create New User
               </Button>
             </Box>
@@ -150,5 +161,3 @@ function UserForm() {
     </Box>
   );
 }
-
-export default UserForm;

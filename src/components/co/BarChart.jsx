@@ -51,7 +51,7 @@ function BarChart({ isDashboard }) {
           },
         },
       }}
-      keys={["Applied"]}
+      keys={["Total"]}
       indexBy="country"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
@@ -81,7 +81,7 @@ function BarChart({ isDashboard }) {
       fill={[
         {
           match: {
-            id: "Applied",
+            id: "Total",
           },
           id: "dots",
         },

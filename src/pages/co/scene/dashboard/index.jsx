@@ -33,7 +33,7 @@ export default function Dashboard() {
         <Box>
           <Button
             sx={{
-              backgroundColor: colors.blueAccent[400],
+              backgroundColor: colors.theme[100],
               color: colors.grey[100],
               fontSize: "14px",
               fontWeight: "bold",
@@ -231,7 +231,7 @@ export default function Dashboard() {
                 </Box>
                 <Box color={colors.grey[100]}>{transaction.date}</Box>
                 <Box
-                  backgroundColor={colors.blueAccent[400]}
+                  backgroundColor={colors.theme[100]}
                   p="5px 10px"
                   borderRadius="4px"
                 >

@@ -41,7 +41,8 @@ function Sidebar() {
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          background: "linear-gradient(100deg, #6F5F8D, #5D4C8B)",
+          // background: "linear-gradient(100deg, #6F5F8D, #5D4C8B)",
+          background: `linear-gradient(100deg, ${colors.theme[100]}, ${colors.theme[200]})`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -54,7 +55,7 @@ function Sidebar() {
         },
         "& .pro-menu-item.active": {
           color: "#fff !important",
-          backgroundColor: "#302659",
+          backgroundColor: colors.theme[300],
           marginRight: isCollapsed ? "0.5px" : "29px",
           borderRadius: "10px",
         },
