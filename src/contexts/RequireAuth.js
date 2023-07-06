@@ -6,12 +6,19 @@ export default function RequireAuth({ allowedRoles }) {
   const { auth } = useStateContext();
   const location = useLocation();
 
-  console.log(auth);
+  let hasAllowedRole = false;
 
-  const hasAllowedRole =
-    allowedRoles && allowedRoles.some((roleObject) => roleObject[auth?.role]);
+  if (allowedRoles) {
+    if (typeof allowedRoles === "string") {
+      hasAllowedRole = allowedRoles === auth?.role;
+    } else if (Array.isArray(allowedRoles)) {
+      hasAllowedRole =
+        allowedRoles &&
+        allowedRoles.some((roleObject) => roleObject[auth?.role]);
+    }
+  }
 
-  // eslint-disable-next-line no-nested-ternary, react/prop-types
+  // eslint-disable-next-line no-nested-ternary
   return hasAllowedRole ? (
     <Outlet />
   ) : auth?.username ? (
@@ -26,6 +33,8 @@ RequireAuth.defaultProps = {
 };
 
 RequireAuth.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  allowedRoles: PropTypes.object,
+  allowedRoles: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 };

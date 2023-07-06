@@ -9,7 +9,7 @@ function PageContainer({ children }) {
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
-        mt: "30px",
+        my: "30px",
         ml: "80px",
         width: "78vw",
         zIndex: 1500,

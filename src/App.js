@@ -3,9 +3,10 @@ import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import RequireAuth from "contexts/RequireAuth";
-import HrAuth from "contexts/HrAuth";
-import Layout from "contexts/Layout";
-import HrLayout from "contexts/HrLayout";
+import PICTULayout from "contexts/Layouts/PICTULayout";
+import TADLayout from "contexts/Layouts/TADLayout";
+import COLayout from "contexts/Layouts/COLayout";
+import IFEDLayout from "contexts/Layouts/IFEDLayout";
 import {
   Login,
   Unauthorized,
@@ -42,7 +43,15 @@ const { ColorModeContext, useMode } = themes;
 
 function App() {
   const [theme, colorMode] = useMode();
-  const Roles = {
+  const TADRoles = {
+    admin: "admin",
+    superadmin: "superadmin",
+    reviewer: "reviewer",
+    uploader: "uploader",
+    planner: "planner",
+  };
+
+  const IFEDRoles = {
     admin: "admin",
     superadmin: "superadmin",
     reviewer: "reviewer",
@@ -60,8 +69,32 @@ function App() {
             <Route path="/sign-in" element={<Login />} />
             <Route path="/app-form" element={<AppForm />} />
 
-            <Route element={<RequireAuth allowedRoles={[Roles]} />}>
-              <Route path="/" element={<Layout />}>
+            <Route element={<RequireAuth allowedRoles="hradmin" />}>
+              <Route path="/" element={<COLayout />}>
+                <Route path="/hrdashboard" element={<HrDashboard />} />
+                <Route path="/applicants" element={<Applicants />} />
+                <Route path="/positions" element={<Positions />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/jobform" element={<FAQ />} />
+                <Route path="/userform" element={<Form />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/bar" element={<Bar />} />
+                <Route path="/pie" element={<Pie />} />
+                <Route path="/line" element={<Line />} />
+
+                <Route path="/geography" element={<Geography />} />
+              </Route>
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles="supersuperadmin" />}>
+              <Route path="/" element={<PICTULayout />}>
+                <Route path="/pictudashboard" element={<HrDashboard />} />
+                <Route path="/users" element={<Applicants />} />
+              </Route>
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={[TADRoles]} />}>
+              <Route path="/" element={<TADLayout />}>
                 <Route path="/register" element={<Register />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/nursery" element={<Nursery />} />
@@ -86,8 +119,8 @@ function App() {
               </Route>
             </Route>
 
-            <Route element={<HrAuth allowedRole="hradmin" />}>
-              <Route path="/" element={<HrLayout />}>
+            <Route element={<RequireAuth allowedRoles={[IFEDRoles]} />}>
+              <Route path="/" element={<IFEDLayout />}>
                 <Route path="/hrdashboard" element={<HrDashboard />} />
                 <Route path="/applicants" element={<Applicants />} />
                 <Route path="/positions" element={<Positions />} />

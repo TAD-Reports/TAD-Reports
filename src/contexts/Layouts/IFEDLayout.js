@@ -2,9 +2,9 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 
-import { Topbar, Sidebar } from "../pages/philfida/global";
+import { Topbar, Sidebar } from "../../pages/philfida/global";
 
-function Layout() {
+function IFEDLayout() {
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <Box sx={{ display: "flex", position: "relative" }}>
@@ -20,4 +20,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default IFEDLayout;
