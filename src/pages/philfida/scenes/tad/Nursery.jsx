@@ -19,6 +19,8 @@ import { FcComboChart } from "react-icons/fc";
 import SearchIcon from "@mui/icons-material/Search";
 import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
+import useAxiosPrivate from "hooks/useTokenTimeOut";
+import { useLocation, useNavigate } from "react-router-dom";
 import Service from "../../../../services/tad-service";
 import DownloadFunction from "../../../../components/philfida/Buttons/DownloadFunctions/Nursery";
 import PageContainer from "../../../../components/philfida/LayoutContainers/PageContainer";
@@ -32,6 +34,11 @@ import MixChart from "../../../../components/philfida/Charts/MixChart";
 
 export default function Nursery() {
   const { auth } = useStateContext();
+
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [region, setRegion] = useState("");
@@ -115,6 +122,25 @@ export default function Nursery() {
     ) {
       handleSearch(filter);
     }
+    const controller = new AbortController();
+
+    const getTokenState = async () => {
+      try {
+        await axiosPrivate.get(`/${moduleName}/get/1`, {
+          signal: controller.signal,
+        });
+      } catch (err) {
+        console.error(err);
+        alert("Your session has expired. Please log in again to continue.");
+        navigate("/sign-in", { state: { from: location }, replace: true });
+      }
+    };
+
+    getTokenState();
+
+    return () => {
+      controller.abort();
+    };
   }, [region, startDate, endDate, selectedValue]);
 
   const validateDateRange = (start, end) => {

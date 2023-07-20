@@ -7,7 +7,18 @@ const DEFAULT_DELAY = 1000;
 const BASE_URL = "http://localhost:9000";
 
 function authenticate(account) {
-  return axios.post(`${BASE_URL}/login`, account).then((res) => res.data);
+  return axios
+    .post(`${BASE_URL}/login`, account, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    })
+    .then((res) => res.data);
+}
+
+function useRefreshToken() {
+  return axios.get(`${BASE_URL}/refresh`, {
+    withCredentials: true,
+  });
 }
 
 function getAllUsers() {
@@ -41,6 +52,7 @@ function updateUser(account) {
 
 export default {
   authenticate,
+  useRefreshToken,
   getAllUsers,
   getUser,
   searchUsers,

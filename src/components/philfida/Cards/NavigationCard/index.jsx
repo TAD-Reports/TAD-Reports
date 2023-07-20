@@ -1,21 +1,9 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import GrassIcon from "@mui/icons-material/Grass";
-import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-import links from "../../SidebarLinks/defaultlinks";
 
-function NavigationCard({ cardColor, pathName, title, icon: Icon }) {
-  const path = (linkName) => {
-    const reportLinks = links.filter((item) => item.title === "Reports")[0]
-      .links;
-    const reportLink = reportLinks.find((link) => link.path === linkName);
-    if (!reportLink) {
-      throw new Error(`Link not found: ${linkName}`);
-    }
-    return reportLink.path;
-  };
-
+function NavigationCard({ cardColor, title, icon: Icon }) {
   function hexToRgba(hex, alpha) {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
@@ -24,77 +12,75 @@ function NavigationCard({ cardColor, pathName, title, icon: Icon }) {
   }
 
   const hexColor = `#${cardColor}`;
-  const rgbaColor = hexToRgba(hexColor, 0.7);
+  const rgbaColor = hexToRgba(hexColor, 0.8);
 
   return (
-    <NavLink to={`/${path(`${pathName}`)}`}>
-      <Button
+    <Button
+      sx={{
+        backgroundColor: `#${cardColor}`,
+        borderRadius: "15px",
+        width: "7vw",
+        height: "16vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        textAlign: "center",
+        color: "black",
+        ":hover": {
+          transition: "all 0.3s ease",
+          mx: "5px",
+          backgroundColor: `${rgbaColor}`,
+          border: "solid 2px gray",
+          width: "8vw",
+          height: "17vh",
+        },
+      }}
+    >
+      <Box
         sx={{
-          backgroundColor: `#${cardColor}`,
-          borderRadius: "15px",
-          width: "15vw",
-          height: "22vh",
+          width: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: "column",
-          textAlign: "center",
-          color: "black",
-          ":hover": {
-            backgroundColor: `${rgbaColor}`,
-            border: "solid 1px gray",
-            width: "16.5vw",
-            height: "23vh",
-          },
         }}
       >
         <Box
           sx={{
-            width: "100%",
+            backgroundColor: "#fff",
+            border: "solid 1px #bbb",
+            width: "80px",
+            height: "80px",
+            borderRadius: "50%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Box
-            sx={{
-              backgroundColor: "#fff",
-              border: "solid 1px #bbb",
-              width: "100px",
-              height: "100px",
-              borderRadius: "50%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {Icon ? (
-              <Icon style={{ fontSize: "80px" }} />
-            ) : (
-              <GrassIcon style={{ fontSize: "80px" }} />
-            )}
-          </Box>
+          {Icon ? (
+            <Icon style={{ fontSize: "50px" }} />
+          ) : (
+            <GrassIcon style={{ fontSize: "50px" }} />
+          )}
         </Box>
+      </Box>
 
-        <Typography sx={{ fontWeight: "bold", fontFamily: "Poppins", mt: 2 }}>
-          {title.toUpperCase()}
-        </Typography>
-      </Button>
-    </NavLink>
+      <Typography sx={{ fontWeight: "bolder", fontSize: "12px", mt: 2 }}>
+        {title.toUpperCase()}
+      </Typography>
+    </Button>
   );
 }
 
 // Setting default values for the props of GenerateReportsCard
 NavigationCard.defaultProps = {
   cardColor: "",
-  pathName: "",
   title: "",
   icon: {},
 };
 
 NavigationCard.propTypes = {
   cardColor: PropTypes.string,
-  pathName: PropTypes.string,
   title: PropTypes.string,
   icon: PropTypes.elementType,
 };

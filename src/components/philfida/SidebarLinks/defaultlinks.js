@@ -41,7 +41,7 @@ const links = [
       {
         name: "Expansion and Rehabilitation Reports",
         path: "expansionandrehab",
-        icon: <LiaBaconSolid />,
+        icon: <LiaBaconSolid style={{ fontSize: 27 }} />,
       },
       {
         name: "Cotton Reports",

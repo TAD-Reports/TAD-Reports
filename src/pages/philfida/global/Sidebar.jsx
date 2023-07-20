@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
-import userImg from "../../../assets/2x2.jpg";
+import { useStateContext } from "contexts/ContextProvider";
+import userImg from "../../../assets/userlogo.png";
 import themes from "../../../themes/co-theme";
 import links from "../../../components/philfida/SidebarLinks/defaultlinks";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -33,6 +34,7 @@ export default function Sidebar() {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const { auth } = useStateContext();
 
   return (
     <Box
@@ -108,11 +110,21 @@ export default function Sidebar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Matthew
+                  {auth.firstname}
                 </Typography>
-                <Typography variant="h5" color="#00FFF7">
-                  Super Admin
-                </Typography>
+                {auth.role === "superadmin" ? (
+                  <Typography variant="h5" color="#00FFF7">
+                    Super Admin
+                  </Typography>
+                ) : (
+                  <Typography
+                    variant="h5"
+                    color="#00FFF7"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {auth.role}
+                  </Typography>
+                )}
               </Box>
             </Box>
           )}

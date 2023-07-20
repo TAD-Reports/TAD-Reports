@@ -44,6 +44,7 @@ function Login() {
         const res = await accountService.authenticate(formik?.values);
         if (res.valid) {
           setAuth(res.data);
+          console.log(res);
           if (res.data.role === "hradmin") {
             navigate("/hrdashboard");
           } else {

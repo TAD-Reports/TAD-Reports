@@ -20,7 +20,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import appformService from "services/appform-service";
-import BackgroundContainer from "../../../components/philfida/LayoutContainers/BackgroundContainer";
+import BackgroundContainer from "../../../components/philfida/LayoutContainers/WholePageContainer";
 import Logo from "../../../assets/philfida.png";
 import AppFormSValidtion, { initialAppForm } from "../../../validation/appform";
 
