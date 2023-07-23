@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -328,6 +328,7 @@ export default function TableFunction({
           onRowClick={handleRowClick}
           onCellEditStop={(params) => setRowId(params.row.uuid)}
           columnBuffer={1}
+          slots={{ toolbar: GridToolbar }}
         />
       </Box>
       <Box
