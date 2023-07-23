@@ -10,7 +10,7 @@ import { GiPlantSeed } from "react-icons/gi";
 
 const links = [
   {
-    title: "Dashboard",
+    title: "Home",
     links: [
       {
         name: "Dashboard",
@@ -21,7 +21,7 @@ const links = [
   },
 
   {
-    title: "Reports",
+    title: "Report",
     links: [
       {
         name: "Nursery Reports",

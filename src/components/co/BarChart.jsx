@@ -141,7 +141,6 @@ function BarChart({ isDashboard }) {
         },
       ]}
       role="application"
-      isFocusable
       barAriaLabel={getBarAriaLabel}
     />
   );
