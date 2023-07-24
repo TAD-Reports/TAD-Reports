@@ -4,26 +4,25 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
+import PropTypes from "prop-types";
+import { Typography } from "@mui/material";
 
 export default function SelectRegion(props) {
+  const { error, helperText } = props;
   return (
     <Box>
-      <FormControl
-        size="small"
-        fullWidth
-        sx={{
-          backgroundColor: (themeMode) =>
-            themeMode.palette.mode === "dark" ? "#2e3442" : "#fff",
-        }}
-      >
+      <FormControl size="small" fullWidth error={error}>
         <InputLabel id="demo-simple-select-label">Select Region</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Select Region"
           {...props}
+          sx={{
+            backgroundColor: "rgba(150, 150, 150, 0.2)",
+          }}
         >
-          <MenuItem value="">All</MenuItem>
+          <MenuItem value="all">All</MenuItem>
           <MenuItem value="Regional Office 1">Regional Office 1</MenuItem>
           <MenuItem value="Regional Office 3">Regional Office 3</MenuItem>
           <MenuItem value="Regional Office 4">Regional Office 4</MenuItem>
@@ -35,7 +34,24 @@ export default function SelectRegion(props) {
           <MenuItem value="Regional Office 10">Regional Office 10</MenuItem>
           <MenuItem value="Regional Office 13">Regional Office 13</MenuItem>
         </Select>
+        {error && (
+          <Typography
+            sx={{ fontSize: "10px", color: "red", m: "5px 0 0 12px" }}
+          >
+            {helperText}
+          </Typography>
+        )}
       </FormControl>
     </Box>
   );
 }
+
+SelectRegion.defaultProps = {
+  error: false,
+  helperText: "",
+};
+
+SelectRegion.propTypes = {
+  error: PropTypes.bool,
+  helperText: PropTypes.string,
+};

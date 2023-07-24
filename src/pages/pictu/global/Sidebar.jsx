@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-duplicates */
 import { useState } from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -6,16 +5,15 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
-import userImg from "../../../assets/2x2.jpg";
+import { useStateContext } from "contexts/ContextProvider";
+import userImg from "../../../assets/userlogo.png";
 import themes from "../../../themes/co-theme";
-import hrlinks from "../../../components/SidebarLinks/hrlinks";
+import links from "../../../components/SidebarLinks/pictulinks";
 import "react-pro-sidebar/dist/css/styles.css";
 
 const { tokens } = themes;
 
 function Item({ title, to, icon, selected, setSelected }) {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   return (
     <MenuItem
       active={selected === title}
@@ -31,15 +29,19 @@ function Item({ title, to, icon, selected, setSelected }) {
   );
 }
 
-function Sidebar() {
+export default function Sidebar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const { auth } = useStateContext();
 
   return (
     <Box
       sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
         "& .pro-sidebar-inner": {
           background: `linear-gradient(100deg, ${colors.theme[100]}, ${colors.theme[200]})`,
         },
@@ -108,17 +110,27 @@ function Sidebar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Matthew
+                  {auth.firstname}
                 </Typography>
-                <Typography variant="h5" color="#00FFF7">
-                  HR Admin
-                </Typography>
+                {auth.role === "superadmin" ? (
+                  <Typography variant="h5" color="#00FFF7">
+                    Super Admin
+                  </Typography>
+                ) : (
+                  <Typography
+                    variant="h5"
+                    color="#00FFF7"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {auth.role}
+                  </Typography>
+                )}
               </Box>
             </Box>
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            {hrlinks.map((item) => (
+            {links.map((item) => (
               <Box key={item.title} sx={{ width: "100%" }}>
                 <Typography
                   sx={{
@@ -149,20 +161,19 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
-
 Item.defaultProps = {
   title: "",
   to: "",
   icon: null,
-  selected: "",
-  setSelected: "",
+  selected: null,
+  setSelected: () => {},
 };
 
 Item.propTypes = {
   title: PropTypes.string,
   to: PropTypes.string,
-  icon: PropTypes.elementType,
-  selected: PropTypes.string,
-  setSelected: PropTypes.string,
+  icon: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  selected: PropTypes.object,
+  setSelected: PropTypes.func,
 };

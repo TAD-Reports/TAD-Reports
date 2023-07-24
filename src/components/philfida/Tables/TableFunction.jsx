@@ -72,7 +72,14 @@ export default function TableFunction({
   };
 
   const columnDataFuntion = () => {
-    const excludedKeys = ["uuid", "created_at", "updated_at", "imported_by"];
+    const excludedKeys = [
+      "uuid",
+      "created_at",
+      "updated_at",
+      "imported_by",
+      "password",
+      "refresh_token",
+    ];
     if (data && !data.columnNames && data.length > 0) {
       const columns = Object.keys(data[0])
         .filter((key) => !excludedKeys.includes(key))
@@ -212,7 +219,8 @@ export default function TableFunction({
       }}
     >
       <Grid container spacing={0}>
-        {auth.role === "admin" ||
+        {auth.role === "pictu" ||
+        auth.role === "admin" ||
         auth.role === "superadmin" ||
         auth.role === "reviewer" ? (
           <Grid
@@ -310,8 +318,8 @@ export default function TableFunction({
         sx={{
           mt: -0.1,
           height: tableHeight,
-          width: "100%",
-          backgroundColor: "#FFFF",
+          backgroundColor: (themeMode) =>
+            themeMode.palette.mode === "dark" ? "#262b32" : "#fff",
           borderRadius: "10px",
           boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.4)",
           zoom: 0.85,
@@ -331,25 +339,30 @@ export default function TableFunction({
           slots={{ toolbar: GridToolbar }}
         />
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          my: -4,
-          color: "grey",
-        }}
-      >
-        <Typography
+      {auth.role === "pictu" ? null : (
+        <Box
           sx={{
-            fontSize: "12px",
-            zIndex: 100,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            my: -4,
+            color: "grey",
           }}
         >
-          By default, this table data is automatically set to the current month
-          and chart data is set to 6 months. Use the filters to see changes.
-        </Typography>
-      </Box>
+          <Typography
+            sx={{
+              fontSize: "12px",
+              zIndex: 100,
+              color: (themeMode) =>
+                themeMode.palette.mode === "dark" ? "#fff" : "gray",
+            }}
+          >
+            By default, this table data is automatically set to the current
+            month and chart data is set to 6 months. Use the filters to see
+            changes.
+          </Typography>
+        </Box>
+      )}
     </div>
   );
 }

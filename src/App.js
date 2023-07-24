@@ -13,7 +13,6 @@ import {
   Missing,
   LandingPage,
   AppForm,
-  Register,
   Dashboard,
   Cocoon,
   Cotton,
@@ -37,6 +36,9 @@ import Pie from "./pages/co/scene/pie";
 import FAQ from "./pages/co/scene/faq";
 import Geography from "./pages/co/scene/geography";
 import Calendar from "./pages/co/scene/calendar";
+import PictuDashboard from "./pages/pictu/scenes/Dashboard";
+import Users from "./pages/pictu/scenes/Users";
+import Register from "./pages/pictu/scenes/Register";
 import themes from "./themes/co-theme";
 
 const { ColorModeContext, useMode } = themes;
@@ -86,16 +88,16 @@ function App() {
               </Route>
             </Route>
 
-            <Route element={<RequireAuth allowedRoles="supersuperadmin" />}>
+            <Route element={<RequireAuth allowedRoles="pictu" />}>
               <Route path="/" element={<PICTULayout />}>
-                <Route path="/pictudashboard" element={<HrDashboard />} />
-                <Route path="/users" element={<Applicants />} />
+                <Route path="/pictudashboard" element={<PictuDashboard />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/register" element={<Register />} />
               </Route>
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[TADRoles]} />}>
               <Route path="/" element={<TADLayout />}>
-                <Route path="/register" element={<Register />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/nursery" element={<Nursery />} />
                 <Route path="/distribution" element={<Distribution />} />

@@ -45,18 +45,29 @@ function Login() {
         if (res.valid) {
           setAuth(res.data);
           console.log(res);
-          if (res.data.role === "hradmin") {
+          if (
+            res.data.role === "superadmin" ||
+            res.data.role === "planner" ||
+            res.data.role === "reviewer" ||
+            res.data.role === "uploader"
+          ) {
+            navigate("/dashboard");
+          } else if (res.data.role === "hradmin") {
             navigate("/hrdashboard");
           } else {
-            navigate("/dashboard");
+            navigate("/pictudashboard");
           }
         }
       } catch (err) {
         let message = "";
-        if (err?.response?.status === 400 || err?.response?.status === 401) {
-          message = "Invalid Username / Password";
+        if (err?.response?.status === 404) {
+          message = "err.response.data.error";
+        } else if (err?.response?.status === 401) {
+          message = err.response.data.error;
         } else if (err?.response?.status === 500) {
           message = "Internal Server Error";
+        } else {
+          message = "An error occurred";
         }
         setError(message || err?.message);
       } finally {

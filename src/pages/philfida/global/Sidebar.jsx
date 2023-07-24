@@ -1,14 +1,15 @@
 /* eslint-disable import/no-duplicates */
 import { useState } from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
 import { useStateContext } from "contexts/ContextProvider";
+import LogoutIcon from "@mui/icons-material/Logout";
 import userImg from "../../../assets/userlogo.png";
 import themes from "../../../themes/co-theme";
-import links from "../../../components/philfida/SidebarLinks/defaultlinks";
+import links from "../../../components/SidebarLinks/defaultlinks";
 import "react-pro-sidebar/dist/css/styles.css";
 
 const { tokens } = themes;
@@ -35,6 +36,11 @@ export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const { auth } = useStateContext();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/");
+  };
 
   return (
     <Box
@@ -154,6 +160,56 @@ export default function Sidebar() {
                 ))}
               </Box>
             ))}
+            <Box sx={{ width: "100%" }}>
+              <Typography
+                sx={{
+                  color: "#fff",
+                  m: 2,
+                  mt: 4,
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                }}
+              >
+                Logout
+              </Typography>
+              {/* <Button
+                onClick={handleLogout}
+                sx={{
+                  ml: 2,
+                  color: (themeMode) =>
+                    themeMode.palette.mode === "dark" ? "#fff" : "black",
+                  "&:hover": {
+                    textShadow: "0 0 0.5rem rgba(255, 255, 255, 0.75)",
+                    color: (themeMode) =>
+                      themeMode.palette.mode === "dark" ? "lightgreen" : "#fff",
+                    fontSize: "13px",
+                  },
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                Logout
+              </Button> */}
+              <IconButton
+                onClick={handleLogout}
+                sx={{
+                  ml: 2,
+                  color: "#fff",
+                  fontSize: "13px",
+                }}
+              >
+                <LogoutIcon
+                  sx={{
+                    mr: 1,
+                    fontSize: "28px",
+                  }}
+                />
+                Logout
+              </IconButton>
+            </Box>
           </Box>
         </Menu>
       </ProSidebar>

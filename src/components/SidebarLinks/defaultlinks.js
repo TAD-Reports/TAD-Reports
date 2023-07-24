@@ -21,7 +21,7 @@ const links = [
   },
 
   {
-    title: "Report",
+    title: "Reports",
     links: [
       {
         name: "Nursery Reports",

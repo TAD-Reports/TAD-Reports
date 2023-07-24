@@ -1,6 +1,5 @@
 export { default as LandingPage } from "./landing";
 export { default as Login } from "./auth/sign-in";
-export { default as Register } from "./auth/register";
 export { default as Missing } from "./Missing";
 export { default as Unauthorized } from "./auth/unauthorized";
 

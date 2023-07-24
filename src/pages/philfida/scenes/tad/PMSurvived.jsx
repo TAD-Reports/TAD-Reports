@@ -4,9 +4,6 @@ import {
   Box,
   Fab,
   Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
   Tooltip,
   Typography,
   ButtonGroup,
@@ -15,9 +12,9 @@ import { GiPlantSeed } from "react-icons/gi";
 import { TbDecimal } from "react-icons/tb";
 import { FaUsers } from "react-icons/fa";
 import { FcComboChart } from "react-icons/fc";
-import SearchIcon from "@mui/icons-material/Search";
 import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
+import SearchTextField from "components/philfida/Textfields/search";
 import Service from "../../../../services/tad-service";
 import DownloadFunction from "../../../../components/philfida/Buttons/DownloadFunctions/Distribution";
 import PageContainer from "../../../../components/philfida/LayoutContainers/PageContainer";
@@ -231,22 +228,12 @@ export default function PMSurvived() {
             <Box
               sx={{ width: "450px", display: "flex", justifyContent: "center" }}
             />
-            <Box sx={{ textAlign: "right", width: "280px", py: 2 }}>
-              <TextField
+            <Box sx={{ textAlign: "right", width: "280px", py: 3 }}>
+              <SearchTextField
                 label="Search"
-                size="small"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment>
-                      <IconButton onClick={handleSearch}>
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{ my: 1 }}
                 onChange={(evt) => setSearch(evt.target.value)}
                 value={search}
+                searchFunction={handleSearch}
               />
             </Box>
           </Box>

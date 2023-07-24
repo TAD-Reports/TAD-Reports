@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Topbar from "../../pages/co/global/Topbar";
-import Sidebar from "../../pages/co/global/Sidebar";
+import Topbar from "../../pages/pictu/global/Topbar";
+import Sidebar from "../../pages/pictu/global/Sidebar";
 import "../../App.css";
 
 function HrLayout() {

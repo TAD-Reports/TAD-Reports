@@ -28,6 +28,10 @@ export default function TextFieldDatePicker({
             error: false,
           },
         }}
+        sx={{
+          backgroundColor: (themeMode) =>
+            themeMode.palette.mode === "dark" ? "#2e3442" : "#fff",
+        }}
         {...rest}
       />
     </LocalizationProvider>

@@ -2,8 +2,6 @@
 import axios from "axios";
 // import BASE_URL from "env";
 
-const DEFAULT_DELAY = 1000;
-
 const BASE_URL = "http://localhost:9000";
 
 function authenticate(account) {
@@ -31,23 +29,21 @@ function getUser(id) {
 
 function searchUsers(search = "") {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      axios
-        .get(`${BASE_URL}/login/search`, { params: { username: search } })
-        .then((res) => resolve(res.data))
-        .catch((err) => {
-          reject(err);
-        });
-    }, DEFAULT_DELAY);
+    axios
+      .get(`${BASE_URL}/users/data`, { params: { search } })
+      .then((res) => resolve(res.data))
+      .catch((err) => {
+        reject(err);
+      });
   });
 }
 
-function addUser(account) {
-  return axios.post(`${BASE_URL}/login/addAccount`, account);
+function register(account) {
+  return axios.post(`${BASE_URL}/register`, account);
 }
 
-function updateUser(account) {
-  return axios.put(`${BASE_URL}/login/updateAccount`, account);
+function updateUser(id, account) {
+  return axios.put(`${BASE_URL}/user/${id}`, account);
 }
 
 export default {
@@ -56,6 +52,6 @@ export default {
   getAllUsers,
   getUser,
   searchUsers,
-  addUser,
+  register,
   updateUser,
 };
