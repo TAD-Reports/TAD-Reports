@@ -67,7 +67,7 @@ export default function TableFunction({
     headerClassName: "custom-header",
     width: 140,
     renderCell: (params) => (
-      <TableActions {...{ params, rowId, setRowId, moduleName }} />
+      <TableActions {...{ params, rowId, setRowId, moduleName, dataReload }} />
     ),
   };
 
@@ -289,7 +289,7 @@ export default function TableFunction({
             </ButtonGroup>
           </Grid>
         ) : (
-          <Grid item xs={2} />
+          <Grid item xs={2} sx={{ py: 2.6 }} />
         )}
         {remarks.length > 0 ? (
           <Grid

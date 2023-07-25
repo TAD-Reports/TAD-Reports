@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Box } from "@mui/material";
-import Background from "../../assets/da-for-landingpage.jpg";
+import DisplayImg from "../../assets/dahon.jpg";
 import MenuItems from "../../components/philfida/Menu-Items";
 import "./container.css";
 
@@ -69,8 +69,8 @@ export default function LandingPage() {
             initial={{ x: 1000, opacity: 0 }}
             animate={{ x: [250, 10], opacity: 1 }}
             transition={{ duration: 1, delay: 1.5 }}
-            src={Background}
-            alt="Background"
+            src={DisplayImg}
+            alt="DisplayImg"
             style={{
               float: "right",
               width: "550px",

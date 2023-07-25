@@ -9,7 +9,7 @@ import { red, blue, green } from "@mui/material/colors";
 import Service from "../../../services/tad-service";
 import RemarksModal from "../Modal/remarks-modal";
 
-const tableActions = ({ params, rowId, setRowId, moduleName }) => {
+const tableActions = ({ params, rowId, setRowId, moduleName, dataReload }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [openRemarksModal, setOpenRemarksModal] = useState(false);
@@ -76,7 +76,7 @@ const tableActions = ({ params, rowId, setRowId, moduleName }) => {
     Service.deleteAPI(row.uuid, moduleName)
       .then((e) => {
         alert(e.data.message);
-        // dataReload();
+        dataReload();
         // setRemarks("");
       })
       .catch((error) => {

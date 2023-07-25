@@ -8,41 +8,37 @@ const downloadData = (tableData) => {
   }
 
   const a1 = tableData.filter(
-    (data) => data.nurseries === "Maintained" && data.funded_by === "PhilFIDA"
+    (data) =>
+      data.category === "SC" ||
+      data.category === "Senior" ||
+      data.category === "Senior Citizen"
   );
-  const a2 = tableData.filter(
-    (data) => data.nurseries === "Maintained" && data.funded_by === "LGU"
-  );
-  const a3 = tableData.filter(
-    (data) => data.nurseries === "Established" && data.funded_by === "PhilFIDA"
-  );
-  const a4 = tableData.filter(
-    (data) => data.nurseries === "Established" && data.funded_by === "LGU"
-  );
+  const a2 = tableData.filter((data) => data.category === "Youth");
+  const a3 = tableData.filter((data) => data.category === "Adult");
 
   const workbook = new ExcelJS.Workbook();
   const sheets = [
-    { name: "Maintained (PhilFIDA)", data: a1 },
-    { name: "Maintained (LGU)", data: a2 },
-    { name: "Established (PhilFIDA)", data: a3 },
-    { name: "Established (LGU)", data: a4 },
+    { name: "Senior Citizen", data: a1 },
+    { name: "Youth", data: a2 },
+    { name: "Adult", data: a3 },
   ];
 
   const headers = [
     "Report Date",
+    "Name of Fiber Crops",
     "Region",
     "Province",
     "District",
     "Municipality",
     "Barangay",
+    "Name of Beneficiary",
     "Birthdate",
     "Age",
-    "Complete Name of Cooperator/ Organization",
     "Gender",
-    "Date Established",
-    "Area in Hectares (ha)",
-    "Variety Used",
-    "Period of MOA",
+    "Category",
+    "Area Planted (has)",
+    "Variety",
+    "No. of seed-derived PM distributed",
     "Remarks",
   ];
 
@@ -65,7 +61,7 @@ const downloadData = (tableData) => {
 
     worksheet.getCell("A4").value = `Form A.${
       sheets.indexOf(sheet) + 1
-    }: Report on Abaca Nurseries ${sheet.name}`;
+    }: Report on Expansion Under Coconut Project (${sheet.name})`;
     worksheet.getCell("A4").alignment = { horizontal: "left" };
 
     worksheet.getRow(5).values = headers;
@@ -75,69 +71,71 @@ const downloadData = (tableData) => {
 
     // Add "Area in Hectares (ha)" column header
     // eslint-disable-next-line prefer-destructuring
-    worksheet.getCell(`L5`).value = headers[11];
+    // worksheet.getCell(`J5`).value = headers[9];
 
     filteredData.forEach((data) => {
       const rowData = [
         data.report_date,
+        data.name_of_fiber_crops,
         data.region,
         data.province,
         data.district,
         data.municipality,
         data.barangay,
+        data.name_of_beneficiary,
         data.birthdate,
         data.age,
-        data.complete_name_of_cooperator_organization,
         data.gender,
-        data.date_established,
-        data.area_in_hectares_ha,
-        data.variety_used,
-        data.period_of_moa,
+        data.category,
+        data.area_planted_has,
+        data.variety,
+        data.no_of_seed_derived_pm_distributed,
         data.remarks,
       ];
       worksheet.addRow(rowData);
     });
 
     // Calculate and display the total area
-    const totalAreaFormula = `SUM(L6:L${filteredData.length + 5})`;
-    worksheet.getCell(`I${filteredData.length + 7}`).value = {
+    const totalAreaFormula = `SUM(O6:O${filteredData.length + 5})`;
+    worksheet.getCell(`O${filteredData.length + 7}`).value = {
       formula: totalAreaFormula,
     };
-    worksheet.getCell(`I${filteredData.length + 7}`).font = {
+    worksheet.getCell(`O${filteredData.length + 7}`).font = {
       bold: true,
     };
-    worksheet.getCell(`I${filteredData.length + 7}`).alignment = {
+    worksheet.getCell(`O${filteredData.length + 7}`).alignment = {
       horizontal: "center",
     };
     // Set the total area cell format
-    const totalAreaCell = worksheet.getCell(`I${filteredData.length + 7}`);
+    const totalAreaCell = worksheet.getCell(`O${filteredData.length + 7}`);
     totalAreaCell.numFmt = "0.00";
 
     // Add "Total" text in the cell next to "Area in Hectares (ha)"
-    worksheet.getCell(`H${filteredData.length + 7}`).value = "Total";
-    worksheet.getCell(`H${filteredData.length + 7}`).font = {
+    worksheet.getCell(`N${filteredData.length + 7}`).value = "Total";
+    worksheet.getCell(`N${filteredData.length + 7}`).font = {
       bold: true,
     };
-    worksheet.getCell(`H${filteredData.length + 7}`).alignment = {
+    worksheet.getCell(`N${filteredData.length + 7}`).alignment = {
       horizontal: "right",
     };
 
     const columnWidths = [
-      { width: 15 },
-      { width: 20 },
-      { width: 20 },
-      { width: 20 },
-      { width: 20 },
-      { width: 20 },
-      { width: 15 },
-      { width: 15 },
-      { width: 40 },
-      { width: 15 },
-      { width: 15 },
-      { width: 20 },
-      { width: 15 },
-      { width: 15 },
-      { width: 30 },
+      { width: 15 }, // A
+      { width: 20 }, // B
+      { width: 20 }, // C
+      { width: 20 }, // D
+      { width: 20 }, // E
+      { width: 20 }, // F
+      { width: 20 }, // G
+      { width: 20 }, // H
+      { width: 20 }, // I
+      { width: 20 }, // J
+      { width: 20 }, // K
+      { width: 20 }, // L
+      { width: 20 }, // M
+      { width: 20 }, // N
+      { width: 40 }, // O
+      { width: 30 }, // P
     ];
 
     worksheet.columns = columnWidths;
@@ -146,7 +144,7 @@ const downloadData = (tableData) => {
     const startRow = 5;
     const startCol = 1; // Column A
     const endRow = startRow + filteredData.length;
-    const endCol = 15; // Column Q
+    const endCol = 16; // Column P
 
     // eslint-disable-next-line no-plusplus
     for (let row = 1; row <= endRow; row++) {
@@ -189,7 +187,7 @@ const downloadData = (tableData) => {
     }
   });
 
-  const filename = `Nursery_Report_${tableData[0].report_date}.xlsx`;
+  const filename = `ExpansionUnderCoconutProj_Report_${tableData[0].report_date}.xlsx`;
 
   workbook.xlsx.writeBuffer().then((buffer) => {
     const blob = new Blob([buffer], {

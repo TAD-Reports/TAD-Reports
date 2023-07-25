@@ -14,7 +14,7 @@ import dayjs from "dayjs";
 import { useStateContext } from "contexts/ContextProvider";
 import SearchTextField from "components/philfida/Textfields/search";
 import Service from "../../../../services/tad-service";
-import DownloadFunction from "../../../../components/philfida/Buttons/DownloadFunctions/Distribution";
+import DownloadFunction from "../../../../components/philfida/Buttons/DownloadFunctions/ADMP";
 import PageContainer from "../../../../components/philfida/LayoutContainers/PageContainer";
 import TextFieldDatePicker from "../../../../components/philfida/Textfields/date-picker";
 import SelectRegion from "../../../../components/philfida/Textfields/select-region";

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
 import { useStateContext } from "contexts/ContextProvider";
-import userImg from "../../../assets/userlogo.png";
+import userImg from "../../../assets/philfida copy.png";
 import themes from "../../../themes/co-theme";
 import links from "../../../components/SidebarLinks/pictulinks";
 import "react-pro-sidebar/dist/css/styles.css";

@@ -8,38 +8,39 @@ const downloadData = (tableData) => {
   }
 
   const a1 = tableData.filter(
-    (data) => data.nurseries === "Maintained" && data.funded_by === "PhilFIDA"
+    (data) => data.type_of_planting_materials === "Macropropagation"
   );
   const a2 = tableData.filter(
-    (data) => data.nurseries === "Maintained" && data.funded_by === "LGU"
+    (data) => data.type_of_planting_materials === "Seed-Derived"
   );
   const a3 = tableData.filter(
-    (data) => data.nurseries === "Established" && data.funded_by === "PhilFIDA"
-  );
-  const a4 = tableData.filter(
-    (data) => data.nurseries === "Established" && data.funded_by === "LGU"
+    (data) => data.type_of_planting_materials === "Sucker"
   );
 
   const workbook = new ExcelJS.Workbook();
   const sheets = [
-    { name: "Maintained (PhilFIDA)", data: a1 },
-    { name: "Maintained (LGU)", data: a2 },
-    { name: "Established (PhilFIDA)", data: a3 },
-    { name: "Established (LGU)", data: a4 },
+    { name: "Macropagation", data: a1 },
+    { name: "Seed-Derived", data: a2 },
+    { name: "Sucker", data: a3 },
   ];
 
   const headers = [
     "Report Date",
+    "Name of Cooperative/ Individual",
     "Region",
     "Province",
     "District",
     "Municipality",
     "Barangay",
-    "Complete Name of Cooperator/ Organization",
-    "Date Established",
-    "Area in Hectares (ha)",
-    "Variety Used",
-    "Period of MOA",
+    "No. of PM available during Establishment",
+    "Variety",
+    "No. of PM Distributed",
+    "Name of Recipient/ Bene",
+    "Address of Beneficiary",
+    "Age",
+    "Birthdate",
+    "Gender",
+    "Category",
     "Remarks",
   ];
 
@@ -62,7 +63,7 @@ const downloadData = (tableData) => {
 
     worksheet.getCell("A4").value = `Form A.${
       sheets.indexOf(sheet) + 1
-    }: Report on Abaca Nurseries ${sheet.name}`;
+    }: Report on Planting Materials Distributed (${sheet.name})`;
     worksheet.getCell("A4").alignment = { horizontal: "left" };
 
     worksheet.getRow(5).values = headers;
@@ -72,52 +73,58 @@ const downloadData = (tableData) => {
 
     // Add "Area in Hectares (ha)" column header
     // eslint-disable-next-line prefer-destructuring
-    worksheet.getCell(`I5`).value = headers[8];
+    worksheet.getCell(`J5`).value = headers[9];
 
     filteredData.forEach((data) => {
       const rowData = [
         data.report_date,
+        data.name_of_cooperative_individual,
         data.region,
         data.province,
         data.district,
         data.municipality,
         data.barangay,
-        data.complete_name_of_cooperator_organization,
-        data.date_established,
-        data.area_in_hectares_ha,
-        data.variety_used,
-        data.period_of_moa,
+        data.no_of_pm_available_during_establishment,
+        data.variety,
+        data.no_of_pm_distributed,
+        data.name_of_recipient_bene,
+        data.address_of_beneficiary,
+        data.age,
+        data.birthdate,
+        data.gender,
+        data.category,
         data.remarks,
       ];
       worksheet.addRow(rowData);
     });
 
     // Calculate and display the total area
-    const totalAreaFormula = `SUM(I6:I${filteredData.length + 5})`;
-    worksheet.getCell(`I${filteredData.length + 7}`).value = {
+    const totalAreaFormula = `SUM(H6:H${filteredData.length + 5})`;
+    worksheet.getCell(`H${filteredData.length + 7}`).value = {
       formula: totalAreaFormula,
     };
-    worksheet.getCell(`I${filteredData.length + 7}`).font = {
-      bold: true,
-    };
-    worksheet.getCell(`I${filteredData.length + 7}`).alignment = {
-      horizontal: "center",
-    };
-    // Set the total area cell format
-    const totalAreaCell = worksheet.getCell(`I${filteredData.length + 7}`);
-    totalAreaCell.numFmt = "0.00";
-
-    // Add "Total" text in the cell next to "Area in Hectares (ha)"
-    worksheet.getCell(`H${filteredData.length + 7}`).value = "Total";
     worksheet.getCell(`H${filteredData.length + 7}`).font = {
       bold: true,
     };
     worksheet.getCell(`H${filteredData.length + 7}`).alignment = {
+      horizontal: "center",
+    };
+    // Set the total area cell format
+    const totalAreaCell = worksheet.getCell(`H${filteredData.length + 7}`);
+    totalAreaCell.numFmt = "0.00";
+
+    // Add "Total" text in the cell next to "Area in Hectares (ha)"
+    worksheet.getCell(`G${filteredData.length + 7}`).value = "Total";
+    worksheet.getCell(`G${filteredData.length + 7}`).font = {
+      bold: true,
+    };
+    worksheet.getCell(`G${filteredData.length + 7}`).alignment = {
       horizontal: "right",
     };
 
     const columnWidths = [
       { width: 15 },
+      { width: 30 },
       { width: 20 },
       { width: 20 },
       { width: 20 },
@@ -125,9 +132,13 @@ const downloadData = (tableData) => {
       { width: 20 },
       { width: 40 },
       { width: 15 },
+      { width: 30 },
+      { width: 25 },
+      { width: 25 },
+      { width: 15 },
+      { width: 15 },
+      { width: 15 },
       { width: 20 },
-      { width: 15 },
-      { width: 15 },
       { width: 30 },
     ];
 
@@ -137,7 +148,7 @@ const downloadData = (tableData) => {
     const startRow = 5;
     const startCol = 1; // Column A
     const endRow = startRow + filteredData.length;
-    const endCol = 12; // Column K
+    const endCol = 17; // Column Q
 
     // eslint-disable-next-line no-plusplus
     for (let row = 1; row <= endRow; row++) {
