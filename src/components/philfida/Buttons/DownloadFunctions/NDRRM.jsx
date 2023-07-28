@@ -1,0 +1,227 @@
+/* eslint-disable no-unused-vars */
+import ExcelJS from "exceljs";
+
+const downloadData = (tableData) => {
+  if (tableData.length === 0 || tableData.columnNames) {
+    alert("No data available to export.");
+    return;
+  }
+
+  const a1 = tableData.filter(
+    (data) => data.extent_of_damage === "Totally Damage"
+  );
+  const a2 = tableData.filter(
+    (data) => data.extent_of_damage === "Partially Damage"
+  );
+  const a3 = tableData.filter((data) => data.extent_of_damage === "Slight");
+  const a4 = tableData.filter((data) => data.extent_of_damage === "Moderate");
+  const a5 = tableData.filter((data) => data.extent_of_damage === "Heavy");
+
+  const workbook = new ExcelJS.Workbook();
+  const sheets = [
+    { name: "Totally Damage", data: a1 },
+    { name: "Partially Damage", data: a2 },
+    { name: "Slight", data: a3 },
+    { name: "Moderate", data: a4 },
+    { name: "Heavy", data: a5 },
+  ];
+
+  const headers = [
+    "Report Date",
+    "Calamity",
+    "Region",
+    "Province",
+    "Municipality",
+    "Barangay",
+    "Name of Farmer",
+    "Crops",
+    "Stage of Crop Development",
+    "Standing Crops Area (has)",
+    "Extent of Damage",
+    "Area Affected (has)",
+    "Yield per Hectare (mt/has) Before",
+    "Yield per Hectare (mt/has) After",
+    "Yield Loss (percentage)",
+    "Volume Loss (mt)",
+    "Avg Price/kg of Fiber",
+    "Value Loss (PhP)",
+    "Remarks",
+  ];
+
+  sheets.forEach((sheet) => {
+    const worksheet = workbook.addWorksheet(sheet.name);
+
+    // Merge cells C to J in rows 1 to 3
+    worksheet.mergeCells("C1:J1");
+    worksheet.mergeCells("C2:J2");
+    worksheet.mergeCells("C3:J3");
+
+    worksheet.getCell("F1").alignment = { horizontal: "center" };
+    worksheet.getCell("F1").value = "Regional Office _____________";
+
+    worksheet.getCell("F2").alignment = { horizontal: "center" };
+    worksheet.getCell("F2").value = "Monthly Report of Technical Assistance";
+
+    worksheet.getCell("F3").alignment = { horizontal: "center" };
+    worksheet.getCell("F3").value = "For the month of ______________";
+
+    worksheet.getCell("A4").value = `Form A.${
+      sheets.indexOf(sheet) + 1
+    }: Report on National Disaster Risk Reduction Management ${sheet.name}`;
+    worksheet.getCell("A4").alignment = { horizontal: "left" };
+
+    worksheet.getRow(5).values = headers;
+    worksheet.getRow(5).height = 65;
+
+    const filteredData = sheet.data;
+
+    // Add "Area in Hectares (ha)" column header
+    // eslint-disable-next-line prefer-destructuring
+    // worksheet.getCell(`L5`).value = headers[11];
+
+    filteredData.forEach((data) => {
+      const rowData = [
+        data.report_date,
+        data.calamity,
+        data.region,
+        data.province,
+        data.municipality,
+        data.barangay,
+        data.name_of_farmer,
+        data.crops,
+        data.stage_of_crop_development,
+        data.standing_crops_area_has,
+        data.extent_of_damage,
+        data.area_affected_has,
+        data.yield_per_hectare_mt_has_before,
+        data.yield_per_hectare_mt_has_after,
+        data.yield_loss_percentage,
+        data.volume_loss_mt,
+        data.avg_price_kg_of_fiber,
+        data.value_loss_php,
+        data.remarks,
+      ];
+      worksheet.addRow(rowData);
+    });
+
+    // Calculate and display the total area
+    const totalAreaFormula = `SUM(L6:L${filteredData.length + 5})`;
+    worksheet.getCell(`L${filteredData.length + 7}`).value = {
+      formula: totalAreaFormula,
+    };
+    worksheet.getCell(`L${filteredData.length + 7}`).font = {
+      bold: true,
+    };
+    worksheet.getCell(`L${filteredData.length + 7}`).alignment = {
+      horizontal: "center",
+    };
+    // Set the total area cell format
+    const totalAreaCell = worksheet.getCell(`L${filteredData.length + 7}`);
+    totalAreaCell.numFmt = "0.00";
+
+    // Add "Total" text in the cell next to "Area in Hectares (ha)"
+    worksheet.getCell(`K${filteredData.length + 7}`).value = "Total";
+    worksheet.getCell(`K${filteredData.length + 7}`).font = {
+      bold: true,
+    };
+    worksheet.getCell(`K${filteredData.length + 7}`).alignment = {
+      horizontal: "right",
+    };
+
+    const columnWidths = [
+      { width: 15 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 15 },
+      { width: 30 },
+      { width: 25 },
+      { width: 20 },
+      { width: 20 },
+      { width: 35 },
+      { width: 35 },
+      { width: 25 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 30 },
+    ];
+
+    worksheet.columns = columnWidths;
+
+    // Set border for the table
+    const startRow = 5;
+    const startCol = 1; // Column A
+    const endRow = startRow + filteredData.length;
+    const endCol = 19; // Column U
+
+    // eslint-disable-next-line no-plusplus
+    for (let row = 1; row <= endRow; row++) {
+      // eslint-disable-next-line no-plusplus
+      for (let col = startCol; col <= endCol; col++) {
+        const cell = worksheet.getCell(row, col);
+        if (row >= 5) {
+          cell.alignment = {
+            horizontal: "center",
+            vertical: "middle",
+          };
+          cell.border = {
+            top: { style: "thin" },
+            right: { style: "thin" },
+            bottom: { style: "thin" },
+            left: { style: "thin" },
+          };
+        }
+        if (row <= 4) {
+          // Set white background color for cells A1 to K4
+          cell.font = { bold: true };
+          cell.fill = {
+            type: "pattern",
+            pattern: "solid",
+            fgColor: { argb: "FFFFFFFF" }, // Set the desired color code here (white)
+          };
+          if (row === 4) {
+            cell.font = { italic: true, bold: true };
+          }
+        } else if (row === startRow) {
+          // Apply fill color to headers
+          cell.font = { bold: true };
+          cell.fill = {
+            type: "pattern",
+            pattern: "solid",
+            fgColor: { argb: "ffb1a0c7" }, // Set the desired color code here
+          };
+        }
+      }
+    }
+  });
+
+  const filename = `NDRRM_Report_${tableData[0].report_date}.xlsx`;
+
+  workbook.xlsx.writeBuffer().then((buffer) => {
+    const blob = new Blob([buffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      // For IE browser
+      window.navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+      // For other browsers
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    }
+  });
+};
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
+  downloadData,
+};

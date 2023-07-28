@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { ProSidebar, MenuItem, Menu } from "react-pro-sidebar";
+import { useStateContext } from "contexts/ContextProvider";
 import userImg from "../../../assets/philfida copy.png";
 import themes from "../../../themes/co-theme";
 import hrlinks from "../../../components/SidebarLinks/hrlinks";
@@ -36,6 +37,7 @@ function Sidebar() {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const { auth } = useStateContext();
 
   return (
     <Box
@@ -106,12 +108,16 @@ function Sidebar() {
                   variant="h2"
                   color="#fff"
                   fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
+                  sx={{ mt: "10px", textTransform: "capitalize" }}
                 >
-                  Matthew
+                  {auth?.firstname}
                 </Typography>
-                <Typography variant="h5" color="#00FFF7">
-                  HR Admin
+                <Typography
+                  variant="h5"
+                  color="#00FFF7"
+                  textTransform="capitalize"
+                >
+                  {auth?.role}
                 </Typography>
               </Box>
             </Box>

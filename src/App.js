@@ -22,6 +22,7 @@ import {
   ExpansionUnderCoconutProj,
   IEC,
   Nursery,
+  NDRRM,
   PMSurvived,
   Training,
 } from "./pages";
@@ -118,6 +119,7 @@ function App() {
                   path="/diseasemanagement"
                   element={<DiseaseManagementProj />}
                 />
+                <Route path="/ndrrm" element={<NDRRM />} />
               </Route>
             </Route>
 

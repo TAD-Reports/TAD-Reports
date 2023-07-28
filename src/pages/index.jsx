@@ -20,3 +20,4 @@ export { default as Training } from "./philfida/scenes/tad/Training";
 export { default as IEC } from "./philfida/scenes/tad/IEC";
 export { default as ExpansionUnderCoconutProj } from "./philfida/scenes/tad/ExpansionUnderCoconutProj";
 export { default as DiseaseManagementProj } from "./philfida/scenes/tad/DiseaseManagementProj";
+export { default as NDRRM } from "./philfida/scenes/tad/NDRRM";

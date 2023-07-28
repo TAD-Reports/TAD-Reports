@@ -7,6 +7,7 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 import { PiTreePalmBold } from "react-icons/pi";
 import { GiPlantSeed } from "react-icons/gi";
+import CycloneIcon from "@mui/icons-material/Cyclone";
 
 const links = [
   {
@@ -72,6 +73,11 @@ const links = [
         name: "Abaca Disease Management Project Reports",
         path: "diseasemanagement",
         icon: <TbVirusOff style={{ fontSize: 36 }} />,
+      },
+      {
+        name: "National Disaster Risk Reduction Management Reports",
+        path: "ndrrm",
+        icon: <CycloneIcon style={{ fontSize: 36 }} />,
       },
     ],
   },
